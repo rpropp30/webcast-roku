@@ -395,7 +395,7 @@ const RENDER = {
    ============================================================ */
 const M0="Course Overview", M1="Module 1 — Electrical Theory", M2="Module 2 — Electricity & the Body",
       M3="Module 3 — Working Energized", M4="Module 4 — Tools of the Trade", M5="Module 5 — In the Field",
-      M6="Module 6 — Regulations & Standards", MC="Course Wrap-Up";
+      M6="Module 6 — Regulations & Standards", M7="Module 7 — Arc-Flash, First Aid & Rescue", MC="Course Wrap-Up";
 
 const SLIDES=[
 /* --- TITLE --- */
@@ -1193,6 +1193,110 @@ const SLIDES=[
    {lvl:0,t:'Keep records: training, test dates, briefings, clearances, incidents'},
   ]},
 
+/* ===== MODULE 7 ===== */
+{type:'divider',num:'7',title:'Arc-Flash Analysis, First Aid &amp; Rescue',
+  items:['What drives incident energy','The arc-flash boundary &amp; working distance','PPE categories &amp; the label',
+         'Electrical injury &amp; burns','Scene control, CPR &amp; AED']},
+
+{type:'bullets',mod:M7,kicker:'7.1 Incident Energy',title:'Arc-Flash Analysis — What Drives Incident Energy',
+  lead:'Why two jobs at the same voltage can carry wildly different arc-flash hazard.',
+  items:[
+   {lvl:0,t:'Incident energy is the thermal energy reaching a surface a set distance from an arc — measured in cal/cm²'},
+   {lvl:0,t:'It rises with the available fault (bolted) current and with how long the arc lasts'},
+   {lvl:1,t:'Clearing time is decisive: a faster-tripping device means far less energy'},
+   {lvl:0,t:'It falls with the SQUARE of the distance from the arc'},
+   {lvl:0,t:'An analysis (IEEE 1584 / NFPA 70E) calculates it for each location'},
+   {lvl:1,t:'Inputs: fault current, electrode gap &amp; configuration, equipment type, working distance'},
+   {lvl:0,t:'The result drives two things: the required PPE arc rating and the arc-flash boundary'},
+  ]},
+
+{type:'callout',mod:M7,kicker:'7.2 Boundary &amp; Distance',title:'The Arc-Flash Boundary &amp; Working Distance',kind:'info',
+  items:[
+   {lvl:0,t:'Working distance: the arc-to-worker distance used in the calc (often 18 in for distribution)'},
+   {lvl:1,t:'The incident energy AT that distance sets the PPE arc rating you must wear'},
+   {lvl:0,t:'Arc-flash boundary: the distance where incident energy = 1.2 cal/cm²'},
+   {lvl:1,t:'1.2 cal/cm² is the onset of a second-degree burn to bare skin'},
+   {lvl:0,t:'Anyone inside the boundary must wear arc-rated PPE'},
+   {lvl:0,t:'Shock approach boundaries (limited / restricted) are separate and based on voltage'},
+  ],
+  coTitle:'Two different boundaries',
+  coText:['Arc-flash boundary = thermal (cal/cm²).','Shock approach boundaries = voltage-based (the MAD family).',
+          'Respect both — they guard against different hazards.']},
+
+{type:'table',mod:M7,kicker:'7.3 PPE Categories',title:'Arc-Flash PPE Categories (NFPA 70E)',
+  headers:['Category','Min arc rating','Typical ensemble'], cw:[18,24,58], fs:13,
+  rows:[['CAT 1','≥ 4 cal/cm²','AR shirt &amp; pants, hard hat, arc face shield, gloves'],
+        ['CAT 2','≥ 8 cal/cm²','Above + arc-rated hood or balaclava with face shield'],
+        ['CAT 3','≥ 25 cal/cm²','AR flash-suit jacket &amp; trousers + arc-rated hood'],
+        ['CAT 4','≥ 40 cal/cm²','Heavy AR flash suit &amp; hood — full ensemble']],
+  note:'The category method is one approach; an incident-energy analysis is the other. Either way the garment’s arc rating (ATPV, cal/cm²) must meet or exceed the incident energy. Above ~40 cal/cm² the blast hazard alone may make energized work unacceptable — de-energize.'},
+
+{type:'bullets',mod:M7,kicker:'7.4 The Label',title:'Reading the Arc-Flash Label',
+  lead:'The label turns the engineering study into a field decision — read it before you open the door.',
+  items:[
+   {lvl:0,t:'Equipment should carry a label produced from the facility’s arc-flash analysis'},
+   {lvl:0,t:'Typical fields:'},
+   {lvl:1,t:'Nominal system voltage · arc-flash boundary · incident energy @ working distance'},
+   {lvl:1,t:'Required PPE category · minimum glove class · shock approach boundaries'},
+   {lvl:0,t:'Use it to select PPE and set your boundaries BEFORE energizing or opening equipment'},
+   {lvl:0,t:'Missing, outdated, or illegible label → STOP and get the analysis'},
+   {lvl:0,t:'Labels change when the system changes — new transformer, settings, or fault current'},
+  ]},
+
+{type:'bullets',mod:M7,kicker:'7.5 Electrical Injury',title:'Electrical Injury — What Happens to the Body',
+  lead:'One contact can injure several body systems at once — which is why every contact gets evaluated.',
+  items:[
+   {lvl:0,t:'Cardiac: ventricular fibrillation or arrest from current across the chest'},
+   {lvl:0,t:'Burns: surface arc burns AND internal burns along the current path'},
+   {lvl:1,t:'Small entry/exit wounds can hide massive internal tissue damage'},
+   {lvl:0,t:'Respiratory: chest muscles lock — breathing can stop'},
+   {lvl:0,t:'Neurological: nerve damage, confusion, lasting deficits'},
+   {lvl:0,t:'Trauma: falls from the shock, blast-thrown objects and molten metal'},
+   {lvl:0,t:'Delayed effects: kidney injury from tissue breakdown; rhythm problems hours later'},
+  ]},
+
+{type:'callout',mod:M7,kicker:'7.6 Scene Control',title:'Emergency Response — Scene Control &amp; the Rescuer',kind:'warn',
+  items:[
+   {lvl:0,t:'Protect yourself FIRST — a second victim helps no one'},
+   {lvl:0,t:'Do NOT touch the patient until the source is removed / de-energized and you know it'},
+   {lvl:0,t:'Treat downed conductors and the ground around them as energized — keep a wide barrier'},
+   {lvl:0,t:'Call for help early with a precise location; send someone for the AED'},
+   {lvl:0,t:'Decide who is in charge of the rescue and communicate clearly'},
+  ],
+  coTitle:'The order is fixed',
+  coText:['1. Make the scene safe (remove the source).','2. Reach the patient.','3. Treat — CPR/AED, then burns.',
+          'Never skip step 1 to save time.']},
+
+{type:'process',mod:M7,kicker:'7.7 CPR &amp; AED',title:'CPR &amp; AED for Electrical Contact',
+  lead:'Push hard, push fast, minimize interruptions.',
+  steps:[
+   {h:'1. Scene safe',p:'Confirm the source is removed / de-energized before you approach the patient.'},
+   {h:'2. Check &amp; call',p:'Check responsiveness and breathing; call 911 and send for the AED.'},
+   {h:'3. Compressions',p:'Center of the chest, 100–120 per minute, about 2 inches deep, full recoil.'},
+   {h:'4. Apply the AED',p:'Power on, attach pads, follow the voice prompts; clear for analysis and shock.'},
+   {h:'5. Continue',p:'Resume compressions immediately; cycle until EMS takes over.'},
+  ]},
+
+{type:'bullets',mod:M7,kicker:'7.8 Burns &amp; Care',title:'Burns &amp; Ongoing Care',
+  items:[
+   {lvl:0,t:'Stop the burning; cool a thermal burn with clean water where appropriate'},
+   {lvl:0,t:'Cover with a clean, dry dressing — do not break blisters or apply ointments to severe burns'},
+   {lvl:0,t:'Treat for shock; keep the patient warm'},
+   {lvl:0,t:'Electrical burns are deceptive — internal damage far exceeds the visible wound'},
+   {lvl:0,t:'ALWAYS transport for medical evaluation after any contact, even if they feel fine'},
+   {lvl:0,t:'Report and investigate the contact — every event is a chance to prevent the next'},
+  ]},
+
+{type:'bullets',mod:M7,kicker:'Module 7 Recap',title:'Module 7 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Incident energy (cal/cm²) rises with fault current &amp; clearing time, falls with distance²'},
+   {lvl:0,t:'The arc-flash boundary is where energy = 1.2 cal/cm²; PPE arc rating must meet or exceed the incident energy'},
+   {lvl:0,t:'Read the label and set your boundaries before opening equipment'},
+   {lvl:0,t:'One contact injures many systems — cardiac, burns, neuro, trauma; effects can be delayed'},
+   {lvl:0,t:'Rescue order is fixed: make the scene safe, reach the patient, then treat'},
+   {lvl:0,t:'CPR + AED for arrest; transport every contact for medical evaluation'},
+  ]},
+
 /* ===== WRAP-UP ===== */
 {type:'divider',num:'✓',title:'Bringing It All Together',
   items:['The mental model from theory to the field','Daily safe-work disciplines','Final reminders','Resources &amp; references']},
@@ -1331,6 +1435,17 @@ const FIGS=[
  {after:'5.6 Rescue',s:{type:'diagram',mod:M5,kicker:'5.6 · Illustrated',title:'Pole-Top Rescue',fig:'rescue',layout:'split',
    notes:['Remove or de-energize the <b>source of contact</b> first.','Lower the patient with the handline / rescue device.','Begin CPR &amp; use the AED — minutes decide the outcome.'],
    tip:'A rescuer who becomes the second victim helps no one — protect yourself first.'}},
+ {after:'7.1 Incident Energy',s:{type:'diagram',mod:M7,kicker:'7.1 · Illustrated',title:'Incident Energy vs Working Distance',fig:'arcenergy',layout:'wide',capY:445,
+   caption:'Incident energy drops with the <b>square</b> of the working distance. Where it crosses 1.2 cal/cm² is the arc-flash boundary; the energy at the worker sets the required PPE arc rating.'}},
+ {after:'7.3 PPE Categories',s:{type:'diagram',mod:M7,kicker:'7.3 · Illustrated',title:'Arc-Flash PPE Categories',fig:'ppecat',layout:'wide',capY:445,
+   caption:'Four categories from ≥4 to ≥40 cal/cm². The garment’s arc rating (ATPV) must <b>meet or exceed</b> the incident energy at your working distance.'}},
+ {after:'7.4 The Label',s:{type:'diagram',mod:M7,kicker:'7.4 · Illustrated',title:'The Arc-Flash &amp; Shock Label',fig:'arclabel',layout:'split',
+   notes:['The label is the engineering study made usable in the field.','Carries voltage, boundaries, incident energy, PPE category, glove class.','Missing or outdated label → stop and get the analysis.'],
+   tip:'Select your PPE and set your boundaries before you open the door.'}},
+ {after:'7.6 Scene Control',s:{type:'diagram',mod:M7,kicker:'7.6 · Illustrated',title:'Emergency Scene Control',fig:'scenecontrol',layout:'wide',capY:445,
+   caption:'Treat the downed conductor and the ground around it as energized. Keep back and keep the patient untouched until the source is removed — <b>then</b> reach them.'}},
+ {after:'7.7 CPR &amp; AED',s:{type:'diagram',mod:M7,kicker:'7.7 · Illustrated',title:'CPR &amp; AED Sequence',fig:'cpraed',layout:'wide',capY:425,
+   caption:'Once the scene is safe: check &amp; call, compress at 100–120/min, apply the AED, and continue cycles until EMS arrives.'}},
 ];
 FIGS.forEach(f=>{const idx=SLIDES.findIndex(x=>x.kicker===f.after);if(idx>=0)SLIDES.splice(idx+1,0,f.s);else console.warn('no match for',f.after);});
 
