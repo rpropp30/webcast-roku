@@ -167,6 +167,33 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
   @keyframes dgmtravel{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(920px);opacity:0}}
 }
 
+/* ---------- dark theme (toggle with D) ---------- */
+body.dark{background:#02060c}
+body.dark #stage{background:#0b1a2e}
+body.dark .slide{background:#0c1a2e}
+body.dark .headline{color:#eaf1f8}
+body.dark .lead{color:#9fb1c4}
+body.dark .footer{color:#8aa0b6}
+body.dark .footer .mod{color:#9db6d6}
+body.dark ul.blist li.l0{color:#e7eef6}
+body.dark ul.blist li.l1{color:#b9c6d6}
+body.dark ul.blist li.l2{color:#92a3b6}
+body.dark ul.blist li b,body.dark li.bold{color:#ffd970}
+body.dark .col{background:#13233b;border-color:#26384f}
+body.dark .col ul li{color:#dfe8f2}
+body.dark .col ul li.sub{color:#9fb1c4}
+body.dark .tbl td{background:#13233b;color:#dfe8f2;border-bottom-color:#26384f}
+body.dark .tbl tr:nth-child(even) td{background:#0f1d31}
+body.dark .tbl td.c0{color:#ffd970}
+body.dark .tnote{color:#93a5b8}
+body.dark .step .stx h4{color:#eaf1f8}
+body.dark .step .stx p{color:#9fb1c4}
+body.dark .statnote{color:#dfe8f2}
+body.dark .dgm-notes li{color:#dfe8f2}
+body.dark .dgm-notes .tip{background:#13233b;color:#dfe8f2;border-left-color:#5B8FB9}
+body.dark .dgm-cap{color:#dfe8f2}
+body.dark .dgm-cap b{color:#ffd970}
+
 /* ---------- art slot (for illustrations added later) ---------- */
 .art{position:absolute}
 
@@ -216,6 +243,7 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
   <span id="title-tag"></span>
   <span id="counter">1 / 1</span>
   <button id="notesbtn" title="Speaker notes (N)">🗒 Notes</button>
+  <button id="darkbtn" title="Dark theme (D)">🌓 Theme</button>
   <button id="fsbtn" title="Fullscreen (F)">⛶ Fullscreen</button>
 </div>
 
@@ -1364,9 +1392,16 @@ document.addEventListener('keydown',e=>{
     case 'f':case 'F':toggleFs();break;
     case 'o':case 'O':toggleOv();break;
     case 'n':case 'N':toggleNotes();break;
+    case 'd':case 'D':toggleDark();break;
   }
 });
+function toggleDark(){
+  document.body.classList.toggle('dark');
+  try{ localStorage.setItem('pl_theme', document.body.classList.contains('dark')?'dark':'light'); }catch(e){}
+}
+try{ if(localStorage.getItem('pl_theme')==='dark') document.body.classList.add('dark'); }catch(e){}
 document.getElementById('notesbtn').onclick=toggleNotes;
+document.getElementById('darkbtn').onclick=toggleDark;
 // click navigation on stage (left third = prev, else next)
 stage.addEventListener('click',e=>{
   const r=stage.getBoundingClientRect();

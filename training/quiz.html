@@ -32,6 +32,11 @@ header .links a{color:#cdd9e6;font-weight:600}header .links a:hover{color:var(--
 #resetBtn{background:none;border:1px solid rgba(255,255,255,.3);color:#cdd9e6;font-size:12.5px;font-weight:700;
   padding:7px 13px;border-radius:7px;cursor:pointer}#resetBtn:hover{border-color:var(--amber);color:var(--amber)}
 
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:24px auto 2px}
+.tab{border:1.5px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:13px;
+  padding:8px 15px;border-radius:22px;cursor:pointer;transition:background .15s,border-color .15s}
+.tab:hover{border-color:var(--steel)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 .modhead{margin:34px 0 4px;display:flex;align-items:center;gap:12px}
 .modhead .n{width:40px;height:40px;border-radius:9px;background:var(--navy);color:var(--amber);font-weight:800;
   display:flex;align-items:center;justify-content:center;font-size:17px}
@@ -83,6 +88,7 @@ footer{padding:26px 0 50px;text-align:center;color:var(--gray);font-size:12.5px}
   <button id="resetBtn">Reset</button>
 </div></div>
 
+<div class="tabs wrap" id="tabs"></div>
 <main class="wrap" id="quiz"></main>
 
 <div class="wrap"><div id="result">
@@ -137,62 +143,82 @@ const QUIZ=[
 ];
 
 const quizEl=document.getElementById('quiz');
-let answered={}, total=QUIZ.length;
-document.getElementById('scoreTot').textContent=total;
+const tabsEl=document.getElementById('tabs');
+let answered={}, filter='all', view=[];
 
+function buildTabs(){
+  tabsEl.innerHTML='';
+  const mk=(label,val)=>{const b=document.createElement('button');b.className='tab'+(filter===val?' active':'');b.textContent=label;
+    b.onclick=()=>{filter=val;buildTabs();render();window.scrollTo({top:0,behavior:'smooth'});};return b;};
+  tabsEl.appendChild(mk('All · '+QUIZ.length+' Q','all'));
+  MOD.forEach((m,i)=>{const c=QUIZ.filter(q=>q.m===i).length;tabsEl.appendChild(mk('M'+(i+1)+' · '+c+' Q',i));});
+}
+function revealLocked(idx){
+  const it=QUIZ[idx], q=document.getElementById('q'+idx); if(!q) return;
+  const opts=q.querySelectorAll('.opt');
+  opts[it.a].classList.add('correct');
+  if(answered[idx]!==it.a) opts[answered[idx]].classList.add('wrong');
+  q.querySelector('.explain').classList.add('show');
+}
 function render(){
   quizEl.innerHTML='';
+  view=QUIZ.map((it,idx)=>({it,idx})).filter(o=>filter==='all'||o.it.m===filter);
   let curMod=-1, qno=0;
-  QUIZ.forEach((item,idx)=>{
-    if(item.m!==curMod){
-      curMod=item.m;
+  view.forEach(({it,idx})=>{
+    if(it.m!==curMod){
+      curMod=it.m;
       const mh=document.createElement('div');mh.className='modhead';
       mh.innerHTML=`<div class="n">${curMod+1}</div><h2>${MOD[curMod]}</h2>`;
       quizEl.appendChild(mh);
     }
     qno++;
-    const q=document.createElement('div');q.className='q';q.id='q'+idx;
-    q.innerHTML=`<div class="qt"><span class="qn">Q${qno}.</span>${item.q}</div>`;
-    item.o.forEach((opt,oi)=>{
+    const q=document.createElement('div');q.className='q'+(answered[idx]!==undefined?' locked':'');q.id='q'+idx;
+    q.innerHTML=`<div class="qt"><span class="qn">Q${qno}.</span>${it.q}</div>`;
+    it.o.forEach((opt,oi)=>{
       const el=document.createElement('div');el.className='opt';
       el.innerHTML=`<span class="mk">${String.fromCharCode(65+oi)}</span><span>${opt}</span>`;
       el.onclick=()=>choose(idx,oi);
       q.appendChild(el);
     });
-    const ex=document.createElement('div');ex.className='explain';ex.innerHTML=`<b>Why:</b> ${item.e}`;
+    const ex=document.createElement('div');ex.className='explain';ex.innerHTML=`<b>Why:</b> ${it.e}`;
     q.appendChild(ex);
     quizEl.appendChild(q);
+    if(answered[idx]!==undefined) revealLocked(idx);
   });
   updateScore();
 }
 function choose(idx,oi){
   if(answered[idx]!==undefined) return;
   answered[idx]=oi;
-  const item=QUIZ[idx], q=document.getElementById('q'+idx);
-  q.classList.add('locked');
-  const opts=q.querySelectorAll('.opt');
-  opts[item.a].classList.add('correct');
-  if(oi!==item.a) opts[oi].classList.add('wrong');
-  q.querySelector('.explain').classList.add('show');
+  document.getElementById('q'+idx).classList.add('locked');
+  revealLocked(idx);
   updateScore();
 }
 function updateScore(){
   let correct=0, done=0;
-  QUIZ.forEach((it,i)=>{ if(answered[i]!==undefined){done++; if(answered[i]===it.a)correct++;} });
+  view.forEach(({idx})=>{ if(answered[idx]!==undefined){done++; if(answered[idx]===QUIZ[idx].a)correct++;} });
+  const tot=view.length;
   document.getElementById('scoreNow').textContent=correct;
-  document.getElementById('barFill').style.width=(done/total*100)+'%';
+  document.getElementById('scoreTot').textContent=tot;
+  document.getElementById('barFill').style.width=(tot?done/tot*100:0)+'%';
   const res=document.getElementById('result');
-  if(done===total){
-    const pct=Math.round(correct/total*100);
+  if(tot && done===tot){
+    const pct=Math.round(correct/tot*100);
     document.getElementById('rScore').textContent=pct;
     document.getElementById('rTitle').textContent= pct===100?'Perfect — everyone goes home.': pct>=80?'Strong work.': pct>=60?'Getting there.':'Review and retry.';
-    document.getElementById('rMsg').textContent=`You answered ${correct} of ${total} correctly. ${pct<100?'Scroll up to review the explanations on any you missed.':'Re-take it any time to stay sharp.'}`;
-    res.classList.add('show');
-    res.scrollIntoView({behavior:'smooth'});
-  }
+    let msg=`You answered ${correct} of ${tot} correctly`+(filter==='all'?'':' in '+MOD[filter])+'. ';
+    if(filter==='all'){
+      const per=MOD.map((m,i)=>{const qs=QUIZ.map((q,j)=>({q,j})).filter(o=>o.q.m===i);
+        const c=qs.filter(o=>answered[o.j]===o.q.a).length;return `M${i+1} ${c}/${qs.length}`;}).join(' · ');
+      msg+='Breakdown — '+per+'. ';
+    }
+    msg+= pct<100?'Scroll up to review what you missed.':'Re-take any module to stay sharp.';
+    document.getElementById('rMsg').textContent=msg;
+    res.classList.add('show'); res.scrollIntoView({behavior:'smooth'});
+  } else { res.classList.remove('show'); }
 }
 document.getElementById('resetBtn').onclick=()=>{answered={};document.getElementById('result').classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});};
-render();
+buildTabs(); render();
 </script>
 </body>
 </html>

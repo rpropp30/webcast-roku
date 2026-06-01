@@ -14,7 +14,8 @@ regulations that govern the work.
 | `diagrams.js` | The technical SVG illustration library — **30 hand-built vector diagrams**, shared by the deck and the landing page. Pure geometry, scales razor-sharp at any size. |
 | `Powerline_Electrical_Theory_and_Safety_Training.pptx` | Native PowerPoint version — **now also 106 slides with all 30 illustrations embedded** as images. |
 | `build_presentation.py` | Generator that builds the `.pptx` (`python3 build_presentation.py`; needs `python-pptx` + `Pillow`). |
-| **`quiz.html`** | Interactive, self-grading **knowledge check** — 31 questions across the six modules with instant feedback, explanations, and a live score. |
+| **`quiz.html`** | Interactive, self-grading **knowledge check** — 31 questions across the six modules. Take the **whole set or one module at a time** (tabs), with instant feedback, explanations, a live score, and a per-module breakdown. |
+| **`facilitator-guide.html`** | **Instructor playbook** — agenda &amp; timing, materials checklist, module-by-module teaching points, discussion prompts, common misconceptions, hands-on demos, and assessment/sign-off. Print-friendly. |
 | **`field-card.html`** | A **print-friendly one-page field card** (MAD table, glove classes, LOTO + grounding order, shock thresholds, rescue steps, second-point reminder). Print or save to PDF for the truck. |
 | `notes.json` / `notes.js` | Instructor **speaker notes** (one source of truth) — read by the deck and embedded into the PowerPoint. |
 | `assets/` | The 30 illustrations pre-rendered to PNG (used by the PowerPoint build; produced from `diagrams.js`). |
@@ -23,11 +24,13 @@ regulations that govern the work.
 
 - **Animated diagrams** — key figures animate in the live deck (current flowing through the body and the second-point circuit, AC/three-phase waveforms sweeping, electrons orbiting/drifting, the arc flickering, the reclose sequence stepping, a pulse traveling the grid). Honors `prefers-reduced-motion`; static PNG/PowerPoint renders are unaffected.
 - **Speaker notes** — press **`N`** (or the *Notes* button) to toggle an instructor notes drawer for the current slide. The same notes are embedded in every PowerPoint slide's notes pane.
+- **Dark theme** — press **`D`** (or the *Theme* button) for a dark palette suited to darkened rooms; the choice is remembered.
 
 | Key | Action |
 |-----|--------|
 | `→` `↓` `Space` / click | Next · `←` `↑` / click-left: Previous |
-| `Home` / `End` | First / last · `F` Fullscreen · `O` Overview · **`N` Speaker notes** |
+| `Home` / `End` | First / last · `F` Fullscreen · `O` Overview |
+| **`N`** | Speaker notes · **`D`** Dark theme |
 
 > The three HTML files belong together in this folder — `index.html` and `landing.html` both load `diagrams.js`.
 
