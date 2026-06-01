@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lineworker Field Safety Card</title>
+<style>
+:root{
+  --navy:#0B2545;--navy2:#134074;--steel:#3A5A80;--amber:#F5B100;--amberD:#C88A00;
+  --danger:#D4351A;--green:#2E8B57;--ink:#1A2B3C;--gray:#5B6B7B;--light:#EEF2F7;--line:#CFD9E4;
+  --font:"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);color:var(--ink);background:#5b6b7b;padding:24px}
+.toolbar{max-width:1040px;margin:0 auto 16px;display:flex;gap:12px;justify-content:flex-end}
+.toolbar button,.toolbar a{background:var(--amber);color:var(--navy);border:none;font-weight:800;font-size:14px;
+  padding:11px 20px;border-radius:8px;cursor:pointer;text-decoration:none}
+.toolbar a.alt{background:#fff;color:var(--navy)}
+
+.sheet{max-width:1040px;margin:0 auto;background:#fff;box-shadow:0 14px 40px rgba(0,0,0,.35);
+  padding:26px 30px 30px;border-radius:6px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:4px solid var(--amber);padding-bottom:12px;margin-bottom:16px}
+.head h1{font-size:25px;color:var(--navy);font-weight:800;line-height:1.05}
+.head .bolt{color:var(--amber)}
+.head .sub{font-size:12px;color:var(--gray);margin-top:3px}
+.head .tag{font-size:11px;color:#fff;background:var(--danger);font-weight:800;padding:5px 11px;border-radius:6px;letter-spacing:.5px}
+
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px}
+.box{border:1px solid var(--line);border-radius:9px;overflow:hidden;break-inside:avoid}
+.box.span{grid-column:1 / -1}
+.box h2{font-size:13px;font-weight:800;letter-spacing:.6px;text-transform:uppercase;color:#fff;background:var(--navy);
+  padding:7px 12px;display:flex;align-items:center;gap:7px}
+.box h2 .ic{width:16px;height:16px;background:var(--amber);border-radius:3px;display:inline-block}
+.box .in{padding:9px 12px}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+th,td{text-align:left;padding:4px 7px;border-bottom:1px solid #e6ecf3}
+th{background:var(--light);color:var(--navy);font-weight:700;font-size:11px}
+td.k{font-weight:700;color:var(--navy)}
+.steps{counter-reset:s;list-style:none}
+.steps li{position:relative;padding:4px 0 4px 30px;font-size:12px;border-bottom:1px dashed #e6ecf3}
+.steps li:last-child{border-bottom:none}
+.steps li::before{counter-increment:s;content:counter(s);position:absolute;left:0;top:4px;width:20px;height:20px;
+  background:var(--navy);color:var(--amber);border-radius:50%;font-weight:800;font-size:11px;display:flex;align-items:center;justify-content:center}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{font-size:10.5px;font-weight:700;color:#fff;padding:3px 8px;border-radius:20px}
+ul.tight{list-style:none}
+ul.tight li{position:relative;padding-left:15px;font-size:12px;line-height:1.36;margin-top:4px}
+ul.tight li::before{content:"";position:absolute;left:2px;top:7px;width:6px;height:6px;background:var(--amber);border-radius:1px}
+.warn{background:#FBEAE7;border-left:4px solid var(--danger);padding:8px 11px;font-size:12px;border-radius:0 6px 6px 0;line-height:1.4}
+.warn b{color:var(--danger)}
+.safe{background:#E6F3EC;border-left:4px solid var(--green);padding:8px 11px;font-size:12px;border-radius:0 6px 6px 0;line-height:1.4}
+.safe b{color:var(--green)}
+.foot{margin-top:14px;border-top:2px solid var(--amber);padding-top:9px;font-size:10px;color:var(--gray);line-height:1.4}
+.foot b{color:var(--navy)}
+
+@media print{
+  @page{size:Letter portrait;margin:0.4in}
+  body{background:#fff;padding:0}
+  .toolbar{display:none}
+  .sheet{box-shadow:none;max-width:none;padding:0;border-radius:0}
+  .box{box-shadow:none}
+}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <a class="alt" href="landing.html">‹ Home</a>
+  <a class="alt" href="index.html">Open deck</a>
+  <button onclick="window.print()">🖨 Print / Save PDF</button>
+</div>
+
+<div class="sheet">
+  <div class="head">
+    <div>
+      <h1><span class="bolt">⚡</span> Lineworker Field Safety Card</h1>
+      <div class="sub">Quick reference — Electrical theory &amp; energized-line work · keep in the truck</div>
+    </div>
+    <div class="tag">VERIFY ON YOUR SYSTEM</div>
+  </div>
+
+  <div class="grid">
+
+    <!-- MAD -->
+    <div class="box">
+      <h2><span class="ic"></span>Minimum Approach Distance — illustrative*</h2>
+      <div class="in">
+        <table>
+          <tr><th>Nominal voltage (ph-ph)</th><th>Example MAD</th></tr>
+          <tr><td class="k">50 – 300 V</td><td>Avoid contact</td></tr>
+          <tr><td class="k">301 – 750 V</td><td>~1 ft 1 in</td></tr>
+          <tr><td class="k">751 V – 15 kV</td><td>~2 ft 2 in</td></tr>
+          <tr><td class="k">15.1 – 36 kV</td><td>~2 ft 7 in</td></tr>
+          <tr><td class="k">36.1 – 46 kV</td><td>~2 ft 9 in</td></tr>
+          <tr><td class="k">46.1 – 72.5 kV</td><td>~3 ft 3 in</td></tr>
+          <tr><td class="k">72.6 – 121 kV</td><td>~3 ft 4 in</td></tr>
+          <tr><td class="k">138 – 145 kV</td><td>~3 ft 7 in</td></tr>
+          <tr><td class="k">230 kV</td><td>~5 ft 3 in</td></tr>
+        </table>
+        <div style="font-size:10px;color:var(--gray);margin-top:5px">*Body, tools, boom &amp; materials all count. Increases with altitude.</div>
+      </div>
+    </div>
+
+    <!-- Glove classes -->
+    <div class="box">
+      <h2><span class="ic"></span>Rubber Glove Classes (ASTM D120)</h2>
+      <div class="in">
+        <table>
+          <tr><th>Class</th><th>Max use (AC)</th><th>Label</th></tr>
+          <tr><td class="k">00</td><td>500 V</td><td>Beige</td></tr>
+          <tr><td class="k">0</td><td>1,000 V</td><td>Red</td></tr>
+          <tr><td class="k">1</td><td>7,500 V</td><td>White</td></tr>
+          <tr><td class="k">2</td><td>17,000 V</td><td>Yellow</td></tr>
+          <tr><td class="k">3</td><td>26,500 V</td><td>Green</td></tr>
+          <tr><td class="k">4</td><td>36,000 V</td><td>Orange</td></tr>
+        </table>
+        <div class="safe" style="margin-top:7px"><b>Select at or above</b> your voltage · wear leather protectors · air-test &amp; inspect every use · retest ≈ 6 mo.</div>
+      </div>
+    </div>
+
+    <!-- De-energize / LOTO -->
+    <div class="box">
+      <h2><span class="ic"></span>De-Energize &amp; LOTO — never skip a step</h2>
+      <div class="in">
+        <ol class="steps">
+          <li><b>IDENTIFY</b> the correct circuit &amp; section</li>
+          <li><b>OPEN</b> disconnects — visible &amp; verified open</li>
+          <li><b>LOCK &amp; TAG</b> — each worker's own lock</li>
+          <li><b>TEST</b> for absence of voltage (test-before-touch)</li>
+          <li><b>GROUND</b> — apply protective grounds / EPZ</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Grounding order -->
+    <div class="box">
+      <h2><span class="ic"></span>Grounding Order</h2>
+      <div class="in">
+        <div class="safe"><b>Apply:</b> ground / structure end FIRST → then the line end.</div>
+        <div class="warn" style="margin-top:7px"><b>Remove:</b> line end FIRST → ground end LAST.</div>
+        <ul class="tight" style="margin-top:7px">
+          <li>Size grounds for the available fault current.</li>
+          <li>Clean contact points; clamps tight.</li>
+          <li>Bond an equipotential zone at the work site.</li>
+          <li>Use grounding sticks — treat as energized until on.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Shock thresholds -->
+    <div class="box">
+      <h2><span class="ic"></span>60 Hz Shock Thresholds (through body)</h2>
+      <div class="in">
+        <table>
+          <tr><th>Current</th><th>Effect</th></tr>
+          <tr><td class="k">~1 mA</td><td>Perception — tingle</td></tr>
+          <tr><td class="k">5 mA</td><td>Startling shock — fall risk</td></tr>
+          <tr><td class="k">10–16 mA</td><td>“Let-go” lost — muscles clamp</td></tr>
+          <tr><td class="k">50–100 mA</td><td>Ventricular fibrillation likely</td></tr>
+          <tr><td class="k">&gt;100 mA</td><td>Usually fatal</td></tr>
+        </table>
+        <div style="font-size:10px;color:var(--gray);margin-top:5px">It is <b style="color:var(--danger)">current</b>, not voltage, that kills. Wet skin = far more current.</div>
+      </div>
+    </div>
+
+    <!-- Rescue -->
+    <div class="box">
+      <h2><span class="ic"></span>Emergency / Pole-Top Rescue</h2>
+      <div class="in">
+        <ol class="steps">
+          <li>Protect yourself — <b>remove / de-energize the source first</b></li>
+          <li>Call for help — know address &amp; cross-streets</li>
+          <li>Lower the patient (handline / rescue device)</li>
+          <li>CPR + AED — minutes matter</li>
+          <li>Transport for medical eval — internal injury hides</li>
+        </ol>
+        <div class="warn" style="margin-top:6px"><b>Never become the second victim.</b></div>
+      </div>
+    </div>
+
+    <!-- Second point / hierarchy span -->
+    <div class="box span">
+      <h2><span class="ic"></span>The Second Point of Contact &amp; the Hierarchy of Controls</h2>
+      <div class="in" style="display:grid;grid-template-columns:1.15fr 1fr;gap:16px">
+        <div>
+          <div class="warn"><b>Before you reach for any energized part, ask: “Where is my second point of contact?”</b> Cover it, insulate it, or remove yourself from it.</div>
+          <ul class="tight" style="margin-top:7px">
+            <li>Common second points: grounded neutral, pole ground, guys, crossarm hardware, another phase, the bucket, a tool, a co-worker.</li>
+            <li>Glove <b>and</b> cover: gloves protect your hands; cover-up removes the second point.</li>
+            <li>Cover nearest hazard first → remove in reverse (last on, first off).</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:11px;font-weight:800;color:var(--navy);margin-bottom:5px">CONTROLS — top down</div>
+          <div class="chips">
+            <span class="chip" style="background:#2E8B57">1 Eliminate (de-energize)</span>
+            <span class="chip" style="background:#134074">2 Substitute / engineer</span>
+            <span class="chip" style="background:#3A5A80">3 Isolate the worker</span>
+            <span class="chip" style="background:#C88A00">4 Administrative</span>
+            <span class="chip" style="background:#D4351A">5 PPE (last line)</span>
+          </div>
+          <ul class="tight" style="margin-top:8px">
+            <li>Treat every conductor as energized until <b>you</b> prove it dead &amp; grounded.</li>
+            <li>Test the tester before <b>and</b> after.</li>
+            <li>Hold a tailboard; everyone has stop-work authority.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="foot">
+    <b>Training reference only — not a substitute for your employer's safe-work practices.</b> Minimum approach distances, glove ratings, and
+    shock thresholds are illustrative; always work to your utility's current, approved MAD tables and the governing edition of
+    OSHA 1910.269 / 1926 Subpart V and the NESC. &nbsp;·&nbsp; <b>Stay sharp. Watch your second point of contact. Everyone goes home.</b>
+  </div>
+</div>
+</body>
+</html>

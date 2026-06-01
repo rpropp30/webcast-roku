@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Facilitator Guide — Powerline Electrical Theory &amp; Safety</title>
+<style>
+:root{
+  --navy:#0B2545;--navyD:#06162B;--navy2:#134074;--steel:#3A5A80;--amber:#F5B100;--amberD:#C88A00;
+  --danger:#D4351A;--green:#2E8B57;--ink:#1A2B3C;--gray:#5B6B7B;--light:#EEF2F7;--line:#D8E0EA;--white:#fff;
+  --font:"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);color:var(--ink);background:var(--light);line-height:1.55}
+.wrap{max-width:980px;margin:0 auto;padding:0 24px}
+a{color:var(--navy2)}
+
+header{background:radial-gradient(120% 130% at 80% 0%,#15376a,var(--navy) 55%,var(--navyD));color:#fff;padding:42px 0 34px}
+header .kick{font-size:12px;font-weight:800;letter-spacing:2.4px;color:var(--amber);text-transform:uppercase}
+header h1{font-size:34px;font-weight:800;margin:8px 0 6px}
+header p{color:#C8D6E6;font-size:15.5px;max-width:680px}
+header .links{margin-top:16px;display:flex;gap:14px;flex-wrap:wrap;font-size:13.5px}
+header .links a{color:#cdd9e6;font-weight:600}header .links a:hover{color:var(--amber)}
+header .pbtn{background:var(--amber);color:var(--navy);padding:8px 15px;border-radius:7px;font-weight:800;border:none;cursor:pointer}
+
+.toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:26px 0;display:flex;flex-wrap:wrap;gap:8px 18px}
+.toc a{font-size:13.5px;font-weight:600;color:var(--navy)}
+.toc b{font-size:12px;color:var(--amberD);text-transform:uppercase;letter-spacing:1px;width:100%}
+
+section{margin:30px 0}
+h2.sec{font-size:24px;color:var(--navy);font-weight:800;border-bottom:3px solid var(--amber);padding-bottom:7px;margin-bottom:14px;display:flex;align-items:center;gap:10px}
+h2.sec .n{width:32px;height:32px;border-radius:8px;background:var(--navy);color:var(--amber);font-size:15px;display:flex;align-items:center;justify-content:center}
+p.lead{font-size:15px;color:var(--gray);margin-bottom:12px}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:14px;break-inside:avoid}
+.card h3{font-size:17px;color:var(--navy);font-weight:800;margin-bottom:8px;display:flex;align-items:center;justify-content:space-between}
+.card h3 .time{font-size:12px;font-weight:700;color:#fff;background:var(--steel);padding:3px 10px;border-radius:20px}
+.lbl{font-size:11px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:var(--amberD);margin:10px 0 4px}
+ul{list-style:none}
+li{position:relative;padding-left:18px;font-size:13.8px;line-height:1.4;margin-top:4px}
+li::before{content:"";position:absolute;left:2px;top:8px;width:7px;height:7px;background:var(--amber);border-radius:1px}
+li.q::before{background:var(--navy2);border-radius:50%}
+li.x::before{background:var(--danger);transform:rotate(45deg)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:6px 26px}
+.chk{list-style:none}
+.chk li{padding-left:26px}
+.chk li::before{content:"☐";position:absolute;left:0;top:0;width:auto;height:auto;background:none;color:var(--steel);font-size:15px}
+.note{background:var(--light);border-left:4px solid var(--navy2);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:10px}
+.warn{background:#FBEAE7;border-left:4px solid var(--danger);border-radius:0 8px 8px 0;padding:10px 14px;font-size:13.5px;margin-top:10px}
+.warn b{color:var(--danger)}
+table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+th,td{text-align:left;padding:7px 10px;border-bottom:1px solid #e6ecf3}
+th{background:var(--navy);color:#fff;font-weight:700;font-size:12.5px}
+td.k{font-weight:700;color:var(--navy)}
+footer{padding:24px 0 50px;color:var(--gray);font-size:12px}
+footer b{color:var(--navy)}
+
+@media print{
+  @page{size:Letter portrait;margin:0.5in}
+  body{background:#fff}
+  header{background:#0B2545 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header .links,.toc,.pbtn{display:none}
+  .card,h2.sec{box-shadow:none}
+  th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kick">Instructor Edition</div>
+    <h1>Facilitator Guide</h1>
+    <p>How to deliver the <b>Electrical Theory &amp; Energized-Line Safety</b> program — agenda, materials, module-by-module teaching points, discussion prompts, common misconceptions, hands-on demonstrations, and assessment.</p>
+    <div class="links">
+      <a href="landing.html">‹ Home</a>
+      <a href="index.html">Open deck</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="field-card.html">Field card</a>
+      <button class="pbtn" onclick="window.print()">🖨 Print / PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="toc">
+    <b>On this page</b>
+    <a href="#use">Using the kit</a><a href="#agenda">Agenda</a><a href="#materials">Materials</a>
+    <a href="#m1">M1 Theory</a><a href="#m2">M2 Body</a><a href="#m3">M3 Energized</a>
+    <a href="#m4">M4 Tools</a><a href="#m5">M5 Field</a><a href="#m6">M6 Regulations</a>
+    <a href="#assess">Assessment</a><a href="#adapt">Adapting</a>
+  </div>
+
+  <!-- USING THE KIT -->
+  <section id="use">
+    <h2 class="sec"><span class="n">★</span>Using This Training Kit</h2>
+    <div class="card">
+      <div class="grid2">
+        <div>
+          <div class="lbl">The deck (index.html)</div>
+          <ul>
+            <li>Open in any browser; press <b>F</b> for fullscreen. 106 slides, no scrolling.</li>
+            <li><b>→ / Space / click</b> advance · <b>← / ↑</b> back · <b>Home/End</b> jump.</li>
+            <li><b>O</b> opens the overview grid to jump anywhere.</li>
+            <li><b>N</b> toggles <b>speaker notes</b> for the current slide.</li>
+            <li><b>D</b> toggles a <b>dark theme</b> for darkened rooms.</li>
+          </ul>
+        </div>
+        <div>
+          <div class="lbl">Supporting pieces</div>
+          <ul>
+            <li><b>PowerPoint</b> version carries the same 106 slides, illustrations, and notes.</li>
+            <li><b>Quiz</b> — assign the full set or one module at a time.</li>
+            <li><b>Field card</b> — print one per worker for the truck.</li>
+            <li>Illustrations animate in the live deck; static in print/PowerPoint.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="note">Each slide's speaker note is a talking point, not a script — say it in your own words and pull from crew experience.</div>
+    </div>
+  </section>
+
+  <!-- AGENDA -->
+  <section id="agenda">
+    <h2 class="sec"><span class="n">⏱</span>Suggested Agenda</h2>
+    <p class="lead">Roughly a half-day with breaks. Split across sessions for apprentices, or compress for a journeyman refresher. Times include discussion and demos.</p>
+    <div class="card">
+      <table>
+        <tr><th>Segment</th><th>Time</th><th>Format</th></tr>
+        <tr><td class="k">Welcome, why-it-matters (slides 1–4)</td><td>15 min</td><td>Discussion</td></tr>
+        <tr><td class="k">Module 1 — Electrical Theory</td><td>45 min</td><td>Lecture + Ohm's-law demo</td></tr>
+        <tr><td class="k">Module 2 — Electricity &amp; the Body</td><td>35 min</td><td>Lecture + step-potential walk</td></tr>
+        <tr><td class="k">Break</td><td>10 min</td><td>—</td></tr>
+        <tr><td class="k">Module 3 — Working Energized (core)</td><td>60 min</td><td>Lecture + cover-up / grounding demo</td></tr>
+        <tr><td class="k">Module 4 — Tools of the Trade</td><td>40 min</td><td>Lecture + glove air-test demo</td></tr>
+        <tr><td class="k">Break</td><td>10 min</td><td>—</td></tr>
+        <tr><td class="k">Module 5 — In the Field</td><td>45 min</td><td>Mock tailboard + rescue drill</td></tr>
+        <tr><td class="k">Module 6 — Regulations</td><td>25 min</td><td>Lecture + locate-the-rule</td></tr>
+        <tr><td class="k">Synthesis, quiz &amp; sign-off</td><td>30 min</td><td>Quiz + hands-on check</td></tr>
+      </table>
+      <div class="note">Total ≈ 5 hours with breaks. The minimum viable version is Modules 1–3 plus the tailboard.</div>
+    </div>
+  </section>
+
+  <!-- MATERIALS -->
+  <section id="materials">
+    <h2 class="sec"><span class="n">✓</span>Materials &amp; Setup Checklist</h2>
+    <div class="card">
+      <div class="grid2">
+        <ul class="chk">
+          <li>Display/projector; deck open and tested in fullscreen</li>
+          <li>Your utility's <b>approved MAD table</b> &amp; safe-work procedures</li>
+          <li>Printed field cards (one per attendee)</li>
+          <li>Rubber gloves + leather protectors for an air-test demo</li>
+          <li>Hot stick / live-line tool to handle</li>
+        </ul>
+        <ul class="chk">
+          <li>Protective ground set (clamps &amp; cable)</li>
+          <li>Voltage detector / tester</li>
+          <li>Mock pole or cover-up samples (line hose, blanket, hood)</li>
+          <li>AED trainer for the rescue drill</li>
+          <li>Attendance &amp; competency sign-off sheet</li>
+        </ul>
+      </div>
+      <div class="warn"><b>All demonstrations are de-energized.</b> Never use live equipment for training. Treat every demo conductor as energized to model the right habits.</div>
+    </div>
+  </section>
+
+  <!-- MODULE 1 -->
+  <section id="m1">
+    <h2 class="sec"><span class="n">1</span>Electrical Theory</h2>
+    <div class="card">
+      <h3>Goal: make the science usable<span class="time">~45 min · slides 5–24</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li><b>Current</b>, not voltage, injures and kills — voltage just pushes it through your resistance.</li>
+        <li>Heat and arc energy rise with the <b>square</b> of current (P = I²R).</li>
+        <li>We transmit high (low current, low loss) and use low — but low voltage still kills.</li>
+        <li>Transformers enable the grid; a secondary can be <b>back-fed</b> by a customer generator.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">Trace the path of power from the plant to this building. Where are we on that chain?</li>
+        <li class="q">Why does a shock get far more dangerous when you're sweaty or it's raining?</li>
+      </ul>
+      <div class="lbl">Common misconceptions to correct</div>
+      <ul>
+        <li class="x">"High voltage is dangerous, low voltage isn't." — Most contacts happen below 600 V.</li>
+        <li class="x">"AC is off every time it crosses zero." — It's lethal continuously at 60 Hz.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Work the Ohm's-law triangle live; show how lower R raises I for the same V. Sketch the local feeder one-line.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 2 -->
+  <section id="m2">
+    <h2 class="sec"><span class="n">2</span>Electricity &amp; the Human Body</h2>
+    <div class="card">
+      <h3>Goal: make the hazard personal<span class="time">~35 min · slides 25–40</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li>The lethal range is in <b>milliamps</b> — far below what trips a breaker.</li>
+        <li>Path matters: hand-to-hand / hand-to-foot crosses the heart.</li>
+        <li>Arc flash/blast can injure <b>without contact</b> — distance and FR PPE are the defense.</li>
+        <li>Energized ground creates step &amp; touch potential — shuffle out, feet together.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">Right now, what would your second point of contact be if this rail were energized?</li>
+        <li class="q">A car hits a pole and the line is down on it — what do you tell the driver, and why?</li>
+      </ul>
+      <div class="lbl">Common misconceptions</div>
+      <ul>
+        <li class="x">"It didn't knock me down, so it was harmless." — Burns and arrhythmia can be delayed.</li>
+        <li class="x">"My boots/gloves make me untouchable." — Only when rated, inspected, and the second point is controlled.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Walk the step-potential shuffle. If available, show an arc-flash incident-energy example for your gear.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 3 -->
+  <section id="m3">
+    <h2 class="sec"><span class="n">3</span>Working Around Energized Lines</h2>
+    <div class="card">
+      <h3>Goal: the daily survival disciplines<span class="time">~60 min · slides 41–63 · CORE</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li>Work the <b>hierarchy of controls</b> top-down — de-energize whenever feasible.</li>
+        <li><b>The second point of contact</b> completes the circuit — find it, cover it, remove it, every time.</li>
+        <li>Cover the nearest hazard first; remove cover-up in reverse.</li>
+        <li>LOTO: identify → open → lock/tag → <b>test</b> → ground. Ground end first, line end last.</li>
+        <li>An equipotential zone defeats re-energization <b>and</b> induced voltage.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">On this pole-top photo, name every possible second point of contact.</li>
+        <li class="q">When is energized work actually justified instead of de-energizing?</li>
+      </ul>
+      <div class="lbl">Common misconceptions</div>
+      <ul>
+        <li class="x">"Rubber gloves alone are enough." — You must also control the second point (cover-up / position).</li>
+        <li class="x">"Dead means safe." — Dead is not grounded; induction and reclosers bite back.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Run the cover-up sequence on a mock pole; build an EPZ; measure MAD with a stick. Have apprentices narrate each step.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 4 -->
+  <section id="m4">
+    <h2 class="sec"><span class="n">4</span>Tools of the Trade</h2>
+    <div class="card">
+      <h3>Goal: trust your gear — and prove it<span class="time">~40 min · slides 64–76</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li>Rubber gloves go with leather protectors; pick a class <b>at or above</b> your voltage.</li>
+        <li><b>Test the tester</b> on a known source — before and after.</li>
+        <li>Size grounds for the available fault current; ground end first.</li>
+        <li>PPE is the <b>last</b> line — it limits injury, it doesn't prevent contact.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">What takes a tool or glove out of service immediately?</li>
+        <li class="q">Where do the numbers printed on your gloves and grounds come from?</li>
+      </ul>
+      <div class="lbl">Common misconceptions</div>
+      <ul>
+        <li class="x">"They look fine, so they're fine." — Honor air-tests, inspections, and retest dates.</li>
+        <li class="x">"Any glove for any job." — Class must match the voltage.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Glove air-test and inspection; handle a hot stick; apply and remove a ground set in the correct order.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 5 -->
+  <section id="m5">
+    <h2 class="sec"><span class="n">5</span>Putting It to Work in the Field</h2>
+    <div class="card">
+      <h3>Goal: turn knowledge into routine<span class="time">~45 min · slides 77–90</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li>Plan the job — and the <b>rescue</b> — before boots leave the truck.</li>
+        <li>The tailboard covers hazards, procedures, precautions, energy controls, and PPE.</li>
+        <li>Use three-way communication; re-brief on any change.</li>
+        <li>Everyone has — and must use — <b>stop-work authority</b>.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">Let's run a real tailboard for tomorrow's job — who takes which role?</li>
+        <li class="q">If a worker contacts a conductor at the pole top, what happens in the next 60 seconds?</li>
+      </ul>
+      <div class="lbl">Common misconceptions</div>
+      <ul>
+        <li class="x">"The briefing is just paperwork." — It's where the plan becomes shared.</li>
+        <li class="x">"We'll figure out rescue if it happens." — Rescue is planned and practiced.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Full tailboard role-play with role cards; pole-top or bucket rescue drill with the handline and AED trainer.</li></ul>
+    </div>
+  </section>
+
+  <!-- MODULE 6 -->
+  <section id="m6">
+    <h2 class="sec"><span class="n">6</span>Regulations &amp; Standards</h2>
+    <div class="card">
+      <h3>Goal: know the why and the where<span class="time">~25 min · slides 91–100</span></h3>
+      <div class="lbl">Drive these home</div>
+      <ul>
+        <li>Regulations set the <b>minimum</b>; your program may be stricter — follow the stricter.</li>
+        <li>OSHA 1910.269 / 1926 Subpart V govern the work; NESC governs the system.</li>
+        <li>Only <b>qualified</b> employees work on or near energized parts.</li>
+      </ul>
+      <div class="lbl">Discussion prompts</div>
+      <ul>
+        <li class="q">Which standard backs MAD? Cover-up? Glove ratings? Grounds?</li>
+        <li class="q">Where is your employer's MAD table, and when was it last updated?</li>
+      </ul>
+      <div class="lbl">Common misconceptions</div>
+      <ul>
+        <li class="x">"Compliance equals safe." — Compliance is the floor, not the goal.</li>
+        <li class="x">"Any trained worker can do it." — Qualification is specific and documented.</li>
+      </ul>
+      <div class="lbl">Hands-on / demo</div>
+      <ul><li>Locate a specific rule in 1910.269; walk your employer's approved MAD table together.</li></ul>
+    </div>
+  </section>
+
+  <!-- ASSESSMENT -->
+  <section id="assess">
+    <h2 class="sec"><span class="n">✎</span>Assessment &amp; Sign-Off</h2>
+    <div class="card">
+      <div class="lbl">Knowledge</div>
+      <ul>
+        <li>Assign the <b>quiz</b> — full set, or one module at a time after each segment. Review every missed explanation.</li>
+        <li>Target mastery, not just a passing percentage; re-take modules until solid.</li>
+      </ul>
+      <div class="lbl">Skill (hands-on competency check)</div>
+      <ul>
+        <li>Identify second points of contact on a pole top.</li>
+        <li>Demonstrate cover-up: nearest first, remove in reverse.</li>
+        <li>Apply &amp; remove a ground set in the correct order.</li>
+        <li>Air-test and inspect a rubber glove.</li>
+        <li>Lead a complete tailboard and state the rescue plan.</li>
+      </ul>
+      <div class="note">Document both the knowledge check and the hands-on demonstration on your competency sign-off sheet, with dates and the evaluator's name.</div>
+    </div>
+  </section>
+
+  <!-- ADAPTING -->
+  <section id="adapt">
+    <h2 class="sec"><span class="n">⚙</span>Adapting the Course</h2>
+    <div class="card">
+      <ul>
+        <li><b>New apprentices:</b> deliver all six modules across multiple sessions; spend extra time on Modules 1 and 3 and repeat the hands-on demos.</li>
+        <li><b>Journeyman refresher:</b> compress theory, focus on Module 3, recent incidents/near-misses, and the tailboard role-play.</li>
+        <li><b>Toolbox / short form:</b> pick a single module's diagram slides and its quiz module for a 15-minute talk.</li>
+        <li>Localize every numeric table to <b>your</b> system, gear, and procedures before delivering.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <b>Training reference only.</b> This guide and the course do not replace your employer's safe-work practices, qualification program, or the governing editions of
+    OSHA 1910.269 / 1926 Subpart V and the NESC. All demonstrations are performed de-energized. &nbsp;·&nbsp; <b>Everyone goes home, every day.</b>
+  </footer>
+
+</div>
+</body>
+</html>
