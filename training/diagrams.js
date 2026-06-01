@@ -43,10 +43,10 @@ function defs(id){return `<defs>
 
 /* a small lineworker glyph (head, torso, arms, legs) at (x,y) scale sc */
 function worker(x,y,sc,c,hardhat){c=c||P.navy;sc=sc||1;const s=v=>v*sc;
-  let g=`<g transform="translate(${x},${y})" stroke="${c}" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
+  let g=`<g transform="translate(${x},${y})" stroke="${c}" stroke-width="3.2" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#qsh)">`;
   g+=`<circle cx="0" cy="${s(-46)}" r="${s(11)}" fill="${P.light}"/>`;
-  if(hardhat){g+=`<path d="M ${s(-13)} ${s(-50)} A ${s(13)} ${s(13)} 0 0 1 ${s(13)} ${s(-50)} Z" fill="${P.amber}" stroke="${P.amberD}"/>`+
-    `<rect x="${s(-15)}" y="${s(-51)}" width="${s(30)}" height="${s(3.5)}" rx="1.5" fill="${P.amber}" stroke="${P.amberD}"/>`;}
+  if(hardhat){g+=`<path d="M ${s(-13)} ${s(-50)} A ${s(13)} ${s(13)} 0 0 1 ${s(13)} ${s(-50)} Z" fill="url(#qamber)" stroke="${P.amberD}"/>`+
+    `<rect x="${s(-15)}" y="${s(-51)}" width="${s(30)}" height="${s(3.5)}" rx="1.5" fill="url(#qamber)" stroke="${P.amberD}"/>`;}
   g+=`<line x1="0" y1="${s(-35)}" x2="0" y2="${s(8)}"/>`;
   g+=`<line x1="0" y1="${s(8)}" x2="${s(-12)}" y2="${s(40)}"/><line x1="0" y1="${s(8)}" x2="${s(12)}" y2="${s(40)}"/>`;
   g+=`</g>`;return g;}
@@ -61,18 +61,18 @@ D.atom=()=>svg('640 470', defs('at')+`
       <ellipse rx="150" ry="58" fill="none" stroke="${P.steel}" stroke-width="2" opacity="0.7"/>
       <ellipse rx="150" ry="58" transform="rotate(60)" fill="none" stroke="${P.steel}" stroke-width="2" opacity="0.7"/>
       <ellipse rx="150" ry="58" transform="rotate(120)" fill="none" stroke="${P.steel}" stroke-width="2" opacity="0.7"/>
-      <circle cx="129" cy="29" r="9" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
-      <circle cx="-150" cy="0" r="9" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
-      <circle cx="44" cy="-65" r="9" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
+      <circle cx="129" cy="29" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
+      <circle cx="-150" cy="0" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
+      <circle cx="44" cy="-65" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
     </g>
     <circle r="30" fill="${P.navy}"/>
-    <circle cx="-9" cy="-6" r="9" fill="${P.danger}"/><circle cx="10" cy="-7" r="9" fill="${P.danger}"/>
+    <circle cx="-9" cy="-6" r="9" fill="url(#qred)"/><circle cx="10" cy="-7" r="9" fill="url(#qred)"/>
     <circle cx="0" cy="9" r="9" fill="${P.sky}"/><circle cx="-12" cy="9" r="9" fill="${P.sky}"/>
   </g>
   ${T(220,455,'A single atom: protons (+) &amp; neutrons in the nucleus, electrons orbiting',{s:13,c:P.gray,a:'middle'})}
   <g transform="translate(470,150)">
     ${T(0,-22,'FREE ELECTRON FLOW',{s:13,w:700,c:P.navy,a:'middle'})}
-    <g class="dgm-drift">${[0,1,2,3].map(i=>`<circle cx="${-70+i*46}" cy="0" r="8" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>`).join('')}</g>
+    <g class="dgm-drift">${[0,1,2,3].map(i=>`<circle cx="${-70+i*46}" cy="0" r="8" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>`).join('')}</g>
     ${arr(-95,40,95,40,P.danger,3)}
     ${T(0,70,'Current = drifting charge',{s:13,c:P.danger,a:'middle',w:600})}
     ${T(0,150,'In a conductor, loosely-held',{s:13,c:P.ink,a:'middle'})}
@@ -88,14 +88,14 @@ D.conductor=()=>svg('640 470',`
   <g transform="translate(40,90)">
     ${T(0,0,'CONDUCTOR',{s:17,w:800,c:P.green})}
     <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.green}" stroke-width="3"/>
-    ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
+    ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
     ${arr(30,58,540,58,P.danger,3)}
     ${T(280,128,'Free electrons move easily → low resistance (copper, aluminum, steel, wet body)',{s:13,c:P.ink,a:'middle'})}
   </g>
   <g transform="translate(40,260)">
     ${T(0,0,'INSULATOR',{s:17,w:800,c:P.danger})}
     <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.danger}" stroke-width="3"/>
-    ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="${P.steel}"/>`).join('')}
+    ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="url(#qsteel)"/>`).join('')}
     <g stroke="${P.danger}" stroke-width="4" stroke-linecap="round"><line x1="270" y1="40" x2="300" y2="76"/><line x1="300" y1="40" x2="270" y2="76"/></g>
     ${T(280,128,'Electrons are bound → high resistance (rubber, glass, porcelain, dry wood, air)',{s:13,c:P.ink,a:'middle'})}
   </g>`);
@@ -121,7 +121,7 @@ D.bird=()=>svg('640 470',`
   <g>
     ${T(160,40,'ONE wire = SAFE',{s:16,w:800,c:P.green,a:'middle'})}
     <line x1="20" y1="150" x2="300" y2="150" stroke="${P.navy}" stroke-width="6"/>
-    <g transform="translate(160,150)"><ellipse cx="0" cy="-14" rx="22" ry="13" fill="${P.ink}"/><circle cx="18" cy="-22" r="8" fill="${P.ink}"/><polygon points="24,-24 38,-20 24,-16" fill="${P.amber}"/><line x1="-6" y1="-2" x2="-6" y2="6" stroke="${P.ink}" stroke-width="3"/><line x1="6" y1="-2" x2="6" y2="6" stroke="${P.ink}" stroke-width="3"/></g>
+    <g transform="translate(160,150)"><ellipse cx="0" cy="-14" rx="22" ry="13" fill="${P.ink}"/><circle cx="18" cy="-22" r="8" fill="${P.ink}"/><polygon points="24,-24 38,-20 24,-16" fill="url(#qamber)"/><line x1="-6" y1="-2" x2="-6" y2="6" stroke="${P.ink}" stroke-width="3"/><line x1="6" y1="-2" x2="6" y2="6" stroke="${P.ink}" stroke-width="3"/></g>
     ${T(160,210,'Same potential at both feet.',{s:13,c:P.ink,a:'middle'})}
     ${T(160,230,'No difference → no current.',{s:13,c:P.green,a:'middle',w:700})}
   </g>
@@ -198,7 +198,7 @@ D.threephase=()=>svg('1180 430',`
   ${sine(70,210,930,90,3,-2*Math.PI/3,P.navy2,4,120,'dgm-flow')}
   ${sine(70,210,930,90,3,2*Math.PI/3,P.green,4,120,'dgm-flow')}
   <g>
-    <rect x="1030" y="120" width="22" height="22" fill="${P.danger}"/>${T(1062,138,'Phase A',{s:15,w:700,c:P.ink})}
+    <rect x="1030" y="120" width="22" height="22" fill="url(#qred)"/>${T(1062,138,'Phase A',{s:15,w:700,c:P.ink})}
     <rect x="1030" y="165" width="22" height="22" fill="${P.navy2}"/>${T(1062,183,'Phase B',{s:15,w:700,c:P.ink})}
     <rect x="1030" y="210" width="22" height="22" fill="${P.green}"/>${T(1062,228,'Phase C',{s:15,w:700,c:P.ink})}
   </g>
@@ -224,7 +224,7 @@ D.grid=()=>svg('1180 430',`
   <rect width="1180" height="430" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(590,40,'From generation to your service — and the voltage at each stage',{s:15,c:P.gray,a:'middle'})}
   <line x1="70" y1="200" x2="1110" y2="200" stroke="${P.steel}" stroke-width="3"/>
-  <circle class="dgm-travel" cx="170" cy="200" r="7" fill="${P.amber}"/>
+  <circle class="dgm-travel" cx="170" cy="200" r="7" fill="url(#qamber)"/>
   ${[['GENERATION','~20 kV',95,P.navy],['STEP-UP','↑ 230–765 kV',285,P.amberD],
      ['TRANSMISSION','HV towers',475,P.navy2],['STEP-DOWN','↓ 4–35 kV',665,P.amberD],
      ['DISTRIBUTION','primary',855,P.navy2],['SERVICE','120/240 V',1045,P.green]]
@@ -241,11 +241,11 @@ D.grid=()=>svg('1180 430',`
 D.body=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,40,'Path matters — current across the chest stops the heart',{s:14,c:P.gray,a:'middle'})}
-  <g transform="translate(320,250)" fill="${P.steel}" opacity="0.9">
+  <g transform="translate(320,250)" fill="url(#qsteel)" opacity="0.95" filter="url(#qsh)">
     <circle cx="0" cy="-130" r="34"/>
     <path d="M -42 -86 Q 0 -100 42 -86 L 60 30 L 40 34 L 34 -40 L 30 120 L 8 120 L 0 0 L -8 120 L -30 120 L -34 -40 L -40 34 L -60 30 Z"/>
   </g>
-  <g transform="translate(308,180)"><path d="M0 10 C -14 -8, -34 6, 0 34 C 34 6, 14 -8, 0 10 Z" fill="${P.danger}"/></g>
+  <g transform="translate(308,180)"><path d="M0 10 C -14 -8, -34 6, 0 34 C 34 6, 14 -8, 0 10 Z" fill="url(#qred)"/></g>
   <path class="dgm-current" d="M 255 150 Q 308 120 380 150" fill="none" stroke="${P.amber}" stroke-width="5" stroke-dasharray="2 9" stroke-linecap="round"/>
   ${arr(255,150,250,156,P.amber,4)}${arr(376,148,382,154,P.amber,4)}
   ${T(150,150,'CONTACT',{s:13,w:800,c:P.danger,a:'middle'})}${T(150,170,'energized',{s:12,c:P.gray,a:'middle'})}
@@ -302,7 +302,7 @@ D.steptouch=()=>svg('1180 430',`
   <rect x="40" y="250" width="1100" height="150" fill="#d9c4a3" rx="6"/>
   <line x1="40" y1="250" x2="1140" y2="250" stroke="${P.copper}" stroke-width="3"/>
   <g>${[30,80,140,210,290].map((r,i)=>`<ellipse cx="250" cy="250" rx="${r}" ry="${(r*0.32).toFixed(0)}" fill="none" stroke="${P.danger}" stroke-width="2" opacity="${(0.9-i*0.15).toFixed(2)}"/>`).join('')}</g>
-  <circle cx="250" cy="250" r="12" fill="${P.danger}"/>
+  <circle cx="250" cy="250" r="12" fill="url(#qred)"/>
   <path d="M 250 250 L 250 150 L 180 150" stroke="${P.danger}" stroke-width="4" fill="none"/>
   ${T(150,140,'downed line',{s:12,c:P.danger,a:'end'})}
   <path d="M 250 100 C 360 100, 430 230, 1120 245" fill="none" stroke="${P.navy2}" stroke-width="3"/>
@@ -321,7 +321,7 @@ D.steptouch=()=>svg('1180 430',`
 D.mad=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,40,'The air gap voltage must not be allowed to jump',{s:14,c:P.gray,a:'middle'})}
-  <circle cx="150" cy="240" r="26" fill="${P.danger}"/>${T(150,300,'ENERGIZED',{s:13,w:800,c:P.danger,a:'middle'})}${T(150,318,'conductor',{s:12,c:P.gray,a:'middle'})}
+  <circle cx="150" cy="240" r="64" fill="url(#qspark)"/><circle cx="150" cy="240" r="26" fill="url(#qred)"/>${T(150,300,'ENERGIZED',{s:13,w:800,c:P.danger,a:'middle'})}${T(150,318,'conductor',{s:12,c:P.gray,a:'middle'})}
   <polyline points="176,235 220,215 250,255 300,230 340,248" fill="none" stroke="${P.amber}" stroke-width="3"/>
   <circle cx="150" cy="240" r="200" fill="none" stroke="${P.navy2}" stroke-width="2.5" stroke-dasharray="8 6"/>
   ${worker(440,290,1.05,P.navy,true)}
@@ -346,13 +346,13 @@ D.secondpoint=()=>svg('1180 470',`
     <path class="dgm-current" d="M 300 150 L 300 305" stroke="${P.amber}" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
     ${arr(300,300,300,312,P.amber,4)}
     ${T(360,250,'current flows',{s:13,w:700,c:P.amberD})}${T(360,270,'THROUGH you',{s:13,w:700,c:P.amberD})}
-    <circle cx="300" cy="150" r="9" fill="${P.danger}"/><circle cx="300" cy="360" r="9" fill="${P.green}"/>
+    <circle cx="300" cy="150" r="9" fill="url(#qred)"/><circle cx="300" cy="360" r="9" fill="${P.green}"/>
   </g>
   <g>
     <rect x="620" y="70" width="520" height="370" rx="12" fill="#ffffff" stroke="${P.green}" stroke-width="2.5"/>
     ${T(880,100,'COVERED UP — no second point',{s:14,w:800,c:P.green,a:'middle'})}
     <line x1="660" y1="150" x2="1100" y2="150" stroke="${P.danger}" stroke-width="7"/>
-    <rect x="760" y="140" width="240" height="20" rx="10" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
+    <rect x="760" y="140" width="240" height="20" rx="10" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
     ${T(670,140,'line hose',{s:12,c:P.amberD})}
     <line x1="660" y1="360" x2="1100" y2="360" stroke="${P.green}" stroke-width="7"/>
     <rect x="800" y="350" width="160" height="20" rx="6" fill="${P.navy2}" opacity="0.85"/>
@@ -382,12 +382,12 @@ D.epz=()=>svg('640 470',`
 D.coverup=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,40,'Insulate every energized AND grounded part within reach',{s:14,c:P.gray,a:'middle'})}
-  <rect x="300" y="90" width="40" height="350" rx="4" fill="${P.copper}"/>
+  <rect x="300" y="90" width="40" height="350" rx="4" fill="url(#qcopper)"/>
   <rect x="120" y="170" width="400" height="26" rx="4" fill="#8a5a2b"/>
-  ${[180,460].map(x=>`<rect x="${x-12}" y="140" width="24" height="34" rx="4" fill="${P.steel}"/>
-     <path d="M ${x-20} 140 q ${20} -24 ${40} 0 Z" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
+  ${[180,460].map(x=>`<rect x="${x-12}" y="140" width="24" height="34" rx="4" fill="url(#qsteel)"/>
+     <path d="M ${x-20} 140 q ${20} -24 ${40} 0 Z" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
   <line x1="40" y1="150" x2="600" y2="150" stroke="${P.danger}" stroke-width="7"/>
-  <rect x="220" y="140" width="200" height="20" rx="10" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
+  <rect x="220" y="140" width="200" height="20" rx="10" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
   <line x1="40" y1="300" x2="600" y2="300" stroke="${P.green}" stroke-width="6"/>
   <rect x="250" y="290" width="140" height="22" rx="6" fill="${P.navy2}" opacity="0.85"/>
   ${T(70,135,'line hose',{s:12,c:P.amberD})}
@@ -417,7 +417,7 @@ D.gloves=()=>svg('1180 430',`
 D.hotstick=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,40,'Reach beyond the minimum approach distance — work through the tool',{s:14,c:P.gray,a:'middle'})}
-  <circle cx="120" cy="190" r="22" fill="${P.danger}"/>${T(120,240,'energized',{s:12,c:P.danger,a:'middle'})}
+  <circle cx="120" cy="190" r="22" fill="url(#qred)"/>${T(120,240,'energized',{s:12,c:P.danger,a:'middle'})}
   <circle cx="120" cy="190" r="150" fill="none" stroke="${P.navy2}" stroke-width="2" stroke-dasharray="8 6"/>
   ${worker(470,300,1.1,P.navy,true)}
   <line x1="455" y1="270" x2="142" y2="195" stroke="${P.amber}" stroke-width="9" stroke-linecap="round"/>
@@ -448,13 +448,13 @@ D.ppe=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,38,'Head-to-toe protection — the LAST layer of defense',{s:14,c:P.gray,a:'middle'})}
   <g transform="translate(300,250)">
-    <path d="M -30 -110 A 30 30 0 0 1 30 -110 Z" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
-    <rect x="-34" y="-112" width="68" height="8" rx="3" fill="${P.amber}" stroke="${P.amberD}"/>
+    <path d="M -30 -110 A 30 30 0 0 1 30 -110 Z" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
+    <rect x="-34" y="-112" width="68" height="8" rx="3" fill="url(#qamber)" stroke="${P.amberD}"/>
     <circle cx="0" cy="-92" r="20" fill="${P.light}" stroke="${P.steel}" stroke-width="2"/>
     <path d="M -22 -100 q 22 18 44 0 l 0 16 q -22 14 -44 0 Z" fill="${P.sky}" opacity="0.45"/>
     <path d="M -42 -70 Q 0 -84 42 -70 L 56 60 L 30 64 L 24 -30 L 20 110 L -20 110 L -24 -30 L -30 64 L -56 60 Z" fill="${P.navy2}"/>
-    <rect x="44" y="56" width="22" height="34" rx="6" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
-    <rect x="-66" y="56" width="22" height="34" rx="6" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
+    <rect x="44" y="56" width="22" height="34" rx="6" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
+    <rect x="-66" y="56" width="22" height="34" rx="6" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
   </g>
   ${[['Class E hard hat',150],['Arc-rated face shield',210],['FR / arc-rated shirt (cal/cm²)',280],['Rubber gloves + leather protectors',330],['EH-rated boots',400]]
     .map(([t,y])=>T(465,y,t,{s:13,c:P.ink})).join('')}
@@ -485,7 +485,7 @@ D.tailboard=()=>svg('640 470',`
   ${[[140,140],[500,140],[120,330],[520,330],[320,400]].map(([x,y])=>`<line x1="${x}" y1="${y-30}" x2="320" y2="235" stroke="${P.amber}" stroke-width="2" stroke-dasharray="3 4"/>`).join('')}
   <g transform="translate(320,235)">
     <rect x="-55" y="-70" width="110" height="140" rx="8" fill="#ffffff" stroke="${P.navy}" stroke-width="3"/>
-    <rect x="-20" y="-82" width="40" height="20" rx="5" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>
+    <rect x="-20" y="-82" width="40" height="20" rx="5" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
     ${[-44,-28,-12,4,20,36,52].map((y,i)=>`<line x1="-40" y1="${y}" x2="${i%2?30:40}" y2="${y}" stroke="${P.steel}" stroke-width="3"/>`).join('')}
   </g>
   ${[[140,140],[500,140],[120,330],[520,330],[320,400]].map(([x,y])=>worker(x,y,0.62,P.navy,true)).join('')}
@@ -515,7 +515,7 @@ D.recloser=()=>svg('1180 430',`
   ${T(300,138,'RECLOSER',{s:12,w:800,c:P.danger,a:'middle'})}
   <line x1="640" y1="187" x2="640" y2="300" stroke="${P.steel}" stroke-width="3"/>
   <rect x="631" y="222" width="18" height="34" rx="3" fill="#fff" stroke="${P.amberD}" stroke-width="3"/>${T(666,246,'fuse',{s:12,c:P.amberD})}
-  <polygon points="640,300 631,322 643,322 632,346" fill="${P.amber}" stroke="${P.amberD}" stroke-width="1"/>
+  <polygon points="640,300 631,322 643,322 632,346" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="1"/>
   ${T(640,362,'fault / downed line',{s:12,c:P.danger,a:'middle'})}
   ${arr(1080,187,1108,187,P.steel,3)}
   ${[['TRIP',P.danger],['reclose',P.green],['TRIP',P.danger],['reclose',P.green],['LOCKOUT',P.navy]]
@@ -546,7 +546,7 @@ D.switching=()=>svg('1180 430',`
   <line x1="140" y1="200" x2="360" y2="200" stroke="${P.steel}" stroke-width="4"/>
   <line x1="820" y1="200" x2="1040" y2="200" stroke="${P.steel}" stroke-width="4"/>
   ${[360,820].map(x=>`<circle cx="${x}" cy="200" r="5" fill="${P.navy}"/><circle cx="${x+90}" cy="200" r="5" fill="${P.navy}"/><line x1="${x}" y1="200" x2="${x+68}" y2="158" stroke="${P.danger}" stroke-width="4"/>
-    <rect x="${x+32}" y="118" width="26" height="20" rx="3" fill="${P.amber}" stroke="${P.amberD}" stroke-width="2"/>${T(x+45,133,'L',{s:12,w:800,c:P.navy,a:'middle'})}
+    <rect x="${x+32}" y="118" width="26" height="20" rx="3" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>${T(x+45,133,'L',{s:12,w:800,c:P.navy,a:'middle'})}
     ${T(x+45,108,'OPEN',{s:11,w:800,c:P.danger,a:'middle'})}`).join('')}
   <rect x="450" y="150" width="280" height="150" rx="10" fill="#fff" stroke="${P.green}" stroke-width="3" stroke-dasharray="7 5"/>
   <line x1="450" y1="200" x2="730" y2="200" stroke="${P.steel}" stroke-width="4"/>
@@ -591,7 +591,7 @@ D.phasing=()=>svg('640 470',`
 D.rescue=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,38,'Pole-top rescue — fast, but never at the cost of a second victim',{s:14,c:P.gray,a:'middle'})}
-  <rect x="300" y="70" width="34" height="380" rx="4" fill="${P.copper}"/>
+  <rect x="300" y="70" width="34" height="380" rx="4" fill="url(#qcopper)"/>
   <rect x="200" y="120" width="240" height="20" rx="4" fill="#8a5a2b"/>
   <line x1="60" y1="110" x2="580" y2="110" stroke="${P.green}" stroke-width="6"/>${T(70,100,'de-energized / covered',{s:11,c:P.green})}
   <g transform="translate(282,200)"><circle cx="0" cy="0" r="11" fill="${P.light}" stroke="${P.danger}" stroke-width="3"/><line x1="0" y1="11" x2="-15" y2="44" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/><line x1="-15" y1="44" x2="3" y2="60" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/></g>
@@ -599,7 +599,7 @@ D.rescue=()=>svg('640 470',`
   <path d="M 320 130 L 362 130 L 362 300" stroke="${P.amber}" stroke-width="3" fill="none"/>
   ${T(400,212,'handline',{s:12,c:P.amberD})}
   ${worker(470,382,0.9,P.navy,true)}
-  <rect x="502" y="346" width="42" height="30" rx="4" fill="${P.danger}"/>${T(523,366,'AED',{s:11,w:800,c:P.white,a:'middle'})}
+  <rect x="502" y="346" width="42" height="30" rx="4" fill="url(#qred)"/>${T(523,366,'AED',{s:11,w:800,c:P.white,a:'middle'})}
   ${T(320,434,'Remove the source FIRST · lower the patient · CPR + AED — minutes matter',{s:13,w:700,c:P.navy,a:'middle'})}`);
 
 /* ============ 31. INCIDENT ENERGY vs DISTANCE ============ */
@@ -615,7 +615,7 @@ D.arcenergy=()=>svg('1180 430',`
   ${T(1072,288,'arc-flash boundary — 1.2 cal/cm² (onset of a 2nd-degree burn)',{s:12.5,w:700,c:P.amberD,a:'end'})}
   <line x1="430" y1="360" x2="430" y2="248" stroke="${P.navy2}" stroke-width="1.5" stroke-dasharray="4 4"/>
   ${worker(430,360,0.74,P.navy,true)}
-  <circle cx="430" cy="248" r="6" fill="${P.danger}"/>
+  <circle cx="430" cy="248" r="6" fill="url(#qred)"/>
   ${T(452,244,'energy at the working distance sets the required PPE arc rating',{s:12.5,c:P.ink})}
   ${T(840,150,'Farther back = exponentially safer',{s:13,w:700,c:P.green,a:'middle'})}
   ${T(300,340,'closer in = far worse',{s:12,c:P.danger,a:'middle'})}`);
@@ -656,7 +656,7 @@ D.scenecontrol=()=>svg('1180 430',`
   <rect x="180" y="80" width="22" height="222" rx="3" fill="url(#qcopper)"/>
   <path d="M 191 108 C 300 128, 362 282, 430 300" stroke="${P.danger}" stroke-width="6" fill="none"/>
   ${[28,74,124].map((r,i)=>`<ellipse cx="430" cy="300" rx="${r}" ry="${(r*0.3).toFixed(0)}" fill="none" stroke="${P.danger}" stroke-width="2" opacity="${(0.8-i*0.22).toFixed(2)}"/>`).join('')}
-  <circle cx="430" cy="300" r="10" fill="${P.danger}"/>
+  <circle cx="430" cy="300" r="10" fill="url(#qred)"/>
   <g transform="translate(470,290)"><circle cx="0" cy="0" r="11" fill="${P.light}" stroke="${P.danger}" stroke-width="3"/><line x1="11" y1="0" x2="78" y2="0" stroke="${P.danger}" stroke-width="5" stroke-linecap="round"/><line x1="44" y1="0" x2="52" y2="-15" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/></g>
   ${T(520,248,'patient — do NOT touch until the source is removed',{s:12.5,w:700,c:P.danger})}
   <line x1="790" y1="300" x2="790" y2="172" stroke="${P.amberD}" stroke-width="3" stroke-dasharray="6 5"/>
