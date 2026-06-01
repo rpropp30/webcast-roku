@@ -150,6 +150,23 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
 .dgm-notes li b{color:var(--navy);font-weight:800}
 .dgm-notes .tip{margin-top:18px;padding:11px 14px;background:var(--light);border-left:4px solid var(--navy2);border-radius:6px;font-size:13.5px;color:var(--ink);line-height:1.32}
 
+/* ---------- diagram animations (ignored by static PNG/pptx render) ---------- */
+@media (prefers-reduced-motion: no-preference){
+  .dgm-flow{stroke-dasharray:7 11;animation:dgmflow .9s linear infinite}
+  .dgm-current{animation:dgmflow .8s linear infinite}
+  @keyframes dgmflow{to{stroke-dashoffset:-36}}
+  .dgm-spin{transform-box:fill-box;transform-origin:center;animation:dgmspin 18s linear infinite}
+  @keyframes dgmspin{to{transform:rotate(360deg)}}
+  .dgm-drift{animation:dgmdrift 1.6s linear infinite}
+  @keyframes dgmdrift{from{transform:translateX(0)}to{transform:translateX(46px)}}
+  .dgm-spark{animation:dgmspark .5s ease-in-out infinite}
+  @keyframes dgmspark{0%,100%{opacity:.5}50%{opacity:1}}
+  .dgm-seq{animation:dgmseq 2.6s ease-in-out infinite}
+  @keyframes dgmseq{0%,72%,100%{opacity:.82}12%,30%{opacity:1;filter:drop-shadow(0 0 5px rgba(245,177,0,.9))}}
+  .dgm-travel{animation:dgmtravel 2.8s linear infinite}
+  @keyframes dgmtravel{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(920px);opacity:0}}
+}
+
 /* ---------- art slot (for illustrations added later) ---------- */
 .art{position:absolute}
 
@@ -169,6 +186,13 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
 #hud button:hover{color:var(--amber)}
 #counter{font-variant-numeric:tabular-nums;min-width:56px;text-align:center}
 #title-tag{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#8fa3ba}
+/* speaker notes drawer */
+#notes-panel{position:fixed;left:0;right:0;bottom:0;z-index:45;background:rgba(8,22,43,.97);backdrop-filter:blur(8px);
+  color:#e7eef6;border-top:3px solid var(--amber);padding:14px 26px 18px;transform:translateY(112%);transition:transform .3s ease;max-height:36vh;overflow:auto}
+#notes-panel.show{transform:none}
+#notes-panel .nh{font-size:11px;font-weight:800;letter-spacing:1.8px;color:var(--amber);text-transform:uppercase;margin-bottom:6px}
+#notes-panel .nb{font-size:15.5px;line-height:1.5;color:#dfe8f2;max-width:1040px}
+#notes-panel .nt{position:absolute;top:12px;right:20px;color:#8fa3ba;font-size:12px}
 /* overview grid */
 #overview{position:fixed;inset:0;z-index:60;background:rgba(5,8,14,.97);display:none;overflow:auto;padding:30px}
 #overview.show{display:block}
@@ -191,11 +215,15 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
   <button id="ovbtn" title="Overview (O)">▦ Overview</button>
   <span id="title-tag"></span>
   <span id="counter">1 / 1</span>
+  <button id="notesbtn" title="Speaker notes (N)">🗒 Notes</button>
   <button id="fsbtn" title="Fullscreen (F)">⛶ Fullscreen</button>
 </div>
 
+<div id="notes-panel"><div class="nh">Speaker Notes</div><div class="nb" id="notes-body"></div><span class="nt">press N to hide</span></div>
+
 <div id="overview"><div class="ov-grid" id="ovgrid"></div></div>
 
+<script src="notes.js"></script>
 <script src="diagrams.js"></script>
 <script>
 /* ============================================================
@@ -1302,9 +1330,28 @@ function show(n){
   document.getElementById('progress').style.width=((cur)/(SLIDES.length-1)*100)+'%';
   const s=SLIDES[cur];
   document.getElementById('title-tag').textContent=(s.title||s.kicker||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&');
+  updateNotes(s);
   try{ if(history.replaceState) history.replaceState(null,'','#'+(cur+1)); }catch(e){ try{ location.hash=cur+1; }catch(_){} }
 }
 function next(){show(cur+1);} function prev(){show(cur-1);}
+
+/* ---------- speaker notes ---------- */
+function normT(s){return (s||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&rsquo;/g,String.fromCharCode(39))
+  .replace(/&ldquo;|&rdquo;/g,'').replace(/[“”]/g,'').replace(/[‘’]/g,String.fromCharCode(39))
+  .replace(/\s+/g,' ').trim();}
+function noteFor(s){
+  if(!s) return '';
+  let n='';
+  if(s.type==='diagram'){
+    if(s.caption) n=s.caption;
+    else n=((s.notes||[]).join('  ')+(s.tip?('  '+s.tip):''));
+  } else {
+    n=(window.SPEAKER_NOTES&&window.SPEAKER_NOTES[normT(s.title)])||'';
+  }
+  return n.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/&rsquo;/g,String.fromCharCode(39));
+}
+function updateNotes(s){document.getElementById('notes-body').textContent=noteFor(s)||'— (no notes for this slide) —';}
+function toggleNotes(){document.getElementById('notes-panel').classList.toggle('show');}
 
 document.getElementById('next').onclick=next;
 document.getElementById('prev').onclick=prev;
@@ -1316,8 +1363,10 @@ document.addEventListener('keydown',e=>{
     case 'Home':show(0);break; case 'End':show(SLIDES.length-1);break;
     case 'f':case 'F':toggleFs();break;
     case 'o':case 'O':toggleOv();break;
+    case 'n':case 'N':toggleNotes();break;
   }
 });
+document.getElementById('notesbtn').onclick=toggleNotes;
 // click navigation on stage (left third = prev, else next)
 stage.addEventListener('click',e=>{
   const r=stage.getBoundingClientRect();

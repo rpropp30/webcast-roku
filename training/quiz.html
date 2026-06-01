@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knowledge Check — Powerline Electrical Theory &amp; Safety</title>
+<style>
+:root{
+  --navy:#0B2545;--navyD:#06162B;--navy2:#134074;--steel:#3A5A80;--amber:#F5B100;--amberD:#C88A00;
+  --danger:#D4351A;--green:#2E8B57;--ink:#1A2B3C;--gray:#5B6B7B;--light:#EEF2F7;--line:#D8E0EA;--white:#fff;
+  --font:"Segoe UI",Roboto,Arial,system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font);color:var(--ink);background:var(--light);line-height:1.5}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+
+header{background:radial-gradient(120% 130% at 80% 0%,#15376a,var(--navy) 55%,var(--navyD));color:#fff;padding:40px 0 30px}
+header .kick{font-size:12px;font-weight:800;letter-spacing:2.4px;color:var(--amber);text-transform:uppercase}
+header h1{font-size:34px;font-weight:800;margin:8px 0 6px}
+header p{color:#C8D6E6;font-size:15.5px;max-width:620px}
+header .links{margin-top:14px;display:flex;gap:14px;font-size:13.5px}
+header .links a{color:#cdd9e6;font-weight:600}header .links a:hover{color:var(--amber)}
+
+#scorebar{position:sticky;top:0;z-index:20;background:rgba(8,22,43,.96);backdrop-filter:blur(8px);color:#fff;
+  border-bottom:2px solid var(--amber)}
+#scorebar .wrap{display:flex;align-items:center;justify-content:space-between;height:54px}
+#scorebar .lbl{font-size:13px;color:#9fb4cc;font-weight:600}
+#scorebar .val{font-size:20px;font-weight:800;color:var(--amber)}
+.bar{flex:1;height:8px;background:rgba(255,255,255,.15);border-radius:5px;margin:0 18px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--amber);transition:width .4s}
+#resetBtn{background:none;border:1px solid rgba(255,255,255,.3);color:#cdd9e6;font-size:12.5px;font-weight:700;
+  padding:7px 13px;border-radius:7px;cursor:pointer}#resetBtn:hover{border-color:var(--amber);color:var(--amber)}
+
+.modhead{margin:34px 0 4px;display:flex;align-items:center;gap:12px}
+.modhead .n{width:40px;height:40px;border-radius:9px;background:var(--navy);color:var(--amber);font-weight:800;
+  display:flex;align-items:center;justify-content:center;font-size:17px}
+.modhead h2{font-size:21px;color:var(--navy);font-weight:800}
+
+.q{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px 20px;margin-top:16px;
+  box-shadow:0 4px 14px rgba(11,37,69,.05)}
+.q .qt{font-size:16px;font-weight:700;color:var(--navy);margin-bottom:12px}
+.q .qt .qn{color:var(--amberD);margin-right:7px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;
+  margin-top:9px;cursor:pointer;font-size:14.5px;transition:background .15s,border-color .15s}
+.opt:hover{border-color:var(--steel);background:#f7fafd}
+.opt .mk{flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--steel);color:var(--steel);
+  font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center}
+.q.locked .opt{cursor:default}
+.opt.correct{border-color:var(--green);background:#E9F5EE}
+.opt.correct .mk{background:var(--green);border-color:var(--green);color:#fff}
+.opt.wrong{border-color:var(--danger);background:#FBEAE7}
+.opt.wrong .mk{background:var(--danger);border-color:var(--danger);color:#fff}
+.q.locked .opt:hover{background:none}
+.q.locked .opt.correct:hover{background:#E9F5EE}.q.locked .opt.wrong:hover{background:#FBEAE7}
+.explain{margin-top:12px;padding:11px 14px;background:var(--light);border-left:4px solid var(--navy2);border-radius:0 8px 8px 0;
+  font-size:13.5px;color:var(--ink);line-height:1.45;display:none}
+.explain.show{display:block}
+.explain b{color:var(--navy)}
+
+#result{display:none;background:#fff;border:2px solid var(--amber);border-radius:16px;padding:26px;margin:30px 0 10px;text-align:center}
+#result.show{display:block}
+#result h3{font-size:24px;color:var(--navy);font-weight:800}
+#result .big{font-size:46px;font-weight:800;color:var(--amber);margin:6px 0}
+#result p{color:var(--gray);font-size:15px}
+footer{padding:26px 0 50px;text-align:center;color:var(--gray);font-size:12.5px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kick">Knowledge Check</div>
+    <h1>Test Yourself</h1>
+    <p>Thirty questions across the six modules. Tap an answer for instant feedback and the reasoning. Aim for 100% — in this trade, the passing grade is everyone going home.</p>
+    <div class="links"><a href="landing.html">‹ Home</a><a href="index.html">Open the deck</a><a href="field-card.html">Field card</a></div>
+  </div>
+</header>
+
+<div id="scorebar"><div class="wrap">
+  <span class="lbl">Score</span>
+  <div class="bar"><i id="barFill"></i></div>
+  <span class="val"><span id="scoreNow">0</span> / <span id="scoreTot">0</span></span>
+  <button id="resetBtn">Reset</button>
+</div></div>
+
+<main class="wrap" id="quiz"></main>
+
+<div class="wrap"><div id="result">
+  <h3 id="rTitle">Nice work</h3>
+  <div class="big"><span id="rScore">0</span>%</div>
+  <p id="rMsg"></p>
+</div></div>
+
+<footer class="wrap">Training reference only — answers reflect standard practice; always follow your employer's approved procedures, MAD tables, and the governing OSHA / NESC editions.</footer>
+
+<script>
+const MOD=[
+ 'Electrical Theory','Electricity & the Body','Working Energized','Tools of the Trade','In the Field','Regulations & Standards'];
+const QUIZ=[
+ // Module 1
+ {m:0,q:'What actually injures and kills in an electrical contact?',o:['Current through the body','Voltage alone','Resistance','Wattage rating'],a:0,e:'Voltage drives it, but it is the <b>current</b> through the body — even milliamps across the heart — that causes injury and death.'},
+ {m:0,q:'Ohm’s law solved for current is:',o:['I = V × R','I = V ÷ R','I = R ÷ V','I = V + R'],a:1,e:'I = V ÷ R. Lower body resistance (wet skin) means more current for the same voltage.'},
+ {m:0,q:'Why does the grid transmit power at high voltage?',o:['It is safer to touch','Higher voltage = lower current = less I²R line loss','Transformers only work at high voltage','To increase resistance'],a:1,e:'Raising voltage lowers current for the same power, and losses fall with the square of current (P = I²R).'},
+ {m:0,q:'The AC line frequency in North America is:',o:['50 Hz','120 Hz','60 Hz','25 Hz'],a:2,e:'60 Hz — the current reverses direction 60 times per second.'},
+ {m:0,q:'In a three-phase system the waveforms are spaced:',o:['90° apart','120° apart','180° apart','60° apart'],a:1,e:'Three phases 120° apart deliver smooth, continuous power.'},
+ // Module 2
+ {m:1,q:'The "let-go" threshold — where you can no longer release the conductor — is around:',o:['1 mA','10–16 mA','100 mA','2 A'],a:1,e:'Above roughly 10–16 mA the flexor muscles clamp and you cannot let go. We never rely on letting go.'},
+ {m:1,q:'The most dangerous current path through the body is:',o:['Foot to foot','Hand to hand / hand to foot (across the chest)','Finger to finger on one hand','There is no difference'],a:1,e:'Paths that cross the chest run current through the heart, where fibrillation occurs.'},
+ {m:1,q:'An arc flash can reach temperatures of about:',o:['1,000°F','5,000°F','35,000°F','500°F'],a:2,e:'~35,000°F — hotter than the surface of the sun — plus an explosive pressure wave (arc blast).'},
+ {m:1,q:'Leaving the area around a downed, energized line, you should:',o:['Run as fast as possible','Take long strides','Shuffle with your feet together','Crawl'],a:2,e:'Shuffle or bunny-hop with feet together to avoid step potential — a stride bridges two different ground potentials.'},
+ {m:1,q:'Step potential is the voltage difference between:',o:['Your two feet','Your hand and a tool','Two phases','The line and the neutral'],a:0,e:'Step potential is the difference across your two feet in the ground’s voltage gradient.'},
+ // Module 3
+ {m:2,q:'The "second point of contact" is:',o:['A backup glove','Whatever completes the circuit through you','A second worker','The neutral only'],a:1,e:'It is any second contact at a different potential — ground, neutral, another phase, a tool — that completes the circuit through your body.'},
+ {m:2,q:'The first choice in the hierarchy of controls is to:',o:['Wear PPE','Use a job briefing','Eliminate the hazard (de-energize)','Use a hot stick'],a:2,e:'Eliminate first — de-energize, isolate, test dead, and ground. PPE is the last line.'},
+ {m:2,q:'Cover-up should be installed:',o:['Farthest hazard first','Nearest hazard first, removed in reverse','All at once','Only on the neutral'],a:1,e:'Cover the nearest/most-accessible hazard first and work outward; remove in reverse (last on, first off).'},
+ {m:2,q:'The correct de-energize/LOTO order is:',o:['Ground, test, lock, open, identify','Identify, open, lock & tag, test, ground','Test, ground, open, lock, identify','Open, ground, test, lock, identify'],a:1,e:'Identify → open → lock & tag → test (test-before-touch) → ground.'},
+ {m:2,q:'An equipotential zone protects the worker by:',o:['Draining all voltage to zero','Bonding everything to the same potential so no current flows through the body','Adding resistance','Increasing the approach distance'],a:1,e:'Bonded to one potential, the worker rides voltage up and down with no difference across the body — like a bird on a wire.'},
+ {m:2,q:'A de-energized line running parallel to an energized one may have:',o:['No voltage ever','Induced voltage','Only DC','Higher frequency'],a:1,e:'Induction can couple dangerous voltage onto a "dead" line — ground at the work site, not just the ends.'},
+ // Module 4
+ {m:3,q:'Rubber insulating gloves are worn:',o:['Alone','With leather protector gloves over them','Under cotton liners only','Inside out'],a:1,e:'Leather protectors shield the rubber from cuts and UV; the rubber does the insulating.'},
+ {m:3,q:'You select a rubber glove class that is rated:',o:['Below the system voltage','Exactly at half the voltage','At or above the system voltage','Any class will do'],a:2,e:'Always choose a class rated at or above the maximum voltage you may contact.'},
+ {m:3,q:'Before relying on a voltage detector you must:',o:['Charge it overnight','Prove it works on a known live source — before and after','Calibrate it yearly only','Paint it'],a:1,e:'"Test the tester." A no-voltage reading from an unproven tester proves nothing.'},
+ {m:3,q:'When applying protective grounds you connect:',o:['The line end first','The ground/structure end first, then the line end','Either end, order does not matter','Only the line end'],a:1,e:'Ground end first, line end last; remove in reverse. Size cables for the available fault current.'},
+ {m:3,q:'In the hierarchy of controls, PPE is:',o:['The first defense','The only defense needed','The last line of defense','Optional'],a:2,e:'PPE limits injury when other controls fail — it never replaces them.'},
+ // Module 5
+ {m:4,q:'A job briefing (OSHA 1910.269(c)) must cover at minimum:',o:['Only the weather','Hazards, procedures, special precautions, energy-source controls, and PPE','Just who is in charge','Only the lunch plan'],a:1,e:'Those five items are the required minimum content of the tailboard.'},
+ {m:4,q:'Stop-work authority belongs to:',o:['Only the foreman','Only the safety officer','Everyone on the crew','No one once work starts'],a:2,e:'Everyone has — and should use — stop-work authority. A question now beats an incident later.'},
+ {m:4,q:'The rescue plan should be established:',o:['After an incident','Before the work begins','Only on transmission jobs','By the hospital'],a:1,e:'Plan the rescue before the work — pole-top/bucket rescue briefed in the tailboard.'},
+ {m:4,q:'Three-way communication for critical commands means:',o:['Three radios','State → repeat back → confirm','Telling three people','Texting'],a:1,e:'The command is stated, repeated back, and confirmed — removing ambiguity.'},
+ {m:4,q:'The first rule of rescue is:',o:['Speed above all','Protect yourself — remove/de-energize the source first','Move the patient immediately','Wait for the utility'],a:1,e:'A rescuer who becomes the second victim helps no one. Remove the source, then reach the patient.'},
+ // Module 6
+ {m:5,q:'The primary OSHA standard for operating &amp; maintaining power systems is:',o:['1910.147','1910.269','1926.501','1910.95'],a:1,e:'29 CFR 1910.269 (general industry); 1926 Subpart V is the construction companion.'},
+ {m:5,q:'The NESC (IEEE C2) governs:',o:['Building/premises wiring','Utility system construction, clearances &amp; work rules','Only substations','Consumer appliances'],a:1,e:'The NESC covers the utility system; the NEC (NFPA 70) covers premises wiring.'},
+ {m:5,q:'Only ___ employees may work on or near energized parts:',o:['Senior','Qualified','Union','Volunteer'],a:1,e:'OSHA requires qualified employees — trained and able to demonstrate the required skills/knowledge.'},
+ {m:5,q:'ASTM D120 is the standard for:',o:['Hot sticks','Rubber insulating gloves','Protective grounds','Hard hats'],a:1,e:'ASTM D120 covers rubber insulating gloves (F855 = grounds, F711 = live-line tools, Z89.1 = hard hats).'},
+ {m:5,q:'Regulations set the ___; your employer’s program may be stricter.',o:['maximum','minimum','average','suggestion'],a:1,e:'Compliance is the floor — always follow the stricter rule when your program exceeds the regulation.'},
+];
+
+const quizEl=document.getElementById('quiz');
+let answered={}, total=QUIZ.length;
+document.getElementById('scoreTot').textContent=total;
+
+function render(){
+  quizEl.innerHTML='';
+  let curMod=-1, qno=0;
+  QUIZ.forEach((item,idx)=>{
+    if(item.m!==curMod){
+      curMod=item.m;
+      const mh=document.createElement('div');mh.className='modhead';
+      mh.innerHTML=`<div class="n">${curMod+1}</div><h2>${MOD[curMod]}</h2>`;
+      quizEl.appendChild(mh);
+    }
+    qno++;
+    const q=document.createElement('div');q.className='q';q.id='q'+idx;
+    q.innerHTML=`<div class="qt"><span class="qn">Q${qno}.</span>${item.q}</div>`;
+    item.o.forEach((opt,oi)=>{
+      const el=document.createElement('div');el.className='opt';
+      el.innerHTML=`<span class="mk">${String.fromCharCode(65+oi)}</span><span>${opt}</span>`;
+      el.onclick=()=>choose(idx,oi);
+      q.appendChild(el);
+    });
+    const ex=document.createElement('div');ex.className='explain';ex.innerHTML=`<b>Why:</b> ${item.e}`;
+    q.appendChild(ex);
+    quizEl.appendChild(q);
+  });
+  updateScore();
+}
+function choose(idx,oi){
+  if(answered[idx]!==undefined) return;
+  answered[idx]=oi;
+  const item=QUIZ[idx], q=document.getElementById('q'+idx);
+  q.classList.add('locked');
+  const opts=q.querySelectorAll('.opt');
+  opts[item.a].classList.add('correct');
+  if(oi!==item.a) opts[oi].classList.add('wrong');
+  q.querySelector('.explain').classList.add('show');
+  updateScore();
+}
+function updateScore(){
+  let correct=0, done=0;
+  QUIZ.forEach((it,i)=>{ if(answered[i]!==undefined){done++; if(answered[i]===it.a)correct++;} });
+  document.getElementById('scoreNow').textContent=correct;
+  document.getElementById('barFill').style.width=(done/total*100)+'%';
+  const res=document.getElementById('result');
+  if(done===total){
+    const pct=Math.round(correct/total*100);
+    document.getElementById('rScore').textContent=pct;
+    document.getElementById('rTitle').textContent= pct===100?'Perfect — everyone goes home.': pct>=80?'Strong work.': pct>=60?'Getting there.':'Review and retry.';
+    document.getElementById('rMsg').textContent=`You answered ${correct} of ${total} correctly. ${pct<100?'Scroll up to review the explanations on any you missed.':'Re-take it any time to stay sharp.'}`;
+    res.classList.add('show');
+    res.scrollIntoView({behavior:'smooth'});
+  }
+}
+document.getElementById('resetBtn').onclick=()=>{answered={};document.getElementById('result').classList.remove('show');render();window.scrollTo({top:0,behavior:'smooth'});};
+render();
+</script>
+</body>
+</html>

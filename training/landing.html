@@ -137,6 +137,23 @@ footer b{color:#cdd9e6}
 /* reveal on scroll */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
 .reveal.in{opacity:1;transform:none}
+
+/* diagram animations */
+@media (prefers-reduced-motion: no-preference){
+  .dgm-flow{stroke-dasharray:7 11;animation:dgmflow .9s linear infinite}
+  .dgm-current{animation:dgmflow .8s linear infinite}
+  @keyframes dgmflow{to{stroke-dashoffset:-36}}
+  .dgm-spin{transform-box:fill-box;transform-origin:center;animation:dgmspin 18s linear infinite}
+  @keyframes dgmspin{to{transform:rotate(360deg)}}
+  .dgm-drift{animation:dgmdrift 1.6s linear infinite}
+  @keyframes dgmdrift{from{transform:translateX(0)}to{transform:translateX(46px)}}
+  .dgm-spark{animation:dgmspark .5s ease-in-out infinite}
+  @keyframes dgmspark{0%,100%{opacity:.5}50%{opacity:1}}
+  .dgm-seq{animation:dgmseq 2.6s ease-in-out infinite}
+  @keyframes dgmseq{0%,72%,100%{opacity:.82}12%,30%{opacity:1;filter:drop-shadow(0 0 5px rgba(245,177,0,.9))}}
+  .dgm-travel{animation:dgmtravel 2.8s linear infinite}
+  @keyframes dgmtravel{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(920px);opacity:0}}
+}
 </style>
 </head>
 <body>
@@ -148,7 +165,8 @@ footer b{color:#cdd9e6}
       <a href="#modules">Modules</a>
       <a href="#concept">Core Concept</a>
       <a href="#gallery">Illustrations</a>
-      <a href="#curriculum">Curriculum</a>
+      <a href="quiz.html">Quiz</a>
+      <a href="field-card.html">Field Card</a>
       <a class="nav-cta" href="index.html">Launch Deck ▸</a>
     </div>
   </div>
@@ -289,7 +307,9 @@ footer b{color:#cdd9e6}
   <p>100 slides, 24 technical illustrations, full-screen and no scrolling. Press <b style="color:#fff">F</b> for fullscreen, arrow keys to navigate, <b style="color:#fff">O</b> for the overview grid.</p>
   <div class="row">
     <a class="btn btn-amber" href="index.html">▶ Open the Deck</a>
-    <a class="btn btn-ghost" href="Powerline_Electrical_Theory_and_Safety_Training.pptx" download>⬇ Download PowerPoint</a>
+    <a class="btn btn-ghost" href="quiz.html">📝 Knowledge Check</a>
+    <a class="btn btn-ghost" href="field-card.html">🗂 Field Card</a>
+    <a class="btn btn-ghost" href="Powerline_Electrical_Theory_and_Safety_Training.pptx" download>⬇ PowerPoint</a>
   </div>
 </section>
 

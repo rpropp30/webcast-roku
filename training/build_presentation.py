@@ -14,9 +14,21 @@ from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml.ns import qn
 import os
+import re
+import json
 from PIL import Image
 
 ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "notes.json"), encoding="utf-8") as _nf:
+    NOTES = json.load(_nf)
+
+
+def _norm(s):
+    s = re.sub(r"<[^>]+>", "", s)
+    s = s.replace("&amp;", "&").replace("&rsquo;", "'").replace("&ldquo;", "").replace("&rdquo;", "")
+    s = s.replace("“", "").replace("”", "").replace("‘", "'").replace("’", "'")
+    s = re.sub(r"\s+", " ", s).strip()
+    return s
 
 # ----------------------------------------------------------------------------
 # Palette
@@ -773,6 +785,7 @@ def image_slide(title, fig_key, caption):
     tb, tf = textbox(s, 0.9, 6.18, 11.5, 0.7, anchor=MSO_ANCHOR.TOP)
     para(tf, caption, size=13, color=GRAY, italic=True, first=True, align=PP_ALIGN.CENTER, line=1.18)
     footer(s)
+    s.notes_slide.notes_text_frame.text = re.sub(r"<[^>]+>", "", caption)
     return s
 
 
@@ -1777,6 +1790,27 @@ rect(s, 0.0, 7.2, 13.333, 0.06, fill=AMBER)
 _state["n"] += 1
 
 # ----------------------------------------------------------------------------
+# Attach speaker notes (match each slide's title text to notes.json)
+notes_applied = 0
+for _sld in prs.slides:
+    if _sld.has_notes_slide and _sld.notes_slide.notes_text_frame.text.strip():
+        continue  # image slides already carry their caption as notes
+    _done = False
+    for _shp in _sld.shapes:
+        if _done or not _shp.has_text_frame:
+            continue
+        _cands = [_shp.text_frame.text]
+        if _shp.text_frame.paragraphs:
+            _cands.append(_shp.text_frame.paragraphs[0].text)
+        for _c in _cands:
+            _key = _norm(_c)
+            if _key in NOTES:
+                _sld.notes_slide.notes_text_frame.text = NOTES[_key]
+                notes_applied += 1
+                _done = True
+                break
+
 out = "Powerline_Electrical_Theory_and_Safety_Training.pptx"
 prs.save(out)
-print("Saved", out, "with", len(prs.slides._sldIdLst), "slides")
+print("Saved", out, "with", len(prs.slides._sldIdLst), "slides;",
+      notes_applied, "title-matched notes +", sum(len(v) for v in MODULE_FIGS.values()), "diagram-caption notes")
