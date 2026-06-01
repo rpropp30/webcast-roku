@@ -135,6 +135,21 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
 .cl-sub{position:absolute;left:128px;top:340px;right:240px;color:#C8D6E6;font-size:18px;line-height:1.35}
 .cl-tag{position:absolute;left:128px;top:452px;right:200px;color:var(--amber);font-size:17px;font-style:italic}
 
+/* ---------- diagram slides ---------- */
+.dgm-wide{position:absolute;left:46px;right:46px}
+.dgm-wide svg{filter:drop-shadow(0 8px 22px rgba(11,37,69,.13))}
+.dgm-cap{position:absolute;left:46px;right:46px;text-align:center;font-size:15px;color:var(--ink);line-height:1.3}
+.dgm-cap b{color:var(--navy);font-weight:800}
+.dgm-split{position:absolute;left:46px;width:648px}
+.dgm-split svg{filter:drop-shadow(0 8px 22px rgba(11,37,69,.13))}
+.dgm-notes{position:absolute;left:726px;right:40px}
+.dgm-notes .dgm-nh{font-size:13px;font-weight:800;letter-spacing:1.5px;color:var(--amber-d);text-transform:uppercase;margin-bottom:8px}
+.dgm-notes ul{list-style:none}
+.dgm-notes li{position:relative;padding-left:24px;font-size:15px;color:var(--ink);line-height:1.26;margin-top:12px}
+.dgm-notes li::before{content:"";position:absolute;left:3px;top:7px;width:9px;height:9px;background:var(--amber);border-radius:1px}
+.dgm-notes li b{color:var(--navy);font-weight:800}
+.dgm-notes .tip{margin-top:18px;padding:11px 14px;background:var(--light);border-left:4px solid var(--navy2);border-radius:6px;font-size:13.5px;color:var(--ink);line-height:1.32}
+
 /* ---------- art slot (for illustrations added later) ---------- */
 .art{position:absolute}
 
@@ -181,6 +196,7 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
 
 <div id="overview"><div class="ov-grid" id="ovgrid"></div></div>
 
+<script src="diagrams.js"></script>
 <script>
 /* ============================================================
    DECORATIVE SVG (tower motif) for title/closing
@@ -289,6 +305,24 @@ const RENDER = {
     const cards=s.stats.map(st=>`<div class="stat"><div class="big">${st.big}</div><div class="lbl">${st.lbl}</div></div>`).join('');
     const note=s.note?`<div class="statnote" style="top:${top+200}px">${s.note}</div>`:'';
     return `<div class="slide">${h}${leadHTML}<div class="stats" style="top:${top}px">${cards}</div>${note}${footer(s.mod,i)}</div>`;
+  },
+  diagram(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    const fig=(window.DIAGRAMS&&window.DIAGRAMS[s.fig])?window.DIAGRAMS[s.fig]():'';
+    let inner='';
+    if((s.layout||'split')==='wide'){
+      const top=bodyTop+6;
+      inner=`<div class="dgm-wide" style="top:${top}px">${fig}</div>`;
+      if(s.caption) inner+=`<div class="dgm-cap" style="top:${top+(s.capY||452)}px">${s.caption}</div>`;
+    }else{
+      const top=bodyTop+10;
+      inner=`<div class="dgm-split" style="top:${top}px">${fig}</div>`;
+      let notes='';
+      if(s.notes) notes=`<div class="dgm-nh">What you're seeing</div><ul>${s.notes.map(n=>`<li>${n}</li>`).join('')}</ul>`;
+      if(s.tip) notes+=`<div class="tip">${s.tip}</div>`;
+      inner+=`<div class="dgm-notes" style="top:${top+6}px">${notes}</div>`;
+    }
+    return `<div class="slide">${h}${inner}${footer(s.mod,i)}</div>`;
   },
   closing(s,i){
     return `<div class="slide closing"><div class="topstripe"></div>
@@ -1157,6 +1191,77 @@ const SLIDES=[
   sub:'Review the hazards on YOUR system, with YOUR equipment, against YOUR procedures.',
   tag:'Stay sharp. Watch your second point of contact. Everyone goes home.'},
 ];
+
+/* ============================================================
+   ILLUSTRATION SLIDES — interleaved after the matching teaching slide
+   ============================================================ */
+const FIGS=[
+ {after:'1.1 First Principles',s:{type:'diagram',mod:M1,kicker:'1.1 · Illustrated',title:'How Electricity Flows',fig:'atom',layout:'split',
+   notes:['Protons (+) and neutrons sit in the dense <b>nucleus</b>.','Electrons orbit; the outer ones are loosely held.','A difference in charge makes free electrons <b>drift</b> — that drift is current.'],
+   tip:'A conductor holds billions of free electrons ready to move the instant a potential difference appears.'}},
+ {after:'1.2 Materials',s:{type:'diagram',mod:M1,kicker:'1.2 · Illustrated',title:'Conductors vs Insulators',fig:'conductor',layout:'split',
+   notes:['<b>Conductors</b> let electrons pass — low resistance.','<b>Insulators</b> bind their electrons — high resistance.','Your body and wet wood conduct; rubber and air (at distance) insulate.'],
+   tip:'Every protective method is just an insulator placed between you and a difference of potential.'}},
+ {after:'1.3 Voltage',s:{type:'diagram',mod:M1,kicker:'1.3 · Illustrated',title:'The Water Analogy',fig:'water',layout:'split',
+   notes:['<b>Voltage</b> = pressure from the pump.','<b>Current</b> = the rate of flow in the pipe.','<b>Resistance</b> = a restriction that limits the flow.'],
+   tip:'Raise the pressure (V) or lower the restriction (R) and more current flows: I = V ÷ R.'}},
+ {after:'1.4 Current',s:{type:'diagram',mod:M1,kicker:'1.4 · Illustrated',title:'Why Voltage Needs Two Points',fig:'bird',layout:'split',
+   notes:['<b>Left:</b> one wire, one potential — safe, like a bird.','<b>Right:</b> a second contact at a different potential completes the circuit.','The <b>difference</b> of potential drives current — not the wire itself.'],
+   tip:'This is the seed of the Second Point of Contact rule you will master in Module 3.'}},
+ {after:"1.5 Ohm's Law",s:{type:'diagram',mod:M1,kicker:'1.5 · Illustrated',title:'The Ohm’s Law &amp; Power Wheel',fig:'ohm',layout:'split',
+   notes:['Cover the unknown in the <b>V / I / R</b> triangle — the rest is the formula.','V sits on top: V = I × R; I and R sit side by side.','Power P = V × I — and crucially P = I² × R.'],
+   tip:'Because heat rises with current squared, a small rise in fault current is a large rise in arc energy.'}},
+ {after:'1.6 Waveforms',s:{type:'diagram',mod:M1,kicker:'1.6 · Illustrated',title:'AC vs DC Waveforms',fig:'acdc',layout:'wide',capY:445,
+   caption:'<b>DC</b> flows one direction at a steady level. <b>AC</b> reverses 60 times a second — which is exactly why transformers can change its voltage, and why the grid runs on it.'}},
+ {after:'1.7 Phases',s:{type:'diagram',mod:M1,kicker:'1.7 · Illustrated',title:'Three-Phase Power',fig:'threephase',layout:'wide',capY:445,
+   caption:'Three AC waveforms spaced 120° apart deliver smooth, continuous power — the backbone of transmission, distribution, and large motors.'}},
+ {after:'1.8 Transformers',s:{type:'diagram',mod:M1,kicker:'1.8 · Illustrated',title:'How a Transformer Works',fig:'transformer',layout:'split',
+   notes:['Two coils share a magnetic core — no metallic connection.','The <b>turns ratio</b> sets the voltage ratio.','Step up for transmission; step down for the customer.'],
+   tip:'Power in ≈ power out, so a secondary can be back-fed — a generator can re-energize a “dead” line.'}},
+ {after:'1.9 The System',s:{type:'diagram',mod:M1,kicker:'1.9 · Illustrated',title:'The Grid, End to End',fig:'grid',layout:'wide',capY:445,
+   caption:'Voltage is stepped <b>up</b> for efficient long-distance transmission, then stepped <b>down</b> in stages until it is safe for the customer. Always know where you are on this chain.'}},
+ {after:'2.1 Shock Physiology',s:{type:'diagram',mod:M2,kicker:'2.1 · Illustrated',title:'Current Path Through the Body',fig:'body',layout:'split',
+   notes:['Current follows the path between the two contact points.','<b>Hand-to-hand or hand-to-foot</b> routes it across the heart.','Milliamps across the heart can cause fibrillation.'],
+   tip:'This is why we control BOTH points of contact — not just the hand on the conductor.'}},
+ {after:'2.2 Thresholds',s:{type:'diagram',mod:M2,kicker:'2.2 · Illustrated',title:'Shock Threshold Ladder',fig:'threshold',layout:'split',
+   notes:['Perception starts near 1 mA; “let-go” is lost by ~10–16 mA.','Fibrillation becomes likely at 50–100 mA.','Above ~100 mA, the shock is usually fatal.'],
+   tip:'The lethal range is in milliamps — far below what trips a typical breaker.'}},
+ {after:'2.5 Arc Flash',s:{type:'diagram',mod:M2,kicker:'2.5 · Illustrated',title:'Arc Flash &amp; Arc Blast',fig:'arcflash',layout:'split',
+   notes:['An arc through ionized air releases enormous heat and pressure.','Temperatures reach ~35,000°F; the blast throws molten metal and shrapnel.','It can be triggered by proximity alone — no contact needed.'],
+   tip:'Defenses: distance, de-energizing, and arc-rated FR clothing & face protection.'}},
+ {after:'2.6 Ground Gradients',s:{type:'diagram',mod:M2,kicker:'2.6 · Illustrated',title:'Step &amp; Touch Potential',fig:'steptouch',layout:'wide',capY:445,
+   caption:'Current spreading from a downed line creates a voltage gradient in the earth. The difference between your feet — <b>step potential</b> — can shock you. Shuffle out with your feet together.'}},
+ {after:'3.1 Controls',s:{type:'diagram',mod:M3,kicker:'3.1 · Illustrated',title:'The Hierarchy of Controls',fig:'hierarchy',layout:'split',
+   notes:['Always work from the <b>top</b> of the pyramid down.','Eliminate (de-energize) beats every other control.','PPE is the last layer — it limits injury when all else fails.'],
+   tip:'PPE alone is never the plan; it backs up the controls above it.'}},
+ {after:'3.2 MAD',s:{type:'diagram',mod:M3,kicker:'3.2 · Illustrated',title:'Minimum Approach Distance',fig:'mad',layout:'split',
+   notes:['MAD is the closest you may approach an energized part.','It keeps the air gap larger than the voltage can flash across.','It grows with both voltage and altitude.'],
+   tip:'Your body, tools, boom, and materials all count toward the distance.'}},
+ {after:'3.3 SECOND POINT OF CONTACT',s:{type:'diagram',mod:M3,kicker:'3.3 · Illustrated',title:'The Second Point of Contact',fig:'secondpoint',layout:'wide'}},
+ {after:'3.5 Cover-Up',s:{type:'diagram',mod:M3,kicker:'3.5 · Illustrated',title:'Cover-Up at the Pole Top',fig:'coverup',layout:'split',
+   notes:['Insulating guards cover energized AND grounded parts in reach.','Cover the <b>nearest</b> hazard first, then work outward.','Remove in reverse — last on, first off.'],
+   tip:'Cover-up backs up your gloves and MAD by removing the second point of contact.'}},
+ {after:'3.6 De-Energize / LOTO',s:{type:'diagram',mod:M3,kicker:'3.6 · Illustrated',title:'The De-Energize / LOTO Sequence',fig:'loto',layout:'wide',capY:425,
+   caption:'Identify → open → lock &amp; tag → <b>test</b> → ground. Prove the line dead with a tested-good detector, then ground it. Never skip a step.'}},
+ {after:'3.7 Grounding &amp; EPZ',s:{type:'diagram',mod:M3,kicker:'3.7 · Illustrated',title:'The Equipotential Zone',fig:'epz',layout:'split',
+   notes:['Bond everything you can touch to one potential.','Ground that zone so a re-energized line trips protection fast.','Inside the zone you ride the voltage up and down together.'],
+   tip:'No difference of potential across your body means no current through it — just like the bird on the wire.'}},
+ {after:'4.1 Glove Classes',s:{type:'diagram',mod:M4,kicker:'4.1 · Illustrated',title:'Rubber Glove Voltage Classes',fig:'gloves',layout:'wide',capY:445,
+   caption:'Glove class is chosen by maximum use voltage. Select a class rated <b>at or above</b> your system voltage — always worn with leather protectors.'}},
+ {after:'4.3 Hot Sticks',s:{type:'diagram',mod:M4,kicker:'4.3 · Illustrated',title:'The Live-Line (Hot-Stick) Method',fig:'hotstick',layout:'split',
+   notes:['A fiberglass live-line tool extends reach beyond MAD.','You operate, test, and install through the tool.','Keep it clean and dry — contamination ruins its insulation.'],
+   tip:'The hot-stick method isolates the worker by distance, not just by gloves.'}},
+ {after:'4.4 Grounds',s:{type:'diagram',mod:M4,kicker:'4.4 · Illustrated',title:'Protective Grounding Sets',fig:'grounds',layout:'split',
+   notes:['Flexible copper cables and clamps form a low-resistance path.','Sized for the available fault current and clearing time.','Connect the ground end first, the line ends last.'],
+   tip:'Undersized grounds can fuse and fail under fault — use the correct cable size.'}},
+ {after:'4.6 FR / PPE',s:{type:'diagram',mod:M4,kicker:'4.6 · Illustrated',title:'Head-to-Toe PPE',fig:'ppe',layout:'split',
+   notes:['Arc-rated FR layers protect against thermal energy (cal/cm²).','Class E hard hat, arc face shield, rubber gloves + leather protectors.','The outermost layer must be arc-rated; nothing meltable underneath.'],
+   tip:'PPE is the LAST line of defense — it limits injury, it does not prevent contact.'}},
+ {after:'5.3 Tailboard',s:{type:'diagram',mod:M5,kicker:'5.3 · Illustrated',title:'The Tailboard Briefing',fig:'tailboard',layout:'split',
+   notes:['The crew briefing aligns everyone before work starts.','Cover hazards, procedures, precautions, energy controls, and PPE.','Assign roles and confirm the rescue plan.'],
+   tip:'Re-brief whenever the job, crew, weather, or scope changes — and everyone can stop work.'}},
+];
+FIGS.forEach(f=>{const idx=SLIDES.findIndex(x=>x.kicker===f.after);if(idx>=0)SLIDES.splice(idx+1,0,f.s);else console.warn('no match for',f.after);});
 
 /* ============================================================
    BUILD + NAVIGATION
