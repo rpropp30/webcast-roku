@@ -101,7 +101,7 @@ footer{padding:26px 0 50px;text-align:center;color:var(--gray);font-size:12.5px}
 
 <script>
 const MOD=[
- 'Electrical Theory','Electricity & the Body','Working Energized','Tools of the Trade','In the Field','Regulations & Standards'];
+ 'Electrical Theory','Electricity & the Body','Working Energized','Tools of the Trade','In the Field','Regulations & Standards','Arc-Flash, First Aid & Rescue'];
 const QUIZ=[
  // Module 1
  {m:0,q:'What actually injures and kills in an electrical contact?',o:['Current through the body','Voltage alone','Resistance','Wattage rating'],a:0,e:'Voltage drives it, but it is the <b>current</b> through the body — even milliamps across the heart — that causes injury and death.'},
@@ -140,6 +140,13 @@ const QUIZ=[
  {m:5,q:'Only ___ employees may work on or near energized parts:',o:['Senior','Qualified','Union','Volunteer'],a:1,e:'OSHA requires qualified employees — trained and able to demonstrate the required skills/knowledge.'},
  {m:5,q:'ASTM D120 is the standard for:',o:['Hot sticks','Rubber insulating gloves','Protective grounds','Hard hats'],a:1,e:'ASTM D120 covers rubber insulating gloves (F855 = grounds, F711 = live-line tools, Z89.1 = hard hats).'},
  {m:5,q:'Regulations set the ___; your employer’s program may be stricter.',o:['maximum','minimum','average','suggestion'],a:1,e:'Compliance is the floor — always follow the stricter rule when your program exceeds the regulation.'},
+ // Module 7
+ {m:6,q:'Incident energy from an arc flash is measured in:',o:['volts','amps','cal/cm²','ohms'],a:2,e:'Incident energy is the thermal energy at a surface a set distance from the arc, in cal/cm² — it sets the required PPE arc rating.'},
+ {m:6,q:'The arc-flash boundary is the distance at which incident energy equals:',o:['40 cal/cm²','1.2 cal/cm²','8 cal/cm²','0 cal/cm²'],a:1,e:'1.2 cal/cm² is the onset of a second-degree burn to bare skin. Inside the boundary you must wear arc-rated PPE.'},
+ {m:6,q:'A garment’s arc rating (ATPV) must be:',o:['below the incident energy','at or above the incident energy','any value','exactly half'],a:1,e:'The arc rating must meet or exceed the incident energy at your working distance.'},
+ {m:6,q:'As you move away from an arc, incident energy falls with the:',o:['square of the distance','distance, linearly','cube of the distance','voltage'],a:0,e:'Energy drops with the square of distance — moving back is exponentially safer.'},
+ {m:6,q:'Your FIRST action when reaching an electrical-contact victim is to:',o:['Start compressions','Touch them to check a pulse','Make the scene safe — remove/de-energize the source','Move them away'],a:2,e:'Protect yourself first. Never touch the patient until the source is removed; don’t become the second victim.'},
+ {m:6,q:'After any electrical contact, even if the person feels fine, you should:',o:['Send them back to work','Transport for medical evaluation','Wait and watch','Apply ointment and continue'],a:1,e:'Internal damage and delayed cardiac effects hide — always transport for medical evaluation.'},
 ];
 
 const quizEl=document.getElementById('quiz');

@@ -10,11 +10,11 @@ regulations that govern the work.
 | File | What it is |
 |------|------------|
 | **`landing.html`** | A designed, graphical **landing page** — hero, stats, module cards, the core-concept feature, and a gallery of all 24 technical illustrations. **Start here.** |
-| **`index.html`** | The presentation — a self-contained HTML slide deck of **106 slides** (76 teaching + 30 illustrated). **Open it in any browser and press `F` for fullscreen.** |
-| `diagrams.js` | The technical SVG illustration library — **30 hand-built vector diagrams**, shared by the deck and the landing page. Pure geometry, scales razor-sharp at any size. |
-| `Powerline_Electrical_Theory_and_Safety_Training.pptx` | Native PowerPoint version — **now also 106 slides with all 30 illustrations embedded** as images. |
+| **`index.html`** | The presentation — a self-contained HTML slide deck of **121 slides** (86 teaching + 35 illustrated). **Open it in any browser and press `F` for fullscreen.** |
+| `diagrams.js` | The technical SVG illustration library — **35 hand-built vector diagrams**, shared by the deck and the landing page. Pure geometry, scales razor-sharp at any size. |
+| `Powerline_Electrical_Theory_and_Safety_Training.pptx` | Native PowerPoint version — **now also 121 slides with all 35 illustrations embedded** as images. |
 | `build_presentation.py` | Generator that builds the `.pptx` (`python3 build_presentation.py`; needs `python-pptx` + `Pillow`). |
-| **`quiz.html`** | Interactive, self-grading **knowledge check** — 31 questions across the six modules. Take the **whole set or one module at a time** (tabs), with instant feedback, explanations, a live score, and a per-module breakdown. |
+| **`quiz.html`** | Interactive, self-grading **knowledge check** — 37 questions across the seven modules. Take the **whole set or one module at a time** (tabs), with instant feedback, explanations, a live score, and a per-module breakdown. |
 | **`facilitator-guide.html`** | **Instructor playbook** — agenda &amp; timing, materials checklist, module-by-module teaching points, discussion prompts, common misconceptions, hands-on demos, and assessment/sign-off. Print-friendly. |
 | **`field-card.html`** | A **print-friendly one-page field card** (MAD table, glove classes, LOTO + grounding order, shock thresholds, rescue steps, second-point reminder). Print or save to PDF for the truck. |
 | `notes.json` / `notes.js` | Instructor **speaker notes** (one source of truth) — read by the deck and embedded into the PowerPoint. |
@@ -34,7 +34,7 @@ regulations that govern the work.
 
 > The three HTML files belong together in this folder — `index.html` and `landing.html` both load `diagrams.js`.
 
-## The technical illustrations (30)
+## The technical illustrations (35)
 
 Hand-coded SVG, interleaved through the deck right after the concept they illustrate (and embedded in the `.pptx`):
 
@@ -43,6 +43,9 @@ Hand-coded SVG, interleaved through the deck right after the concept they illust
 **Working energized** — hierarchy of controls · minimum approach distance · the insulated aerial (bucket) device · **the second point of contact** (hero) · cover-up at the pole top · the LOTO sequence · the equipotential zone · induced voltage.
 **Tools** — rubber glove voltage classes · hot stick · phasing / voltage testing · protective grounds · head-to-toe PPE.
 **Field** — the tailboard briefing · switching & the clearance · pole-top rescue.
+**Arc-flash & first aid** — incident energy vs working distance · PPE categories (NFPA 70E) · the arc-flash & shock label · emergency scene control · CPR & AED sequence.
+
+> All diagrams share a gradient + soft-shadow render kit for a higher-fidelity look; the arc-flash figure uses a radial energy glow.
 
 ## Why HTML is the primary format
 
@@ -81,6 +84,8 @@ The current slide is reflected in the URL hash (e.g. `#42`) so you can deep-link
    roles & responsibilities, communication, emergency response & rescue, weather/public.
 6. **Regulations & standards** — OSHA 1910.269 & 1926 Subpart V, NESC (IEEE C2),
    ASTM/IEEE/ANSI equipment standards, qualification & apprenticeship, recordkeeping.
+7. **Arc-flash analysis, first aid & rescue** — incident energy & the arc-flash boundary,
+   PPE categories & the label, electrical injury & burns, scene control, CPR & AED.
 
 > **Accuracy note:** Numeric tables (minimum approach distances, current thresholds, test
 > intervals) are *illustrative* for training discussion. Always work to your employer's

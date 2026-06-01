@@ -830,6 +830,13 @@ MODULE_FIGS = {
         ("switching", "Switching & the Clearance", "A clearance isolates the work zone: open, locked, tagged, tested dead, and grounded on every side."),
         ("rescue", "Pole-Top Rescue", "Remove the source first, lower the patient, start CPR & AED — never become the second victim."),
     ],
+    7: [
+        ("arcenergy", "Incident Energy vs Working Distance", "Energy falls with the square of distance; where it crosses 1.2 cal/cm² is the arc-flash boundary."),
+        ("ppecat", "Arc-Flash PPE Categories", "Four categories from ≥4 to ≥40 cal/cm². The garment's arc rating must meet or exceed the incident energy."),
+        ("arclabel", "The Arc-Flash & Shock Label", "Voltage, boundaries, incident energy, PPE category, and glove class — read it before you open the door."),
+        ("scenecontrol", "Emergency Scene Control", "Treat the conductor and ground as energized; keep the patient untouched until the source is removed — then reach them."),
+        ("cpraed", "CPR & AED Sequence", "Once the scene is safe: check & call, compress 100–120/min, apply the AED, continue until EMS arrives."),
+    ],
 }
 
 
@@ -1695,6 +1702,150 @@ bullets_slide(
         (0, "Keep records: training, test dates, briefings, clearances, incidents"),
     ],
     kicker="Module 6 Recap",
+)
+
+# ============================================================================
+# MODULE 7 — ARC-FLASH, FIRST AID & RESCUE
+# ============================================================================
+_state["module"] = "Module 7 — Arc-Flash, First Aid & Rescue"
+section_divider("7", "Arc-Flash Analysis, First Aid & Rescue",
+                ["What drives incident energy",
+                 "The arc-flash boundary & working distance",
+                 "PPE categories & the label",
+                 "Electrical injury & burns",
+                 "Scene control, CPR & AED"])
+
+bullets_slide(
+    "Arc-Flash Analysis — What Drives Incident Energy",
+    [
+        (0, "Incident energy is the thermal energy reaching a surface a set distance from an arc — measured in cal/cm²"),
+        (0, "It rises with the available fault (bolted) current and with how long the arc lasts"),
+        (1, "Clearing time is decisive: a faster-tripping device means far less energy"),
+        (0, "It falls with the SQUARE of the distance from the arc"),
+        (0, "An analysis (IEEE 1584 / NFPA 70E) calculates it for each location"),
+        (1, "Inputs: fault current, electrode gap & configuration, equipment type, working distance"),
+        (0, "The result drives the required PPE arc rating and the arc-flash boundary"),
+    ],
+    kicker="7.1 Incident Energy",
+    lead="Why two jobs at the same voltage can carry wildly different arc-flash hazard.",
+)
+
+callout_slide(
+    "The Arc-Flash Boundary & Working Distance",
+    [
+        (0, "Working distance: the arc-to-worker distance used in the calc (often 18 in for distribution)"),
+        (1, "The incident energy at that distance sets the PPE arc rating you must wear"),
+        (0, "Arc-flash boundary: the distance where incident energy = 1.2 cal/cm²"),
+        (1, "1.2 cal/cm² is the onset of a second-degree burn to bare skin"),
+        (0, "Anyone inside the boundary must wear arc-rated PPE"),
+        (0, "Shock approach boundaries (limited / restricted) are separate and based on voltage"),
+    ],
+    "info", "Two different boundaries",
+    ["Arc-flash boundary = thermal (cal/cm²).",
+     "Shock approach boundaries = voltage-based (the MAD family).",
+     "Respect both — they guard against different hazards."],
+    kicker="7.2 Boundary & Distance",
+)
+
+table_slide(
+    "Arc-Flash PPE Categories (NFPA 70E)",
+    ["Category", "Min arc rating", "Typical ensemble"],
+    [
+        ["CAT 1", "≥ 4 cal/cm²", "AR shirt & pants, hard hat, arc face shield, gloves"],
+        ["CAT 2", "≥ 8 cal/cm²", "Above + arc-rated hood or balaclava with face shield"],
+        ["CAT 3", "≥ 25 cal/cm²", "AR flash-suit jacket & trousers + arc-rated hood"],
+        ["CAT 4", "≥ 40 cal/cm²", "Heavy AR flash suit & hood — full ensemble"],
+    ],
+    kicker="7.3 PPE Categories",
+    col_widths=[1.0, 1.4, 3.2],
+    note="The category method is one approach; an incident-energy analysis is the other. Either way the garment's arc rating (ATPV) must meet or exceed the incident energy. Above ~40 cal/cm² the blast hazard alone may make energized work unacceptable — de-energize.",
+)
+
+bullets_slide(
+    "Reading the Arc-Flash Label",
+    [
+        (0, "Equipment should carry a label produced from the facility's arc-flash analysis"),
+        (0, "Typical fields:"),
+        (1, "Nominal system voltage · arc-flash boundary · incident energy @ working distance"),
+        (1, "Required PPE category · minimum glove class · shock approach boundaries"),
+        (0, "Use it to select PPE and set your boundaries BEFORE energizing or opening equipment"),
+        (0, "Missing, outdated, or illegible label → STOP and get the analysis"),
+        (0, "Labels change when the system changes — new transformer, settings, or fault current"),
+    ],
+    kicker="7.4 The Label",
+    lead="The label turns the engineering study into a field decision.",
+)
+
+bullets_slide(
+    "Electrical Injury — What Happens to the Body",
+    [
+        (0, "Cardiac: ventricular fibrillation or arrest from current across the chest"),
+        (0, "Burns: surface arc burns AND internal burns along the current path"),
+        (1, "Small entry/exit wounds can hide massive internal tissue damage"),
+        (0, "Respiratory: chest muscles lock — breathing can stop"),
+        (0, "Neurological: nerve damage, confusion, lasting deficits"),
+        (0, "Trauma: falls from the shock, blast-thrown objects and molten metal"),
+        (0, "Delayed effects: kidney injury from tissue breakdown; rhythm problems hours later"),
+    ],
+    kicker="7.5 Electrical Injury",
+    lead="One contact can injure several body systems at once — which is why every contact gets evaluated.",
+)
+
+callout_slide(
+    "Emergency Response — Scene Control & the Rescuer",
+    [
+        (0, "Protect yourself FIRST — a second victim helps no one"),
+        (0, "Do NOT touch the patient until the source is removed / de-energized and you know it"),
+        (0, "Treat downed conductors and the ground around them as energized — keep a wide barrier"),
+        (0, "Call for help early with a precise location; send someone for the AED"),
+        (0, "Decide who is in charge of the rescue and communicate clearly"),
+    ],
+    "warn", "The order is fixed",
+    ["1. Make the scene safe (remove the source).",
+     "2. Reach the patient.",
+     "3. Treat — CPR/AED, then burns.",
+     "Never skip step 1 to save time."],
+    kicker="7.6 Scene Control",
+)
+
+process_slide(
+    "CPR & AED for Electrical Contact",
+    [
+        ("1. Scene safe", "Confirm the source is removed / de-energized before you approach the patient."),
+        ("2. Check & call", "Check responsiveness and breathing; call 911 and send for the AED."),
+        ("3. Compressions", "Center of the chest, 100–120 per minute, about 2 inches deep, full recoil."),
+        ("4. Apply the AED", "Power on, attach pads, follow the voice prompts; clear for analysis and shock."),
+        ("5. Continue", "Resume compressions immediately; cycle until EMS takes over."),
+    ],
+    kicker="7.7 CPR & AED",
+    lead="Push hard, push fast, minimize interruptions.",
+)
+
+bullets_slide(
+    "Burns & Ongoing Care",
+    [
+        (0, "Stop the burning; cool a thermal burn with clean water where appropriate"),
+        (0, "Cover with a clean, dry dressing — do not break blisters or apply ointments to severe burns"),
+        (0, "Treat for shock; keep the patient warm"),
+        (0, "Electrical burns are deceptive — internal damage far exceeds the visible wound"),
+        (0, "ALWAYS transport for medical evaluation after any contact, even if they feel fine"),
+        (0, "Report and investigate the contact — every event is a chance to prevent the next"),
+    ],
+    kicker="7.8 Burns & Care",
+)
+
+add_module_figs(7)
+bullets_slide(
+    "Module 7 — Key Takeaways",
+    [
+        (0, "Incident energy (cal/cm²) rises with fault current & clearing time, falls with distance²"),
+        (0, "The arc-flash boundary is where energy = 1.2 cal/cm²; PPE arc rating must meet or exceed the incident energy"),
+        (0, "Read the label and set your boundaries before opening equipment"),
+        (0, "One contact injures many systems — cardiac, burns, neuro, trauma; effects can be delayed"),
+        (0, "Rescue order is fixed: make the scene safe, reach the patient, then treat"),
+        (0, "CPR + AED for arrest; transport every contact for medical evaluation"),
+    ],
+    kicker="Module 7 Recap",
 )
 
 # ============================================================================
