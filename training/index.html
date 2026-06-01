@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Electrical Theory &amp; Energized-Line Safety for Powerline Workers</title>
+<style>
+/* ============================================================
+   POWERLINE SAFETY TRAINING — self-contained presentation
+   Fixed 1280x720 stage, scaled to fit. No scrolling.
+   ============================================================ */
+:root{
+  --navy:#0B2545; --navy2:#134074; --navy-deep:#06162B; --steel:#3A5A80;
+  --amber:#F5B100; --amber-d:#C88A00; --danger:#D4351A; --green:#2E8B57;
+  --white:#fff; --ink:#1A2B3C; --gray:#5B6B7B; --light:#EEF2F7; --light2:#E2E9F1;
+  --card-border:#CFD9E4;
+  --stageW:1280px; --stageH:720px;
+  --font:"Segoe UI",Roboto,"Helvetica Neue",Arial,system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#05070c;overflow:hidden;font-family:var(--font);-webkit-font-smoothing:antialiased}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{
+  position:relative;width:var(--stageW);height:var(--stageH);
+  background:var(--white);overflow:hidden;transform-origin:center center;
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+}
+.slide{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;
+  transition:opacity .45s ease;background:var(--white);overflow:hidden}
+.slide.active{opacity:1;visibility:visible;z-index:2}
+.slide.prev{z-index:1}
+
+/* ---------- shared chrome ---------- */
+.accent-bar{position:absolute;left:0;top:0;width:10px;height:100%;background:var(--amber)}
+.kicker{position:absolute;left:46px;top:34px;font-size:14px;font-weight:800;letter-spacing:2.5px;
+  color:var(--amber-d);text-transform:uppercase}
+.headline{position:absolute;left:44px;top:56px;right:60px;font-size:34px;line-height:1.05;
+  font-weight:800;color:var(--navy)}
+.headline.with-kicker{top:62px}
+.uline{position:absolute;left:46px;width:118px;height:5px;background:var(--amber);border-radius:3px}
+.lead{position:absolute;left:46px;right:60px;font-size:16px;font-style:italic;color:var(--gray);line-height:1.3}
+.footer{position:absolute;left:0;right:0;bottom:0;height:42px;border-top:2px solid var(--amber);
+  display:flex;align-items:center;justify-content:space-between;padding:0 38px;
+  font-size:11px;color:var(--gray);letter-spacing:.3px}
+.footer .mod{font-weight:700;color:var(--navy2)}
+
+/* ---------- bullets ---------- */
+.body{position:absolute;left:46px;right:54px}
+ul.blist{list-style:none}
+ul.blist li{position:relative;padding-left:26px;line-height:1.28}
+ul.blist li.l0{font-size:18px;color:var(--ink);margin-top:11px;font-weight:500}
+ul.blist li.l0::before{content:"";position:absolute;left:4px;top:9px;width:9px;height:9px;background:var(--amber);border-radius:1px}
+ul.blist li.l1{font-size:15px;color:#33485c;margin-top:5px;padding-left:42px}
+ul.blist li.l1::before{content:"";position:absolute;left:24px;top:9px;width:11px;height:2px;background:var(--steel)}
+ul.blist li.l2{font-size:13.5px;color:var(--gray);margin-top:3px;padding-left:58px}
+ul.blist li.l2::before{content:"";position:absolute;left:42px;top:8px;width:4px;height:4px;background:var(--gray);border-radius:50%}
+ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
+
+/* ---------- title slide ---------- */
+.title-slide{background:radial-gradient(120% 120% at 80% 10%, #15376a 0%, var(--navy) 45%, var(--navy-deep) 100%)}
+.title-slide .tower{position:absolute;right:0;top:0;height:100%;width:46%;opacity:.5}
+.t-kicker{position:absolute;left:120px;top:236px;color:var(--amber);font-weight:800;letter-spacing:4px;font-size:16px}
+.t-bar{position:absolute;left:86px;top:226px;width:18px;height:268px;background:var(--amber);border-radius:3px}
+.t-title{position:absolute;left:120px;top:268px;right:520px;color:#fff;font-size:50px;font-weight:800;line-height:1.02}
+.t-sub{position:absolute;left:124px;top:512px;right:430px;color:#C8D6E6;font-size:18px;line-height:1.3}
+.t-pres{position:absolute;left:124px;top:600px;color:var(--steel);font-size:13px;letter-spacing:.5px}
+.title-slide .topstripe,.divider .topstripe{position:absolute;left:0;top:0;width:100%;height:9px;background:var(--amber)}
+.title-slide .botstripe{position:absolute;left:0;bottom:0;width:100%;height:6px;background:var(--amber)}
+
+/* ---------- section divider ---------- */
+.divider{background:linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%)}
+.d-modlabel{position:absolute;left:90px;top:170px;color:var(--amber);font-weight:800;letter-spacing:3px;font-size:18px}
+.d-num{position:absolute;left:78px;top:182px;color:#fff;font-weight:800;font-size:188px;line-height:.9}
+.d-rule{position:absolute;left:505px;top:170px;width:3px;height:380px;background:#2A476E}
+.d-title{position:absolute;left:548px;top:178px;right:80px;color:#fff;font-size:38px;font-weight:800;line-height:1.04}
+.d-uline{position:absolute;left:550px;top:312px;width:140px;height:5px;background:var(--amber);border-radius:3px}
+.d-items{position:absolute;left:548px;top:344px;right:80px;list-style:none}
+.d-items li{position:relative;padding-left:24px;color:#CFDCEC;font-size:17px;margin-top:13px}
+.d-items li::before{content:"—";position:absolute;left:0;color:var(--amber);font-weight:700}
+
+/* ---------- two-column cards ---------- */
+.cols{position:absolute;left:46px;right:46px;display:flex;gap:26px}
+.col{flex:1;background:var(--light);border:1px solid var(--card-border);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.col .ch{padding:13px 22px;color:#fff;font-weight:800;font-size:17px}
+.col .cb{padding:14px 22px 18px}
+.col ul{list-style:none}
+.col ul li{position:relative;padding-left:22px;font-size:14.5px;color:var(--ink);margin-top:9px;line-height:1.25}
+.col ul li::before{content:"";position:absolute;left:2px;top:7px;width:8px;height:8px;background:var(--amber);border-radius:1px}
+.col ul li.sub{padding-left:38px;font-size:13px;color:var(--gray);margin-top:4px}
+.col ul li.sub::before{content:"";left:20px;top:8px;width:10px;height:2px;background:var(--steel);border-radius:0}
+
+/* ---------- callout layout ---------- */
+.co-body{position:absolute;left:46px;top:0;width:730px}
+.co-box{position:absolute;width:420px;border-radius:14px;overflow:hidden;border:2px solid}
+.co-box .coh{padding:12px 20px;color:#fff;font-weight:800;font-size:15px;letter-spacing:.5px;display:flex;align-items:center;gap:8px}
+.co-box .cob{padding:16px 22px 20px}
+.co-box .cot{font-weight:800;font-size:16px;margin-bottom:8px}
+.co-box .cob ul{list-style:none}
+.co-box .cob li{position:relative;padding-left:18px;font-size:13.5px;color:var(--ink);line-height:1.32;margin-top:7px}
+.co-box .cob li::before{content:"–";position:absolute;left:0;font-weight:700}
+.k-danger{border-color:var(--danger);background:#FBEAE7} .k-danger .coh{background:var(--danger)} .k-danger .cot,.k-danger li::before{color:var(--danger)}
+.k-warn{border-color:var(--amber-d);background:#FDF4DE} .k-warn .coh{background:var(--amber-d)} .k-warn .cot,.k-warn li::before{color:var(--amber-d)}
+.k-safe{border-color:var(--green);background:#E6F3EC} .k-safe .coh{background:var(--green)} .k-safe .cot,.k-safe li::before{color:var(--green)}
+.k-info{border-color:var(--navy2);background:#E7EEF6} .k-info .coh{background:var(--navy2)} .k-info .cot,.k-info li::before{color:var(--navy2)}
+
+/* ---------- table ---------- */
+.tbl{position:absolute;left:46px;right:46px;border-collapse:collapse;width:calc(100% - 92px);
+  box-shadow:0 6px 20px rgba(11,37,69,.10);border-radius:8px;overflow:hidden}
+.tbl th{background:var(--navy);color:#fff;text-align:left;padding:10px 14px;font-size:13.5px;font-weight:700}
+.tbl td{padding:8px 14px;font-size:13px;color:var(--ink);border-bottom:1px solid #e6ecf3}
+.tbl tr:nth-child(even) td{background:var(--light)}
+.tbl td.c0{font-weight:700;color:var(--navy)}
+.tnote{position:absolute;left:46px;right:46px;font-size:11.5px;color:var(--gray);font-style:italic;line-height:1.3}
+
+/* ---------- process steps ---------- */
+.steps{position:absolute;left:46px;right:54px}
+.step{display:flex;align-items:center;gap:18px;margin-top:11px}
+.step .num{flex:none;width:46px;height:46px;border-radius:50%;background:var(--amber);color:var(--navy);
+  font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(0,0,0,.15)}
+.step .stx h4{color:var(--navy);font-size:16px;font-weight:800}
+.step .stx p{color:var(--gray);font-size:13px;line-height:1.25;margin-top:1px}
+
+/* ---------- stat cards ---------- */
+.stats{position:absolute;left:46px;right:46px;display:flex;gap:20px}
+.stat{flex:1;background:var(--navy);border-radius:12px;padding:22px 12px;text-align:center;position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;width:100%;height:7px;background:var(--amber)}
+.stat .big{color:var(--amber);font-size:42px;font-weight:800;line-height:1}
+.stat .lbl{color:#fff;font-size:13px;margin-top:10px;line-height:1.2}
+.statnote{position:absolute;left:46px;right:46px;font-size:14px;color:var(--ink);line-height:1.35}
+
+/* ---------- closing ---------- */
+.closing{background:radial-gradient(120% 120% at 80% 10%, #15376a 0%, var(--navy) 45%, var(--navy-deep) 100%)}
+.cl-bar{position:absolute;left:86px;top:250px;width:18px;height:190px;background:var(--amber);border-radius:3px}
+.cl-title{position:absolute;left:124px;top:250px;right:120px;color:#fff;font-size:48px;font-weight:800}
+.cl-sub{position:absolute;left:128px;top:340px;right:240px;color:#C8D6E6;font-size:18px;line-height:1.35}
+.cl-tag{position:absolute;left:128px;top:452px;right:200px;color:var(--amber);font-size:17px;font-style:italic}
+
+/* ---------- art slot (for illustrations added later) ---------- */
+.art{position:absolute}
+
+/* ============================================================
+   UI CONTROLS
+   ============================================================ */
+#progress{position:fixed;left:0;top:0;height:4px;background:var(--amber);z-index:50;width:0;transition:width .3s}
+.nav-btn{position:fixed;top:50%;transform:translateY(-50%);z-index:40;width:46px;height:46px;border-radius:50%;
+  border:none;background:rgba(255,255,255,.12);color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;transition:background .2s}
+.nav-btn:hover{background:rgba(245,177,0,.85);color:var(--navy)}
+#prev{left:14px}#next{right:14px}
+#hud{position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:40;display:flex;gap:14px;align-items:center;
+  background:rgba(6,16,30,.6);backdrop-filter:blur(6px);padding:7px 16px;border-radius:30px;color:#cdd9e6;font-size:12px;
+  font-family:var(--font);opacity:.85}
+#hud button{background:none;border:none;color:#cdd9e6;cursor:pointer;font-size:13px;padding:2px 6px;border-radius:6px}
+#hud button:hover{color:var(--amber)}
+#counter{font-variant-numeric:tabular-nums;min-width:56px;text-align:center}
+#title-tag{max-width:280px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#8fa3ba}
+/* overview grid */
+#overview{position:fixed;inset:0;z-index:60;background:rgba(5,8,14,.97);display:none;overflow:auto;padding:30px}
+#overview.show{display:block}
+.ov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;max-width:1400px;margin:0 auto}
+.ov-card{aspect-ratio:16/9;border-radius:8px;overflow:hidden;cursor:pointer;border:2px solid transparent;position:relative;background:#0c1726}
+.ov-card:hover{border-color:var(--amber)}
+.ov-thumb{position:absolute;inset:0;transform-origin:top left}
+.ov-n{position:absolute;left:6px;bottom:5px;z-index:3;background:rgba(0,0,0,.6);color:#fff;font-size:11px;padding:2px 7px;border-radius:5px}
+@media (max-width:600px){.nav-btn{width:38px;height:38px}}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<div id="viewport"><div id="stage"></div></div>
+
+<button class="nav-btn" id="prev" aria-label="Previous">&#10094;</button>
+<button class="nav-btn" id="next" aria-label="Next">&#10095;</button>
+
+<div id="hud">
+  <button id="ovbtn" title="Overview (O)">▦ Overview</button>
+  <span id="title-tag"></span>
+  <span id="counter">1 / 1</span>
+  <button id="fsbtn" title="Fullscreen (F)">⛶ Fullscreen</button>
+</div>
+
+<div id="overview"><div class="ov-grid" id="ovgrid"></div></div>
+
+<script>
+/* ============================================================
+   DECORATIVE SVG (tower motif) for title/closing
+   ============================================================ */
+const TOWER_SVG = `<svg class="tower" viewBox="0 0 600 720" preserveAspectRatio="xMaxYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#1b3c66" stroke-width="3" fill="none" opacity="0.9">
+    <line x1="420" y1="0" x2="420" y2="720"/><line x1="500" y1="0" x2="500" y2="720"/><line x1="580" y1="0" x2="580" y2="720"/>
+    <line x1="360" y1="150" x2="600" y2="150"/><line x1="360" y1="250" x2="600" y2="250"/><line x1="360" y1="350" x2="600" y2="350"/>
+  </g>
+  <g fill="#244a7a"><circle cx="420" cy="150" r="6"/><circle cx="500" cy="150" r="6"/><circle cx="580" cy="150" r="6"/>
+   <circle cx="420" cy="250" r="6"/><circle cx="500" cy="250" r="6"/><circle cx="580" cy="250" r="6"/></g>
+  <g stroke="#163357" stroke-width="2" fill="none" opacity="0.6">
+    <path d="M360 158 C 420 230, 500 230, 600 162"/><path d="M360 258 C 420 330, 500 330, 600 262"/>
+  </g>
+</svg>`;
+
+/* ============================================================
+   RENDER HELPERS  (each returns HTML for the inner stage)
+   ============================================================ */
+const esc = s => s; // content is trusted/static
+function footer(mod, n){return `<div class="footer"><span class="mod">${mod}</span><span>Powerline Electrical Theory &amp; Safety &nbsp;|&nbsp; ${String(n).padStart(2,'0')}</span></div>`;}
+function header(title,kicker,leadY){
+  let h=`<div class="accent-bar"></div>`;
+  let topT=56, topU, leadHTML='';
+  if(kicker){h+=`<div class="kicker">${kicker}</div>`; topT=62;}
+  h+=`<div class="headline${kicker?' with-kicker':''}" style="top:${topT}px">${title}</div>`;
+  topU = topT + 56;
+  h+=`<div class="uline" style="top:${topU}px"></div>`;
+  return {h, bodyTop: topU+22};
+}
+function bulletItems(items){
+  return '<ul class="blist">'+items.map(b=>{
+    const lvl=b.lvl||0; const txt=b.bold?`<b>${b.t}</b>`:b.t;
+    return `<li class="l${lvl}">${txt}</li>`;
+  }).join('')+'</ul>';
+}
+
+const RENDER = {
+  title(s,i){
+    return `<div class="slide title-slide"><div class="topstripe"></div>${TOWER_SVG}
+      <div class="t-bar"></div>
+      <div class="t-kicker">${s.kicker}</div>
+      <div class="t-title">${s.title}</div>
+      <div class="t-sub">${s.sub}</div>
+      ${s.pres?`<div class="t-pres">${s.pres}</div>`:''}
+      <div class="botstripe"></div></div>`;
+  },
+  divider(s,i){
+    return `<div class="slide divider"><div class="topstripe"></div>
+      <div class="d-modlabel">MODULE</div>
+      <div class="d-num">${s.num}</div>
+      <div class="d-rule"></div>
+      <div class="d-title">${s.title}</div><div class="d-uline"></div>
+      <ul class="d-items">${s.items.map(it=>`<li>${it}</li>`).join('')}</ul></div>`;
+  },
+  bullets(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    let top=bodyTop, leadHTML='';
+    if(s.lead){leadHTML=`<div class="lead" style="top:${bodyTop}px">${s.lead}</div>`; top=bodyTop+44;}
+    return `<div class="slide">${h}${leadHTML}
+      <div class="body" style="top:${top}px">${bulletItems(s.items)}</div>
+      ${footer(s.mod,i)}</div>`;
+  },
+  twocol(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    const lc=s.lc||'var(--navy2)', rc=s.rc||'var(--steel)';
+    const colHTML=(head,items,color)=>`<div class="col"><div class="ch" style="background:${color}">${head}</div>
+      <div class="cb"><ul>${items.map(it=>{const sub=(typeof it==='object'&&it.sub);return `<li class="${sub?'sub':''}">${sub?it.t:it}</li>`;}).join('')}</ul></div></div>`;
+    return `<div class="slide">${h}
+      <div class="cols" style="top:${bodyTop}px">${colHTML(s.lh,s.li,lc)}${colHTML(s.rh,s.ri,rc)}</div>
+      ${footer(s.mod,i)}</div>`;
+  },
+  callout(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    const labels={danger:'⚠ DANGER',warn:'⚠ WARNING',safe:'✓ BEST PRACTICE',info:'◆ KEY CONCEPT'};
+    const body=`<div class="co-body" style="top:${bodyTop+4}px">${bulletItems(s.items)}</div>`;
+    const cot=Array.isArray(s.coText)?`<ul>${s.coText.map(t=>`<li>${t}</li>`).join('')}</ul>`:`<p style="font-size:13.5px;line-height:1.4;color:var(--ink)">${s.coText}</p>`;
+    const box=`<div class="co-box k-${s.kind}" style="left:818px;top:${bodyTop+8}px">
+      <div class="coh">${labels[s.kind]}</div>
+      <div class="cob"><div class="cot">${s.coTitle}</div>${cot}</div></div>`;
+    return `<div class="slide">${h}${body}${box}${footer(s.mod,i)}</div>`;
+  },
+  table(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    const cols=s.cw;
+    const colg=cols?`<colgroup>${cols.map(w=>`<col style="width:${w}%">`).join('')}</colgroup>`:'';
+    const thead=`<tr>${s.headers.map(x=>`<th>${x}</th>`).join('')}</tr>`;
+    const tb=s.rows.map(r=>`<tr>${r.map((c,ci)=>`<td class="${ci===0?'c0':''}">${c}</td>`).join('')}</tr>`).join('');
+    const note=s.note?`<div class="tnote" style="top:${bodyTop+8+ (s.rows.length+1)*33 + 14}px">${s.note}</div>`:'';
+    return `<div class="slide">${h}
+      <table class="tbl" style="top:${bodyTop+8}px;font-size:${s.fs||13}px">${colg}<thead>${thead}</thead><tbody>${tb}</tbody></table>
+      ${note}${footer(s.mod,i)}</div>`;
+  },
+  process(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    let top=bodyTop, leadHTML='';
+    if(s.lead){leadHTML=`<div class="lead" style="top:${bodyTop}px">${s.lead}</div>`; top=bodyTop+40;}
+    const steps=s.steps.map((st,idx)=>`<div class="step"><div class="num">${idx+1}</div>
+      <div class="stx"><h4>${st.h}</h4><p>${st.p}</p></div></div>`).join('');
+    return `<div class="slide">${h}${leadHTML}<div class="steps" style="top:${top}px">${steps}</div>${footer(s.mod,i)}</div>`;
+  },
+  stats(s,i){
+    const {h,bodyTop}=header(s.title,s.kicker);
+    let top=bodyTop, leadHTML='';
+    if(s.lead){leadHTML=`<div class="lead" style="top:${bodyTop}px">${s.lead}</div>`; top=bodyTop+44;}
+    const cards=s.stats.map(st=>`<div class="stat"><div class="big">${st.big}</div><div class="lbl">${st.lbl}</div></div>`).join('');
+    const note=s.note?`<div class="statnote" style="top:${top+200}px">${s.note}</div>`:'';
+    return `<div class="slide">${h}${leadHTML}<div class="stats" style="top:${top}px">${cards}</div>${note}${footer(s.mod,i)}</div>`;
+  },
+  closing(s,i){
+    return `<div class="slide closing"><div class="topstripe"></div>
+      <div class="cl-bar"></div>
+      <div class="cl-title">${s.title}</div>
+      <div class="cl-sub">${s.sub}</div>
+      <div class="cl-tag">${s.tag}</div>
+      <div class="botstripe"></div></div>`;
+  }
+};
+
+/* ============================================================
+   SLIDE DATA  (~76 slides)
+   ============================================================ */
+const M0="Course Overview", M1="Module 1 — Electrical Theory", M2="Module 2 — Electricity & the Body",
+      M3="Module 3 — Working Energized", M4="Module 4 — Tools of the Trade", M5="Module 5 — In the Field",
+      M6="Module 6 — Regulations & Standards", MC="Course Wrap-Up";
+
+const SLIDES=[
+/* --- TITLE --- */
+{type:'title',kicker:'FIELD TRAINING SERIES',
+  title:'Electrical Theory &amp; Energized-Line Safety for Powerline Workers',
+  sub:'A complete field-training program: theory → working hot → cover-up &amp; tools → job planning &amp; regulations',
+  pres:'Lineworker Apprenticeship &amp; Journeyman Refresher  •  Instructor Edition'},
+
+/* --- COURSE OVERVIEW --- */
+{type:'bullets',mod:M0,kicker:'Course Map',title:'What This Course Covers',
+  lead:'Six modules, building from first principles to the daily disciplines that keep crews alive.',
+  items:[
+   {lvl:0,t:'Module 1 — Electrical theory: the science behind everything you touch'},
+   {lvl:1,t:'Atomic charge, voltage, current, resistance, power, AC vs DC, the grid'},
+   {lvl:0,t:'Module 2 — Electricity and the human body'},
+   {lvl:1,t:'Shock physiology, arc flash/blast, step &amp; touch potential'},
+   {lvl:0,t:'Module 3 — Working around energized lines &amp; equipment'},
+   {lvl:1,t:'Minimum approach distance, the second point of contact, isolation, cover-up, grounding'},
+   {lvl:0,t:'Module 4 — Tools of the trade'},
+   {lvl:1,t:'Rubber goods, live-line tools, grounds, testers, FR/arc-rated PPE — use, care, testing'},
+   {lvl:0,t:'Module 5 — Putting it to work in the field'},
+   {lvl:1,t:'Hazard assessment, the tailboard/job brief, roles, communication, rescue'},
+   {lvl:0,t:'Module 6 — Regulations &amp; standards that govern the work'},
+   {lvl:1,t:'OSHA 1910.269 / 1926 Subpart V, NESC, ASTM/IEEE, recordkeeping'},
+  ]},
+
+{type:'twocol',mod:M0,kicker:'Objectives',title:'Learning Objectives &amp; How to Use This Training',
+  lh:'By the end you will be able to', lc:'var(--navy2)',
+  li:['Explain voltage, current, resistance and power in plain terms',
+      'Describe how the grid moves power from plant to service',
+      'Identify what makes a circuit through the human body',
+      'Recognize and eliminate the second point of contact',
+      'Apply correct cover-up and minimum approach distances',
+      'Build an equipotential grounding zone',
+      'Lead a complete tailboard and hazard assessment',
+      'Cite the regulation behind each safe-work rule'],
+  rh:'How the material is structured', rc:'var(--steel)',
+  ri:['Theory first — you cannot work safely on what you don\'t understand',
+      'Each hazard is paired with its control',
+      {sub:true,t:'Recognize → isolate → protect → verify'},
+      'DANGER / WARNING / BEST-PRACTICE call-outs flag the must-knows',
+      'Tables summarize numbers you will use on the job',
+      'Discuss every slide as a crew — this is a conversation, not a lecture']},
+
+{type:'stats',mod:M0,kicker:'The Stakes',title:'Why This Training Exists',
+  lead:'Line work is among the most hazardous trades in the country — and almost every incident traces back to a missed fundamental.',
+  stats:[{big:'#1',lbl:'Electrocution is a leading cause of lineworker fatalities'},
+         {big:'50 V',lbl:'Can be enough to be lethal under the right conditions'},
+         {big:'0.1 s',lbl:'A fault can evolve to an arc-flash in a fraction of a second'},
+         {big:'100%',lbl:'Of electrical contacts are preventable with the right controls'}],
+  note:'These numbers are not here to scare you — they remind you that the disciplines in this course are written in other workers\' experience. Every rule has a reason. The goal is simple: everyone goes home, every day.'},
+
+/* ===== MODULE 1 ===== */
+{type:'divider',num:'1',title:'Electrical Theory Fundamentals',
+  items:['What electricity actually is','Voltage, current, resistance &amp; power',
+         'AC vs DC and three-phase systems','Transformers and the grid','Voltage classes you will encounter']},
+
+{type:'bullets',mod:M1,kicker:'1.1 First Principles',title:'What Is Electricity?',
+  lead:'Before any rule makes sense, you have to know what is moving in the wire — and why it wants to get to ground.',
+  items:[
+   {lvl:0,t:'All matter is built from atoms; atoms contain protons (+), neutrons (0) and electrons (–)'},
+   {lvl:0,t:'Electricity is the movement of electrons — specifically the flow of electric charge'},
+   {lvl:1,t:'In conductors, outer (“free”) electrons drift from atom to atom'},
+   {lvl:1,t:'That organized drift, driven by a difference in charge, is electric current'},
+   {lvl:0,t:'Two ways to talk about flow direction:'},
+   {lvl:1,t:'Conventional current: + to – (the convention used on prints and in formulas)'},
+   {lvl:1,t:'Electron flow: – to + (the physical reality)'},
+   {lvl:0,t:'Electricity always seeks to return to its source and will take every available path to ground'},
+   {lvl:1,t:'It does not “prefer” the easiest path — it uses ALL paths in proportion to their conductance'},
+   {lvl:1,t:'Your body can be one of those paths'},
+  ]},
+
+{type:'twocol',mod:M1,kicker:'1.2 Materials',title:'Conductors, Insulators &amp; Semiconductors',
+  lh:'Conductors (let electrons flow)', lc:'var(--danger)',
+  li:['Copper, aluminum — line and busbar metals','Steel — structures, ground rods, messenger',
+      'Water with impurities, wet wood, the human body',{sub:true,t:'Low resistance — current passes easily'},
+      'Why we de-energize, isolate, and ground them'],
+  rh:'Insulators (resist electron flow)', rc:'var(--green)',
+  ri:['Rubber, dry wood, glass, porcelain, fiberglass','Air — but only at sufficient distance (it can break down!)',
+      'EPDM rubber — the basis of our gloves &amp; cover-up',{sub:true,t:'High resistance — used to create separation'},
+      'Semiconductors: silicon devices — reclosers, electronics, controls']},
+
+{type:'callout',mod:M1,kicker:'1.3 Voltage',title:'Voltage — Electrical Pressure',kind:'info',
+  items:[
+   {lvl:0,t:'Voltage (V) is the difference in electric potential between two points — the “pressure” that pushes current'},
+   {lvl:0,t:'Measured in volts; symbol E (electromotive force) or V'},
+   {lvl:1,t:'Analogy: water pressure in a pipe — more pressure, more push'},
+   {lvl:0,t:'Voltage is always measured BETWEEN two points (a potential difference)'},
+   {lvl:1,t:'A bird on one wire sits at one potential — no difference, no current'},
+   {lvl:1,t:'Bridge two different potentials and current flows through you'},
+   {lvl:0,t:'Higher voltage can push current across larger air gaps — it can arc to you before you touch it'},
+  ],
+  coTitle:'Why this matters',
+  coText:['Every safe-work distance exists because voltage can drive current across air.',
+          '“Difference of potential” is the whole game — control it and you control the hazard.']},
+
+{type:'callout',mod:M1,kicker:'1.4 Current',title:'Current — The Flow That Hurts You',kind:'danger',
+  items:[
+   {lvl:0,t:'Current (I) is the rate of charge flow, measured in amperes (amps)'},
+   {lvl:1,t:'Analogy: the volume of water flowing past a point'},
+   {lvl:0,t:'It is CURRENT through the body — not voltage — that injures and kills'},
+   {lvl:1,t:'Voltage determines how much current will be pushed through your resistance'},
+   {lvl:0,t:'Even small currents across the chest can stop the heart'},
+   {lvl:0,t:'Fault current on distribution/transmission can be thousands of amps'},
+   {lvl:1,t:'Enough to vaporize metal and create an arc-flash explosion'},
+  ],
+  coTitle:'Remember',
+  coText:['It takes surprisingly little current to be fatal.','Milliamps through the heart — not amps — are deadly.',
+          'Protect against the current by removing the path and the potential difference.']},
+
+{type:'bullets',mod:M1,kicker:'1.5 Ohm\'s Law',title:'Resistance, Ohm\'s Law &amp; Power',
+  lead:'Three quantities, one relationship — the most useful equation you will ever memorize.',
+  items:[
+   {lvl:0,t:'Resistance (R) opposes current flow — measured in ohms (Ω)'},
+   {lvl:1,t:'Conductors = low R; insulators = high R; your skin\'s R drops sharply when wet'},
+   {lvl:0,t:'Ohm\'s Law ties the three together:  V = I × R'},
+   {lvl:1,t:'Current I = V / R  →  same voltage + lower body resistance = MORE current through you'},
+   {lvl:1,t:'This is why sweat, water, and broken skin make a shock far more dangerous'},
+   {lvl:0,t:'Power is the rate of doing work — measured in watts:  P = V × I'},
+   {lvl:1,t:'Also P = I² × R — heat in a fault rises with the SQUARE of current'},
+   {lvl:1,t:'That heat is what drives burns and arc-flash energy'},
+   {lvl:0,t:'Utilities sell energy in kilowatt-hours (kWh): power used over time'},
+  ]},
+
+{type:'table',mod:M1,kicker:'1.5 Reference',title:'The Ohm\'s Law / Power Wheel — Quick Reference',
+  headers:['To find','If you know','Use the formula','Units'], cw:[22,28,28,22], fs:13.5,
+  rows:[['Voltage (E)','Current &amp; Resistance','E = I × R','Volts (V)'],
+        ['Current (I)','Voltage &amp; Resistance','I = E ÷ R','Amperes (A)'],
+        ['Resistance (R)','Voltage &amp; Current','R = E ÷ I','Ohms (Ω)'],
+        ['Power (P)','Voltage &amp; Current','P = E × I','Watts (W)'],
+        ['Power (P)','Current &amp; Resistance','P = I² × R','Watts (W)'],
+        ['Power (P)','Voltage &amp; Resistance','P = E² ÷ R','Watts (W)']],
+  note:'Tip: cover the value you want in the V / I / R triangle and the remaining two show you the operation. Power = the rate energy is delivered — and the source of heat and arc energy.'},
+
+{type:'twocol',mod:M1,kicker:'1.6 Waveforms',title:'AC vs DC',
+  lh:'Direct Current (DC)', lc:'var(--steel)',
+  li:['Electrons flow one direction only','Batteries, solar arrays, some traction &amp; HVDC systems',
+      'Steady polarity — + and – stay fixed','Cannot be easily transformed up/down in voltage',
+      'DC can cause sustained muscle “lock-on”'],
+  rh:'Alternating Current (AC)', rc:'var(--navy2)',
+  ri:['Electrons reverse direction cyclically','60 Hz in North America = 60 cycles per second',
+      'Polarity and magnitude change continuously (a sine wave)','Easily stepped up/down by transformers — why the grid uses it',
+      'Crosses zero 120×/sec, but is still lethal — never assume “off”']},
+
+{type:'bullets',mod:M1,kicker:'1.6 AC Behavior',title:'AC Details: Frequency, Peak &amp; RMS',
+  items:[
+   {lvl:0,t:'One full cycle = one complete positive + negative swing of the sine wave'},
+   {lvl:0,t:'Frequency = cycles per second, measured in hertz (Hz); 60 Hz in the U.S./Canada'},
+   {lvl:0,t:'Peak voltage is the maximum the wave reaches; the average useful value is the RMS'},
+   {lvl:1,t:'RMS (root-mean-square) is the “DC-equivalent” value — it does the same work'},
+   {lvl:1,t:'When we say 120 V or 7,200 V, we mean RMS; peak is ~1.414× higher'},
+   {lvl:0,t:'Phase describes where two AC waveforms are in their cycle relative to each other'},
+   {lvl:1,t:'Critical for three-phase systems and for paralleling sources'},
+   {lvl:0,t:'Inductance and capacitance on lines cause current and voltage to shift out of step'},
+   {lvl:1,t:'This is the source of INDUCED voltage on de-energized parallel circuits (Module 3)'},
+  ]},
+
+{type:'twocol',mod:M1,kicker:'1.7 Phases',title:'Single-Phase vs Three-Phase',
+  lh:'Single-Phase', lc:'var(--steel)',
+  li:['One AC voltage waveform (with neutral)','Typical residential service: 120/240 V',
+      'Simple loads — lighting, receptacles, small motors','Power delivery pulses (crosses zero each half-cycle)'],
+  rh:'Three-Phase', rc:'var(--navy2)',
+  ri:['Three waveforms 120° apart — A, B, C phases','Backbone of transmission, distribution &amp; industrial power',
+      'Smooth, continuous power — efficient for large motors','More power in less conductor than single-phase',
+      'Phase-to-phase voltage = √3 (1.732) × phase-to-neutral']},
+
+{type:'bullets',mod:M1,kicker:'1.8 Transformers',title:'Transformers — Stepping Voltage Up &amp; Down',
+  lead:'The single reason the grid runs on AC — voltage can be transformed efficiently.',
+  items:[
+   {lvl:0,t:'A transformer changes AC voltage using two coils linked by a magnetic core'},
+   {lvl:1,t:'No direct electrical connection — energy crosses by induction'},
+   {lvl:0,t:'Turns ratio sets the voltage ratio: more secondary turns → higher voltage'},
+   {lvl:1,t:'Step UP: raise voltage for transmission (less current = less line loss)'},
+   {lvl:1,t:'Step DOWN: lower voltage for distribution and the customer'},
+   {lvl:0,t:'Power in ≈ power out, so when voltage goes UP, current goes DOWN (and vice-versa)'},
+   {lvl:1,t:'P = V × I — this is WHY we transmit at high voltage: to cut I²R losses'},
+   {lvl:0,t:'Distribution transformers on the pole/pad drop primary (e.g., 7,200 V) to 120/240 V'},
+   {lvl:0,t:'WARNING: a de-energized secondary can be BACK-FED from the customer side — generators!',bold:true},
+  ]},
+
+{type:'process',mod:M1,kicker:'1.9 The System',title:'The Grid: From Generation to Your Service',
+  lead:'Know where you are on this chain — it tells you the voltage, the fault energy, and the controls you need.',
+  steps:[
+   {h:'1. Generation',p:'Power plants (gas, hydro, nuclear, wind, solar) produce AC, typically at medium voltage.'},
+   {h:'2. Step-Up Substation',p:'Transformers raise voltage to transmission levels (69 kV up to 765 kV) to move power far with low loss.'},
+   {h:'3. Transmission Lines',p:'High-voltage lines on large towers carry bulk power across regions.'},
+   {h:'4. Step-Down / Distribution Substation',p:'Voltage is reduced to distribution levels (typically 4 kV–35 kV).'},
+   {h:'5. Distribution Feeders',p:'Primary lines on poles carry power through neighborhoods; reclosers &amp; fuses protect them.'},
+   {h:'6. Service Transformer &amp; Customer',p:'Final step-down to 120/240 V (residential) or higher for commercial/industrial.'},
+  ]},
+
+{type:'table',mod:M1,kicker:'1.10 Voltage Classes',title:'Voltage Classes You Will Work Around',
+  headers:['Class','Typical Range','Where you see it','Note'], cw:[26,18,28,28], fs:12.5,
+  rows:[['Low voltage','&lt; 600 V','Services, secondary, street light','Still deadly — most contacts happen here'],
+        ['Medium voltage (Distribution)','600 V – 35 kV','Primary feeders, urban/rural lines','Common lineworker environment'],
+        ['High voltage (Sub-transmission / Transmission)','35 kV – 230 kV','Towers, large substations','Larger MAD; arc &amp; induction hazards grow'],
+        ['Extra-high voltage (EHV)','230 kV – 765 kV','Bulk transmission','Specialized live-line methods, large clearances'],
+        ['Ultra-high voltage (UHV)','&gt; 765 kV','Long-distance bulk corridors','Rare; highly specialized work']],
+  note:'Exact class boundaries vary by utility and standard (NESC/IEEE). What never changes: higher voltage = larger required clearances and greater fault energy.'},
+
+{type:'bullets',mod:M1,kicker:'Module 1 Recap',title:'Module 1 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Electricity is the flow of charge that always wants to return to its source via every path'},
+   {lvl:0,t:'Voltage pushes; current flows; resistance opposes — V = I × R ties them together'},
+   {lvl:0,t:'It is CURRENT through the body that kills, and low body resistance lets more through'},
+   {lvl:0,t:'AC dominates the grid because transformers let us change voltage efficiently'},
+   {lvl:0,t:'Transmit high (low current, low loss); distribute and use low (safe for customers)'},
+   {lvl:0,t:'Know your voltage class — it sets your clearances, fault energy, and controls'},
+  ]},
+
+/* ===== MODULE 2 ===== */
+{type:'divider',num:'2',title:'Electricity &amp; the Human Body',
+  items:['How current injures and kills','Shock thresholds &amp; the heart','Electrical burns',
+         'Arc flash and arc blast','Step, touch &amp; ground-gradient potential']},
+
+{type:'bullets',mod:M2,kicker:'2.1 Shock Physiology',title:'How Current Affects the Body',
+  items:[
+   {lvl:0,t:'The body is a conductor — nerves and muscles run on tiny electrical signals'},
+   {lvl:0,t:'External current overrides those signals: muscles clamp, nerves misfire, the heart can fibrillate'},
+   {lvl:0,t:'Severity depends on:'},
+   {lvl:1,t:'Amount of current (the key factor) — set by voltage ÷ your resistance'},
+   {lvl:1,t:'Path through the body — hand-to-hand or hand-to-foot crosses the heart'},
+   {lvl:1,t:'Duration of contact — longer exposure, more damage'},
+   {lvl:1,t:'Frequency — 60 Hz AC is especially effective at causing fibrillation'},
+   {lvl:0,t:'Skin resistance can be ~100,000 Ω dry, but drops to ~1,000 Ω or less when wet/broken'},
+   {lvl:1,t:'Same voltage then drives far more current — wet conditions are a force multiplier'},
+  ]},
+
+{type:'table',mod:M2,kicker:'2.2 Thresholds',title:'Approximate Effects of 60 Hz Current Across the Body',
+  headers:['Current (through body)','Typical effect'], cw:[28,72], fs:13,
+  rows:[['~1 mA','Threshold of perception — a faint tingle'],
+        ['~5 mA','Slight shock; not painful but startling — can cause falls'],
+        ['6–16 mA','Painful shock; loss of muscular control begins (“let-go” threshold)'],
+        ['17–20 mA','Muscles clamp — CANNOT let go of the conductor; breathing labored'],
+        ['20–50 mA','Severe muscle contractions, breathing difficulty'],
+        ['50–100 mA','Possible ventricular fibrillation — the heart quivers, stops pumping'],
+        ['100 mA – 2 A','Likely fatal ventricular fibrillation; nerve damage'],
+        ['&gt; 2 A','Cardiac arrest, severe internal burns, organ damage']],
+  note:'Values are approximate and vary by body size, path, and conditions. The lesson: the dangerous range starts in the MILLIAMP region — far below what trips most circuits.'},
+
+{type:'callout',mod:M2,kicker:'2.3 The Heart',title:'The Heart, Let-Go &amp; Fibrillation',kind:'danger',
+  items:[
+   {lvl:0,t:'“Let-go threshold”: above ~10–16 mA your flexor muscles clamp and you cannot release the conductor'},
+   {lvl:1,t:'The longer you hold on, the more the contact heats and the more current flows'},
+   {lvl:0,t:'Ventricular fibrillation: current disrupts the heart\'s rhythm so it quivers instead of pumping'},
+   {lvl:1,t:'Blood stops circulating — brain damage in minutes, death without intervention'},
+   {lvl:1,t:'A defibrillator/AED and CPR may restart a coordinated rhythm — know where yours is'},
+   {lvl:0,t:'Even a “minor” shock can throw you from a pole or bucket — the fall often does the damage'},
+  ],
+  coTitle:'Why we never rely on “holding on”',
+  coText:['Above the let-go threshold your body works against you.',
+          'The only safe contact with an energized conductor is NO direct contact — insulate and isolate.']},
+
+{type:'twocol',mod:M2,kicker:'2.4 Burns',title:'Electrical Burns',
+  lh:'How they happen', lc:'var(--danger)',
+  li:['Contact / true electrical burns: current flowing through tissue generates heat (I²R)',
+      'Arc burns: radiated heat from an arc — can exceed 35,000°F at the arc',
+      'Thermal-contact burns: ignited clothing or hot surfaces','Flash burns to eyes (welder\'s flash) from intense UV'],
+  rh:'Why they are deceptive', rc:'var(--amber-d)',
+  ri:['Entry/exit wounds may look small but mask massive internal damage',
+      'Current cooks tissue along its whole path — nerves, muscle, organs',
+      'Delayed effects: kidney damage from tissue breakdown, cardiac issues',
+      'ALWAYS seek medical evaluation after any electrical contact — even if you feel fine']},
+
+{type:'callout',mod:M2,kicker:'2.5 Arc Flash',title:'Arc Flash &amp; Arc Blast',kind:'danger',
+  items:[
+   {lvl:0,t:'An arc flash is an explosive release of energy when current jumps through ionized air'},
+   {lvl:1,t:'Triggered by faults, dropped tools, animals, equipment failure, or getting too close'},
+   {lvl:0,t:'Arc FLASH = light &amp; heat: temperatures up to ~35,000°F (hotter than the sun\'s surface)'},
+   {lvl:0,t:'Arc BLAST = pressure wave: vaporized metal expands violently'},
+   {lvl:1,t:'Copper expands ~67,000 times when it vaporizes — like a small explosion'},
+   {lvl:1,t:'Concussive force, shrapnel, molten metal spray, sound &gt; 140 dB'},
+   {lvl:0,t:'Incident energy is measured in cal/cm² — it sets the arc rating of PPE you must wear'},
+  ],
+  coTitle:'Controlled by',
+  coText:['Distance (clearances), de-energizing, and arc-rated FR clothing/face protection.',
+          'An arc flash can occur WITHOUT you touching anything — proximity alone can trigger it.']},
+
+{type:'callout',mod:M2,kicker:'2.6 Ground Gradients',title:'Step Potential &amp; Touch Potential',kind:'danger',
+  items:[
+   {lvl:0,t:'When current flows into the earth (a downed line, a fault to a ground rod), it spreads out'},
+   {lvl:0,t:'Voltage drops with distance from the contact point — forming a “voltage gradient” across the ground'},
+   {lvl:0,t:'STEP POTENTIAL: the voltage difference between your two feet'},
+   {lvl:1,t:'One foot sits at a higher potential than the other — current flows up one leg, down the other'},
+   {lvl:1,t:'The wider your stride, the greater the difference — and the greater the shock'},
+   {lvl:0,t:'TOUCH POTENTIAL: difference between your hand (on an object) and your feet'},
+   {lvl:1,t:'Touching a faulted structure while standing on ground at a different potential'},
+  ],
+  coTitle:'If you must leave an energized area',
+  coText:['Keep feet together and SHUFFLE or bunny-hop — never take a normal stride.',
+          'Assume the ground around any downed line is energized out to a wide radius.',
+          'Equipotential bonding &amp; grounding eliminate these gradients in your work zone.']},
+
+{type:'bullets',mod:M2,kicker:'2.7 Downed Lines',title:'Downed Conductors &amp; The Ground Around You',
+  lead:'The most dangerous ground is the ground that looks perfectly normal.',
+  items:[
+   {lvl:0,t:'A downed line may look dead — it is NOT until tested and grounded'},
+   {lvl:1,t:'It may be re-energized automatically by reclosers, or back-fed by a customer\'s generator'},
+   {lvl:0,t:'Energized ground can extend many feet from the contact point — you cannot see it'},
+   {lvl:0,t:'Vehicles in contact with lines: occupants should STAY INSIDE unless fire forces evacuation'},
+   {lvl:1,t:'If they must exit: JUMP clear without touching vehicle and ground at once, then shuffle away'},
+   {lvl:0,t:'Keep the public back — establish a wide barrier and treat everything as energized'},
+   {lvl:0,t:'Never approach within the established radius until the line is confirmed de-energized &amp; grounded'},
+  ]},
+
+{type:'bullets',mod:M2,kicker:'Module 2 Recap',title:'Module 2 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Current — not voltage — injures; the dangerous range begins in milliamps'},
+   {lvl:0,t:'Path across the heart and 60 Hz AC make fibrillation likely; wet skin worsens everything'},
+   {lvl:0,t:'Above the let-go threshold you cannot release — so we never rely on letting go'},
+   {lvl:0,t:'Arc flash/blast can kill or maim WITHOUT contact — distance and FR PPE are your defense'},
+   {lvl:0,t:'Energized ground creates step &amp; touch potential — shuffle out, bond and ground your zone'},
+   {lvl:0,t:'After any contact: get medical evaluation — internal damage hides'},
+  ]},
+
+/* ===== MODULE 3 ===== */
+{type:'divider',num:'3',title:'Working Around Energized Lines &amp; Equipment',
+  items:['Minimum approach distance','The second point of contact — the core concept',
+         'Isolate, insulate &amp; cover-up','Grounding &amp; the equipotential zone','De-energizing, LOTO &amp; induced voltage']},
+
+{type:'bullets',mod:M3,kicker:'3.1 Controls',title:'The Hierarchy of Controls for Electrical Work',
+  lead:'Reach for the top of the hierarchy first; PPE alone is never the plan.',
+  items:[
+   {lvl:0,t:'The safest energized work is work that isn\'t energized — always prefer de-energizing where feasible'},
+   {lvl:0,t:'Order of preference when planning a job:'},
+   {lvl:1,t:'1. Eliminate — de-energize, isolate, lock &amp; tag, test dead, and ground'},
+   {lvl:1,t:'2. Substitute / engineer — reroute, switch load, use remote/robotic methods'},
+   {lvl:1,t:'3. Isolate the worker — insulate &amp; isolate (rubber-glove or hot-stick / live-line bare-hand)'},
+   {lvl:1,t:'4. Administrative — procedures, job briefings, MAD, qualified workers only'},
+   {lvl:1,t:'5. PPE — FR clothing, rubber gloves/sleeves, face &amp; head protection (last line, never the only line)'},
+   {lvl:0,t:'Energized work is permitted only when de-energizing is infeasible or creates greater hazard'},
+  ]},
+
+{type:'callout',mod:M3,kicker:'3.2 MAD',title:'Minimum Approach Distance (MAD)',kind:'warn',
+  items:[
+   {lvl:0,t:'MAD = the closest a qualified worker (or conductive object) may come to an energized part'},
+   {lvl:0,t:'It protects against flashover — the air gap that voltage cannot jump'},
+   {lvl:0,t:'MAD increases with voltage and with altitude (thinner air insulates less)'},
+   {lvl:0,t:'It includes the phase-to-ground AND phase-to-phase exposure'},
+   {lvl:0,t:'Anything conductive counts: your body, tools, materials, the boom, a tape measure'},
+   {lvl:1,t:'Unqualified employees must stay even farther back'},
+   {lvl:0,t:'If you cannot maintain MAD, the part must be de-energized OR covered/insulated'},
+  ],
+  coTitle:'Rule of thumb',
+  coText:['Know your utility\'s MAD table for the voltage you\'re on — BEFORE you leave the ground.',
+          'When in doubt, cover up or back off. MAD is a minimum, not a target.']},
+
+{type:'table',mod:M3,kicker:'3.2 MAD Table',title:'Illustrative Minimum Approach Distances (Phase-to-Ground)',
+  headers:['Nominal Voltage (ph-ph)','Example MAD','Typical Setting'], cw:[34,24,42], fs:12,
+  rows:[['50 V – 300 V','Avoid contact','Service / secondary'],
+        ['301 V – 750 V','~1 ft 1 in','Secondary / street light'],
+        ['751 V – 15 kV','~2 ft 2 in','Distribution primary'],
+        ['15.1 kV – 36 kV','~2 ft 7 in','Distribution / sub-transmission'],
+        ['36.1 kV – 46 kV','~2 ft 9 in','Sub-transmission'],
+        ['46.1 kV – 72.5 kV','~3 ft 3 in','Sub-transmission'],
+        ['72.6 kV – 121 kV','~3 ft 4 in','Transmission'],
+        ['138 kV – 145 kV','~3 ft 7 in','Transmission'],
+        ['230 kV','~5 ft 3 in','Bulk transmission']],
+  note:'ILLUSTRATIVE ONLY — distances vary with altitude, transient over-voltage factor, and the governing edition of OSHA 1910.269 Table R-3 / R-6. ALWAYS use your employer\'s current, approved MAD table.'},
+
+{type:'callout',mod:M3,kicker:'3.3 SECOND POINT OF CONTACT',title:'The Second Point of Contact — The Concept That Saves Lives',kind:'danger',
+  items:[
+   {lvl:0,t:'Current can only flow when it has a complete path: a source, a load/body, and a return'},
+   {lvl:0,t:'Touching ONE energized conductor while perfectly insulated from everything else = no path'},
+   {lvl:1,t:'This is why a bird sits on a wire unharmed — one potential, no second contact'},
+   {lvl:0,t:'The SECOND POINT OF CONTACT is what completes the circuit through you:'},
+   {lvl:1,t:'A grounded neutral, a guy wire, a pole ground, a crossarm, the structure'},
+   {lvl:1,t:'Another phase at a different potential (phase-to-phase — even more dangerous)'},
+   {lvl:1,t:'A co-worker, a tool, the bucket, a wet rope, the truck'},
+   {lvl:0,t:'Eliminate the second point of contact and you eliminate the shock — every time'},
+  ],
+  coTitle:'The discipline',
+  coText:['Before you reach for ANY energized part, ask: “Where is my second point of contact?”',
+          'Cover it. Insulate it. Or remove yourself from it.',
+          'Most electrocutions are NOT phase-to-phase — they are phase-to-GROUND through a missed second point.']},
+
+{type:'bullets',mod:M3,kicker:'3.3 Application',title:'Finding Your Second Point of Contact — Every Time',
+  lead:'Rubber gloves alone are not the answer — you must also control what else you could touch.',
+  items:[
+   {lvl:0,t:'Scan the whole work envelope, not just the conductor you\'re working'},
+   {lvl:0,t:'Common second points hiding in plain sight:'},
+   {lvl:1,t:'Grounded neutral conductor (often the closest deadly path)'},
+   {lvl:1,t:'The pole ground / ground wire, guy wires and down-guys'},
+   {lvl:1,t:'Metal crossarm braces, bolts, staples, hardware'},
+   {lvl:1,t:'Other phases above, below, or behind you'},
+   {lvl:1,t:'Transformer cases, capacitor banks, riser/cable terminations'},
+   {lvl:1,t:'The bucket lip, jib, winch line, hand line, or another worker'},
+   {lvl:0,t:'Work to keep yourself, your tools, and the energized part isolated from all of them'},
+   {lvl:0,t:'Glove AND cover: rubber gloves protect your hands; cover-up protects against the SECOND point'},
+  ]},
+
+{type:'bullets',mod:M3,kicker:'3.4 Two Methods',title:'Insulate &amp; Isolate — The Two Methods of Protection',
+  items:[
+   {lvl:0,t:'INSULATE: place insulating barriers between the worker and energized/grounded parts'},
+   {lvl:1,t:'Rubber gloves, sleeves, line hose, hoods, blankets — rated for the voltage'},
+   {lvl:1,t:'Insulated tools and platforms; the dielectric boom of an aerial device'},
+   {lvl:0,t:'ISOLATE: create distance/separation so no path can form'},
+   {lvl:1,t:'Maintain MAD; reposition the work; use live-line (hot-stick) tools to keep the worker back'},
+   {lvl:0,t:'Rubber-glove method: worker is insulated and works within reach — cover-up is mandatory'},
+   {lvl:0,t:'Hot-stick / live-line tool method: worker stays beyond MAD and works through tools'},
+   {lvl:0,t:'Bare-hand (live-line) method: worker is bonded TO the conductor at line potential — specialized, EHV'},
+  ]},
+
+{type:'bullets',mod:M3,kicker:'3.5 Cover-Up',title:'Cover-Up: Purpose &amp; Principles',
+  lead:'Cover-up turns a cluttered, energized pole top into an isolated, defendable work zone.',
+  items:[
+   {lvl:0,t:'Cover-up = installing insulating guards over energized AND grounded parts in the work zone'},
+   {lvl:0,t:'Purpose: protect against accidental contact and eliminate second points of contact'},
+   {lvl:1,t:'It is secondary protection — it backs up your gloves, MAD, and positioning'},
+   {lvl:0,t:'Cover EVERYTHING within reach you could contact: phases, neutral, ground, hardware, guys'},
+   {lvl:0,t:'Cover-up must be rated for the system voltage and inspected before use'},
+   {lvl:0,t:'Install from a position of safety — nearest/most-accessible energized part first, working outward'},
+   {lvl:1,t:'Use a hot stick or gloved hands per procedure; never let cover-up create false security'},
+   {lvl:0,t:'Remove in REVERSE order — last on, first off — keeping protection in place longest where you work'},
+  ]},
+
+{type:'process',mod:M3,kicker:'3.5 Sequence',title:'Cover-Up Sequence — Building the Protected Zone',
+  steps:[
+   {h:'1. Plan &amp; inspect',p:'Identify every energized &amp; grounded part within reach. Inspect all cover-up for damage; verify voltage rating.'},
+   {h:'2. Establish footing',p:'Position the bucket/yourself so you can reach with the conductor at a safe angle — from below where possible.'},
+   {h:'3. Cover the closest hazard first',p:'Apply line hose/blankets to the nearest energized phase, then work outward to additional phases.'},
+   {h:'4. Cover the second points',p:'Cover the neutral, ground wire, guys, crossarm hardware — anything that could be your second point of contact.'},
+   {h:'5. Work the job',p:'With the zone insulated, perform the task maintaining gloves, MAD, and positioning throughout.'},
+   {h:'6. Remove in reverse',p:'Strip cover-up last-on/first-off — keep protection nearest you in place until the end.'},
+  ]},
+
+{type:'twocol',mod:M3,kicker:'3.5 Equipment',title:'Cover-Up Equipment',
+  lh:'Types of cover-up', lc:'var(--navy2)',
+  li:['Line hose — tubular cover for conductors','Insulator hoods — cover pin/post insulators &amp; tops',
+      'Conductor/line covers &amp; connector covers','Insulating blankets — wrap irregular shapes, hardware',
+      'Dead-end &amp; pole/crossarm covers, guy guards'],
+  rh:'Selection &amp; care', rc:'var(--green)',
+  ri:['Match the voltage rating to (or above) the system','Inspect for cuts, ozone cracks, embedded metal, swelling',
+      'Keep clean &amp; dry; store properly — no sharp folds','Use approved clip pins/connectors so it stays put',
+      'Removed from service &amp; retested per schedule if suspect']},
+
+{type:'callout',mod:M3,kicker:'3.6 De-Energize / LOTO',title:'De-Energizing &amp; Lockout/Tagout (LOTO)',kind:'warn',
+  items:[
+   {lvl:0,t:'When a line can be de-energized, follow the formal switching &amp; clearance procedure'},
+   {lvl:0,t:'The classic verification sequence — do not skip a step:'},
+   {lvl:1,t:'1. Identify the correct circuit/section (right line, right structure)'},
+   {lvl:1,t:'2. Open the disconnects and render them visibly open'},
+   {lvl:1,t:'3. Lock and TAG the points of isolation — each worker\'s own lock'},
+   {lvl:1,t:'4. TEST for absence of voltage with a tested-good detector (test-before-touch)'},
+   {lvl:1,t:'5. Apply protective GROUNDS to create an equipotential, drained zone'},
+   {lvl:0,t:'Hold the clearance; only the holder releases it after all workers are clear'},
+  ],
+  coTitle:'Test your tester',
+  coText:['Prove the voltage detector works on a known source BEFORE and AFTER testing the line.',
+          'Treat every conductor as energized until YOU have verified it dead and grounded.']},
+
+{type:'callout',mod:M3,kicker:'3.7 Grounding &amp; EPZ',title:'Grounding &amp; The Equipotential Zone',kind:'info',
+  items:[
+   {lvl:0,t:'Protective grounding does NOT just “drain” the line — it protects YOU if it is re-energized'},
+   {lvl:0,t:'If the line is accidentally energized, grounds provide a low-resistance path that trips protection fast'},
+   {lvl:0,t:'Equipotential zone (EPZ): bond everything you could touch to the SAME potential'},
+   {lvl:1,t:'If everything around you is at the same voltage, no current flows through you — like the bird'},
+   {lvl:0,t:'Bonding: connect conductors, structures, and equipment together; ground that bonded system'},
+   {lvl:0,t:'Grounds must be sized for available fault current and connected in the correct order'},
+   {lvl:1,t:'Connect to ground/structure FIRST, then to the conductor; remove in REVERSE'},
+  ],
+  coTitle:'Why grounds save lives',
+  coText:['A worker inside a properly bonded EPZ rides the voltage up and down together — no difference of potential across the body.',
+          'Grounds are sized to carry fault current long enough for the breaker/recloser to operate.']},
+
+{type:'bullets',mod:M3,kicker:'3.8 Induced Voltage',title:'Induced Voltage — The Hidden Hazard on “Dead” Lines',
+  lead:'“Dead” is not the same as “grounded.” Induction is why we ground at the work location.',
+  items:[
+   {lvl:0,t:'A de-energized line running parallel to an energized one can pick up voltage by induction'},
+   {lvl:1,t:'Magnetic (current) and electrostatic (voltage) coupling from the live circuit'},
+   {lvl:0,t:'The longer the parallel and the higher the live circuit\'s load, the greater the induced voltage'},
+   {lvl:0,t:'An ungrounded “dead” line can hold enough induced potential to shock or kill'},
+   {lvl:0,t:'Control it by GROUNDING — and by working within a bonded equipotential zone'},
+   {lvl:1,t:'Grounds at the work site (not just at the ends) keep induced potential off the worker'},
+   {lvl:0,t:'Switching, transmission, and parallel-circuit work demand extra attention to induction'},
+  ]},
+
+{type:'bullets',mod:M3,kicker:'Module 3 Recap',title:'Module 3 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Prefer de-energizing; when working hot, isolate AND insulate — never rely on one control'},
+   {lvl:0,t:'Maintain MAD for your voltage; anything conductive counts toward the distance'},
+   {lvl:0,t:'THE SECOND POINT OF CONTACT completes the circuit — find it, cover it, remove it, every time'},
+   {lvl:0,t:'Cover-up backs up your gloves and MAD: nearest first, remove in reverse'},
+   {lvl:0,t:'De-energize properly: identify, open, lock/tag, TEST, then GROUND'},
+   {lvl:0,t:'Bond an equipotential zone and ground at the work site — it defeats re-energization AND induction'},
+  ]},
+
+/* ===== MODULE 4 ===== */
+{type:'divider',num:'4',title:'Tools of the Trade',
+  items:['Rubber insulating gloves &amp; sleeves','Live-line (hot-stick) tools','Protective grounds &amp; testers',
+         'Arc-rated FR clothing &amp; PPE','Inspection, testing &amp; care']},
+
+{type:'bullets',mod:M4,kicker:'4.1 Rubber Gloves',title:'Rubber Insulating Gloves — Your First Line of Defense',
+  items:[
+   {lvl:0,t:'Rubber gloves insulate your hands from energized parts in the rubber-glove method'},
+   {lvl:0,t:'Always worn with leather protector gloves OVER them'},
+   {lvl:1,t:'The leather shields the rubber from cuts, abrasion, and UV — the rubber does the insulating'},
+   {lvl:0,t:'Selected by VOLTAGE CLASS — each class has a max use voltage and proof-test voltage'},
+   {lvl:0,t:'Field-inspect before EVERY use:'},
+   {lvl:1,t:'Air-test (roll/inflate) to find pinholes; check for cuts, cracks, swelling, embedded debris'},
+   {lvl:1,t:'Inspect inside and out; check for chemical or ozone damage'},
+   {lvl:0,t:'Retest electrically on a schedule (typically every 6 months) at a certified lab'},
+   {lvl:0,t:'Store in a glove bag, fingers up, away from heat, ozone, sunlight, and sharp objects'},
+  ]},
+
+{type:'table',mod:M4,kicker:'4.1 Glove Classes',title:'Rubber Glove Voltage Classes (ASTM D120 / IEC)',
+  headers:['Class','Max Use Voltage (AC, ph-ph)','Label Color','Proof Test'], cw:[16,34,24,26], fs:13.5,
+  rows:[['Class 00','500 V','Beige','2,500 V'],['Class 0','1,000 V','Red','5,000 V'],
+        ['Class 1','7,500 V','White','10,000 V'],['Class 2','17,000 V','Yellow','20,000 V'],
+        ['Class 3','26,500 V','Green','30,000 V'],['Class 4','36,000 V','Orange','40,000 V']],
+  note:'Always select a class rated AT or ABOVE the maximum voltage you may contact. Label color aids quick identification; the printed rating governs. The same class system applies to insulating sleeves and many blankets.'},
+
+{type:'twocol',mod:M4,kicker:'4.2 Sleeves &amp; Cover',title:'Rubber Sleeves, Blankets &amp; Line Hose',
+  lh:'Sleeves', lc:'var(--navy2)',
+  li:['Insulate the forearm, upper arm, and shoulder','Worn when the arm could contact an energized/grounded part',
+      'Same voltage-class system as gloves','Inspected &amp; retested like gloves'],
+  rh:'Blankets &amp; line hose', rc:'var(--steel)',
+  ri:['Blankets: flexible cover for irregular shapes &amp; hardware','Line hose: slips over conductors to insulate runs',
+      'Secured with approved pins/snaps/clamps','Voltage-rated; inspected for cuts, ozone &amp; contamination']},
+
+{type:'bullets',mod:M4,kicker:'4.3 Hot Sticks',title:'Live-Line (Hot-Stick) Tools',
+  lead:'A hot stick keeps the worker back while the work goes forward — isolation in tool form.',
+  items:[
+   {lvl:0,t:'Hot sticks are insulating tools (usually fiberglass/epoxy) that extend your reach beyond MAD'},
+   {lvl:0,t:'Let qualified workers operate, test, install and remove equipment without closing the gap'},
+   {lvl:0,t:'Common types:'},
+   {lvl:1,t:'Universal / shotgun (telescoping) sticks with interchangeable heads'},
+   {lvl:1,t:'Switch sticks, disconnect sticks, fuse pullers'},
+   {lvl:1,t:'Tie sticks, wire-holding &amp; cleaning tools, measuring sticks'},
+   {lvl:1,t:'Grounding sticks (clamp sticks) for applying protective grounds'},
+   {lvl:0,t:'Keep them CLEAN and DRY — contamination &amp; moisture ruin the insulating surface'},
+   {lvl:1,t:'Wipe down with an approved cleaner/wax; use a cradle, not the ground'},
+   {lvl:0,t:'Inspect for scratches, cracks, soft spots; periodic dielectric testing required'},
+  ]},
+
+{type:'bullets',mod:M4,kicker:'4.4 Grounds',title:'Protective Grounds &amp; Grounding Equipment',
+  items:[
+   {lvl:0,t:'Personal protective grounds = flexible copper cables with clamps (ferrules) and ground studs'},
+   {lvl:0,t:'Sized to carry the available fault current for the clearing time without failing'},
+   {lvl:1,t:'Undersized grounds can fuse and fail under fault — use the correct cable size'},
+   {lvl:0,t:'Components: cable, clamps, ferrules, ground rods/cluster bars, EPZ jumpers'},
+   {lvl:0,t:'Apply correctly: clean contact points, tight clamps, ground end FIRST then line end'},
+   {lvl:0,t:'Use grounding sticks to install/remove — treat the line as energized until grounds are on'},
+   {lvl:0,t:'Inspect for broken strands, corroded clamps, loose ferrules; remove damaged sets from service'},
+   {lvl:0,t:'Remove grounds in REVERSE: line end first, ground end last'},
+  ]},
+
+{type:'twocol',mod:M4,kicker:'4.5 Testers',title:'Voltage Detectors &amp; Testers',
+  lh:'Types', lc:'var(--steel)',
+  li:['Contact voltage detectors (on a hot stick)','Non-contact / proximity testers (presence of field)',
+      'Phasing testers — verify phase relationships','Audible/visual indication of energized condition'],
+  rh:'Use it right', rc:'var(--amber-d)',
+  ri:['TEST the tester on a known source before AND after','Match the detector\'s range to the system voltage',
+      'Test-before-touch on every conductor, every time','A “no voltage” reading from an unproven tester proves NOTHING']},
+
+{type:'bullets',mod:M4,kicker:'4.6 FR / PPE',title:'Arc-Rated FR Clothing &amp; Personal PPE',
+  items:[
+   {lvl:0,t:'Flame-resistant (FR) / arc-rated (AR) clothing protects against arc-flash thermal energy'},
+   {lvl:1,t:'Rated in cal/cm² (ATPV / arc rating) — must meet or exceed the job\'s incident energy'},
+   {lvl:1,t:'Self-extinguishing; will not melt and drip like synthetics (no untreated nylon/poly next to skin)'},
+   {lvl:0,t:'Layering increases protection; the outermost layer must be arc-rated'},
+   {lvl:0,t:'Head/face/eyes: hard hat (Class E, electrical), arc-rated face shield/hood, safety glasses'},
+   {lvl:0,t:'Hands: rubber gloves + leather protectors; feet: EH-rated footwear'},
+   {lvl:0,t:'Hearing protection for arc-blast environments; no exposed conductive jewelry'},
+   {lvl:0,t:'PPE is the LAST layer — it limits injury when other controls fail; it never replaces them'},
+  ]},
+
+{type:'table',mod:M4,kicker:'4.7 Intervals',title:'PPE &amp; Tool Inspection / Test Intervals (Typical)',
+  headers:['Item','Before each use','Periodic electrical test'], cw:[32,32,36], fs:12.5,
+  rows:[['Rubber gloves','Air &amp; visual inspection','Retest ≈ every 6 months'],
+        ['Rubber sleeves','Visual inspection','Retest ≈ every 6 months'],
+        ['Insulating blankets','Visual inspection','Retest ≈ every 12 months'],
+        ['Line hose / covers','Visual inspection','When suspect / per program'],
+        ['Hot sticks / live-line tools','Wipe &amp; visual inspection','Periodic dielectric test (e.g., every 2 yrs)'],
+        ['Protective grounds','Visual; check clamps/strands','Resistance/condition per program'],
+        ['Voltage detectors','Self-test before &amp; after use','Per manufacturer schedule'],
+        ['FR clothing','Inspect for damage/contamination','Replace when worn/contaminated']],
+  note:'Intervals are TYPICAL and governed by OSHA 1910.137, ASTM F496/F478, and your employer\'s program. If equipment is dropped, suspect, or out of test date — remove it from service.'},
+
+{type:'bullets',mod:M4,kicker:'Module 4 Recap',title:'Module 4 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Rubber gloves (with leather protectors) are first-line insulation — selected by voltage class'},
+   {lvl:0,t:'Air-test and inspect rubber goods before every use; honor retest dates'},
+   {lvl:0,t:'Hot sticks isolate the worker; grounds protect against re-energization — both must be tested &amp; sized'},
+   {lvl:0,t:'Test your tester before AND after; test-before-touch every time'},
+   {lvl:0,t:'Arc-rated FR PPE must meet or exceed the incident energy — and it\'s the last layer, not the plan'},
+   {lvl:0,t:'Clean, dry, inspected, in-date — or out of service. No exceptions.'},
+  ]},
+
+/* ===== MODULE 5 ===== */
+{type:'divider',num:'5',title:'Putting It to Work in the Field',
+  items:['Pre-job planning','Hazard assessment / JSA','The tailboard / job briefing',
+         'Roles, responsibilities &amp; communication','Emergency response &amp; rescue']},
+
+{type:'bullets',mod:M5,kicker:'5.1 Planning',title:'Pre-Job Planning — Before Boots Leave the Truck',
+  items:[
+   {lvl:0,t:'Understand the SCOPE: what work, on what equipment, at what voltage, energized or not'},
+   {lvl:0,t:'Review prints, switching orders, clearances, and the circuit map'},
+   {lvl:0,t:'Confirm the right crew, qualifications, and a competent person in charge'},
+   {lvl:0,t:'Verify tools, PPE, cover-up, grounds — right ratings, inspected, in test date'},
+   {lvl:0,t:'Check the weather: wind, lightning, heat, ice — conditions that stop or change the job'},
+   {lvl:0,t:'Identify the access, the work zone, traffic control, and the public exposure'},
+   {lvl:0,t:'Know the location: address, nearest cross-streets, gate codes — for emergency response'},
+   {lvl:0,t:'Plan the rescue BEFORE the work — not after the incident'},
+  ]},
+
+{type:'callout',mod:M5,kicker:'5.2 Hazard Assessment',title:'Hazard Assessment / Job Safety Analysis (JSA)',kind:'info',
+  items:[
+   {lvl:0,t:'Break the job into steps; for each step identify the hazards and the controls'},
+   {lvl:0,t:'Electrical hazards: energized parts, second points of contact, induced voltage, fault energy'},
+   {lvl:0,t:'Mechanical/physical: falls, dropped objects, pinch points, equipment, rigging, tension'},
+   {lvl:0,t:'Environmental: weather, traffic, terrain, wildlife, confined/excavation, public'},
+   {lvl:0,t:'For each hazard, select the control from the hierarchy — eliminate where you can'},
+   {lvl:0,t:'Reassess when ANYTHING changes: scope, weather, crew, equipment, the unexpected'},
+  ],
+  coTitle:'The four questions',
+  coText:['What am I about to do?  What can hurt me?','How do I control it?  What if the plan changes?',
+          'A JSA is a living document — update it as the job evolves.']},
+
+{type:'bullets',mod:M5,kicker:'5.3 Tailboard',title:'The Tailboard / Job Briefing — What &amp; Why',
+  lead:'The tailboard is where the plan in your head becomes the plan in everyone\'s head.',
+  items:[
+   {lvl:0,t:'A tailboard is the crew safety briefing held before work starts (and again when things change)'},
+   {lvl:0,t:'Required before each job; it aligns the whole crew on the plan and the hazards'},
+   {lvl:0,t:'OSHA 1910.269(c) requires a job briefing covering at minimum:'},
+   {lvl:1,t:'Hazards associated with the job'},
+   {lvl:1,t:'Work procedures involved'},
+   {lvl:1,t:'Special precautions'},
+   {lvl:1,t:'Energy-source controls (clearances, grounds, LOTO)'},
+   {lvl:1,t:'Personal protective equipment requirements'},
+   {lvl:0,t:'More extensive briefing for complex/hazardous jobs; brief again after interruptions or changes'},
+  ]},
+
+{type:'process',mod:M5,kicker:'5.3 Briefing',title:'Running an Effective Tailboard',
+  steps:[
+   {h:'1. Describe the job',p:'What are we doing, where, on what equipment, energized or de-energized, at what voltage.'},
+   {h:'2. Walk the hazards',p:'Go through the JSA: electrical (second points, MAD, induction), falls, traffic, weather, public.'},
+   {h:'3. State the controls',p:'Cover-up plan, grounds/EPZ, LOTO/clearance, MAD, PPE, traffic control — specific, not generic.'},
+   {h:'4. Assign roles',p:'Person in charge, who works, who tends, who grounds, who watches, who calls for help.'},
+   {h:'5. Confirm rescue &amp; comms',p:'Location/address, nearest hospital, rescue plan &amp; equipment, radio/phone, hand signals.'},
+   {h:'6. Engage the crew',p:'Ask questions, invite input, confirm understanding — everyone has stop-work authority.'},
+  ]},
+
+{type:'twocol',mod:M5,kicker:'5.4 Roles',title:'Roles &amp; Responsibilities on the Crew',
+  lh:'Key roles', lc:'var(--navy2)',
+  li:['Person-in-Charge / Crew Leader — owns the plan &amp; clearance','Qualified worker(s) — perform energized/skilled tasks',
+      'Groundman / tender — supports, tends ropes, handles materials','Safety watch / second person — eyes on the worker, ready to act',
+      'Flagger / traffic control — protects the work zone &amp; public'],
+  rh:'Shared responsibilities', rc:'var(--green)',
+  ri:['Everyone: know the plan and your part in it','Everyone: maintain situational awareness',
+      'Everyone has STOP-WORK authority — use it without fear','Speak up: a question now beats an incident later',
+      'No solo energized work — a qualified second person is present']},
+
+{type:'bullets',mod:M5,kicker:'5.5 Communication',title:'Communication — The Glue That Holds the Job Together',
+  items:[
+   {lvl:0,t:'Use clear, standardized language for switching and clearances — no ambiguity'},
+   {lvl:0,t:'Three-way communication for critical commands: state → repeat back → confirm'},
+   {lvl:0,t:'Confirm clearances and grounds with the system operator before and after'},
+   {lvl:0,t:'Agree on hand signals for crane/bucket/rigging where radios are hard to hear'},
+   {lvl:0,t:'Announce movements: “coming down”, “tension on”, “clear” — keep the crew in the loop'},
+   {lvl:0,t:'Re-brief after ANY interruption, crew change, or scope change'},
+   {lvl:0,t:'If you\'re not sure what was said, STOP and confirm — assumptions kill'},
+  ]},
+
+{type:'callout',mod:M5,kicker:'5.6 Rescue',title:'Emergency Response &amp; Rescue — Plan It Before You Need It',kind:'warn',
+  items:[
+   {lvl:0,t:'Every energized/elevated job needs a rescue plan briefed in the tailboard'},
+   {lvl:0,t:'Pole-top &amp; bucket rescue: trained crew can lower an injured worker quickly'},
+   {lvl:1,t:'Know the equipment (handline, rescue device) and practice the procedure'},
+   {lvl:0,t:'Do NOT become the second victim — ensure the source of contact is removed/de-energized first'},
+   {lvl:0,t:'Call for help early: know the address, cross-streets, and access'},
+   {lvl:0,t:'CPR + AED for electrical contact / cardiac arrest — minutes matter; know where the AED is'},
+   {lvl:0,t:'After contact, ALWAYS transport for medical evaluation — internal injury can be hidden'},
+  ],
+  coTitle:'The first rule of rescue',
+  coText:['Protect yourself first — a rescuer who gets electrocuted helps no one.',
+          'De-energize / remove the source, then reach the patient.',
+          'Speed saves lives, but only a SAFE rescue saves two.']},
+
+{type:'bullets',mod:M5,kicker:'5.7 Environment',title:'Weather, Environment &amp; Public Safety',
+  items:[
+   {lvl:0,t:'Lightning / approaching storms: stop work and clear elevated/exposed positions'},
+   {lvl:0,t:'High wind: affects conductors, booms, rigging, and footing — know your limits'},
+   {lvl:0,t:'Wet conditions: drastically reduce body &amp; equipment insulation — reassess hot work'},
+   {lvl:0,t:'Heat/cold: fatigue and impaired judgment are hazards in themselves — hydrate, rotate'},
+   {lvl:0,t:'Ice/snow loading: added conductor weight and slip hazards'},
+   {lvl:0,t:'Public protection: barricades, signage, traffic control; keep bystanders clear of downed lines'},
+   {lvl:0,t:'Wildlife &amp; vegetation: animals cause faults; trees create clearance &amp; contact hazards'},
+  ]},
+
+{type:'bullets',mod:M5,kicker:'Module 5 Recap',title:'Module 5 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Plan the job — and the rescue — before boots leave the truck'},
+   {lvl:0,t:'A JSA pairs every step with its hazards and controls, and updates when things change'},
+   {lvl:0,t:'The tailboard puts the plan in everyone\'s head: hazards, procedures, controls, PPE, roles'},
+   {lvl:0,t:'Define roles and use disciplined, three-way communication'},
+   {lvl:0,t:'Everyone has stop-work authority — and the obligation to use it'},
+   {lvl:0,t:'Rescue first protects the rescuer; after any contact, get medical evaluation'},
+  ]},
+
+/* ===== MODULE 6 ===== */
+{type:'divider',num:'6',title:'Regulations &amp; Standards',
+  items:['OSHA 1910.269 &amp; 1926 Subpart V','The National Electrical Safety Code (NESC)',
+         'ASTM &amp; IEEE equipment standards','Qualification &amp; apprenticeship','Recordkeeping &amp; program duties']},
+
+{type:'bullets',mod:M6,kicker:'6.1 Why Regs',title:'Why Regulations Exist — and Why You Should Know Them',
+  items:[
+   {lvl:0,t:'Every safe-work rule in this course is backed by a regulation or consensus standard'},
+   {lvl:0,t:'Regulations set the MINIMUM — your employer\'s program may be stricter (follow the stricter)'},
+   {lvl:0,t:'Knowing the “why” and the “where it\'s written” makes you a better, safer, more credible worker'},
+   {lvl:0,t:'The big three for line work:'},
+   {lvl:1,t:'OSHA — federal law: how the work must be done safely (enforceable)'},
+   {lvl:1,t:'NESC (IEEE C2) — how the system is built, spaced, and maintained'},
+   {lvl:1,t:'ASTM / IEEE / ANSI — how the tools and PPE are made, rated, and tested'},
+   {lvl:0,t:'Compliance is the floor; the goal is everyone home safe — which often means going beyond the floor'},
+  ]},
+
+{type:'bullets',mod:M6,kicker:'6.2 OSHA 1910.269',title:'OSHA 1910.269 — Electric Power Generation, Transmission &amp; Distribution',
+  lead:'If you read one regulation cover to cover, make it this one.',
+  items:[
+   {lvl:0,t:'The primary OSHA standard for operating &amp; maintaining electric power systems (general industry)'},
+   {lvl:0,t:'Key provisions every lineworker should know:'},
+   {lvl:1,t:'(a) Training &amp; qualified-employee requirements'},
+   {lvl:1,t:'(c) Job briefings (the tailboard) — required content and frequency'},
+   {lvl:1,t:'(l) Working on or near energized parts; minimum approach distances (Tables R-3 / R-6)'},
+   {lvl:1,t:'(m) De-energizing lines &amp; equipment'},
+   {lvl:1,t:'(n) Grounding for the protection of employees'},
+   {lvl:1,t:'Arc-flash hazard assessment and arc-rated apparel requirements'},
+   {lvl:0,t:'Companion construction standard: 29 CFR 1926 Subpart V (power transmission &amp; distribution)'},
+  ]},
+
+{type:'twocol',mod:M6,kicker:'6.2 Scope',title:'OSHA 1910.269 vs 1926 Subpart V',
+  lh:'1910.269 (General Industry)', lc:'var(--navy2)',
+  li:['Operation &amp; MAINTENANCE of existing power systems','Day-to-day line &amp; substation work',
+      'Job briefings, MAD, de-energizing, grounding','Harmonized with Subpart V on key requirements'],
+  rh:'1926 Subpart V (Construction)', rc:'var(--steel)',
+  ri:['CONSTRUCTION of power transmission &amp; distribution','Building new lines and major rebuilds',
+      'Mirrors 1910.269 on MAD, briefings, grounding','Use the standard that matches the type of work']},
+
+{type:'bullets',mod:M6,kicker:'6.3 NESC',title:'The National Electrical Safety Code (NESC / IEEE C2)',
+  items:[
+   {lvl:0,t:'NESC governs safe installation, operation &amp; maintenance of utility electric &amp; communication systems'},
+   {lvl:0,t:'Distinct from the NEC (NFPA 70), which covers premises/building wiring'},
+   {lvl:0,t:'Sets rules for the SYSTEM that protect both workers and the public, including:'},
+   {lvl:1,t:'Conductor clearances — ground, structures, other lines, and to the public'},
+   {lvl:1,t:'Strength &amp; loading of structures; grades of construction'},
+   {lvl:1,t:'Grounding methods and worker safety rules (Part 4 covers work rules)'},
+   {lvl:0,t:'Updated on a multi-year cycle; the edition in force depends on jurisdiction'},
+   {lvl:0,t:'When clearances or construction look wrong in the field — NESC is the reference'},
+  ]},
+
+{type:'table',mod:M6,kicker:'6.4 ASTM/IEEE',title:'Key ASTM / IEEE / ANSI Equipment Standards',
+  headers:['Standard','Covers'], cw:[30,70], fs:12.5,
+  rows:[['ASTM D120','Rubber insulating GLOVES — manufacture &amp; rating'],
+        ['ASTM D1051','Rubber insulating SLEEVES'],
+        ['ASTM D1048','Rubber insulating BLANKETS'],
+        ['ASTM D1049 / D1050','Insulating COVERS / LINE HOSE'],
+        ['ASTM F496','In-service CARE of rubber gloves &amp; sleeves (test intervals)'],
+        ['ASTM F478','In-service care of insulating LINE HOSE &amp; covers'],
+        ['ASTM F711','Fiberglass rod &amp; tube for LIVE-LINE TOOLS'],
+        ['ASTM F855','Temporary protective GROUNDS (clamps &amp; cables)'],
+        ['ASTM F1506 / NFPA 70E','Arc-rated FR CLOTHING &amp; arc-flash protection'],
+        ['IEEE C2 (NESC)','Utility system safety code'],
+        ['ANSI Z89.1','Hard hats (electrical Class E)']],
+  note:'These standards define how your PPE and tools are built, rated, and re-tested — the numbers on your gloves and grounds trace back here.'},
+
+{type:'bullets',mod:M6,kicker:'6.5 Qualification',title:'Qualified Workers, Training &amp; Apprenticeship',
+  items:[
+   {lvl:0,t:'OSHA requires that only QUALIFIED employees work on or near energized parts'},
+   {lvl:0,t:'Qualified = trained AND able to demonstrate skills/knowledge for the construction &amp; operation involved'},
+   {lvl:1,t:'Knows how to distinguish energized parts, determine voltages, and maintain MAD'},
+   {lvl:0,t:'Lineworker apprenticeships (often ~3–4 years, thousands of OJT hours) build that qualification'},
+   {lvl:1,t:'Classroom theory + supervised on-the-job training + skills verification'},
+   {lvl:0,t:'Ongoing training: refreshers, new procedures, CPR/AED &amp; pole-top rescue, equipment-specific'},
+   {lvl:0,t:'Document training and re-qualification — it is both a legal requirement and proof of competence'},
+  ]},
+
+{type:'twocol',mod:M6,kicker:'6.6 Records',title:'Recordkeeping &amp; Program Responsibilities',
+  lh:'Records to keep', lc:'var(--navy2)',
+  li:['Training &amp; qualification records','PPE/tool inspection &amp; electrical test dates',
+      'Job briefings / tailboards (per program)','Switching orders, clearances &amp; grounding records',
+      'Incident &amp; near-miss reports and investigations'],
+  rh:'Employer program duties', rc:'var(--green)',
+  ri:['Written safe-work &amp; electrical safety program','Hazard/arc-flash assessments &amp; MAD tables',
+      'Provide &amp; maintain rated PPE and tools','Enforce procedures; support stop-work authority',
+      'Investigate, learn, and improve after every event']},
+
+{type:'bullets',mod:M6,kicker:'Module 6 Recap',title:'Module 6 — Key Takeaways',
+  items:[
+   {lvl:0,t:'Regulations set the minimum; your program may be stricter — always follow the stricter rule'},
+   {lvl:0,t:'OSHA 1910.269 (and 1926 Subpart V) govern how the work is done — briefings, MAD, LOTO, grounding'},
+   {lvl:0,t:'NESC (IEEE C2) governs how the system is built, spaced, and maintained'},
+   {lvl:0,t:'ASTM/IEEE/ANSI define how your PPE &amp; tools are rated and tested'},
+   {lvl:0,t:'Only qualified workers do energized work — earned through apprenticeship &amp; ongoing training'},
+   {lvl:0,t:'Keep records: training, test dates, briefings, clearances, incidents'},
+  ]},
+
+/* ===== WRAP-UP ===== */
+{type:'divider',num:'✓',title:'Bringing It All Together',
+  items:['The mental model from theory to the field','Daily safe-work disciplines','Final reminders','Resources &amp; references']},
+
+{type:'process',mod:MC,kicker:'Synthesis',title:'From Theory to the Field — The Mental Model',
+  steps:[
+   {h:'Understand the energy',p:'Voltage pushes current; current through you kills. Know your voltage class and fault energy.'},
+   {h:'Find the circuit',p:'Where would current flow through ME? Locate the SECOND POINT OF CONTACT — every time.'},
+   {h:'Choose the control',p:'De-energize if you can. If hot: isolate AND insulate — MAD, cover-up, gloves, grounds, EPZ.'},
+   {h:'Verify',p:'Test the tester, test-before-touch, prove dead, apply grounds, inspect every piece of PPE.'},
+   {h:'Brief &amp; assign',p:'Tailboard the hazards, controls, roles, comms, and rescue. Everyone understands. Everyone can stop work.'},
+   {h:'Work &amp; reassess',p:'Maintain controls all the way through. When ANYTHING changes — stop, re-brief, re-assess.'},
+  ]},
+
+{type:'bullets',mod:MC,kicker:'Daily Discipline',title:'Ten Disciplines That Keep Crews Alive',
+  lead:'If you remember nothing else, remember these.',
+  items:[
+   {lvl:0,t:'Treat every conductor as energized until YOU prove it dead and grounded'},
+   {lvl:0,t:'Always identify and eliminate the second point of contact'},
+   {lvl:0,t:'Maintain minimum approach distance — for your body, tools, and equipment'},
+   {lvl:0,t:'Cover up: nearest hazard first, remove in reverse'},
+   {lvl:0,t:'Test the tester before and after; test-before-touch'},
+   {lvl:0,t:'Ground and bond an equipotential zone at the work site'},
+   {lvl:0,t:'Inspect rubber goods and tools before every use; honor test dates'},
+   {lvl:0,t:'Hold a real tailboard — and re-brief when anything changes'},
+   {lvl:0,t:'Plan the rescue before the work; never become the second victim'},
+   {lvl:0,t:'Use your stop-work authority — no job is worth your life'},
+  ]},
+
+{type:'callout',mod:MC,kicker:'Closing',title:'Final Word',kind:'safe',
+  items:[
+   {lvl:0,t:'Electricity is invisible, silent, and unforgiving — but it is also entirely predictable'},
+   {lvl:0,t:'It follows the same laws every time, which means the hazard is always controllable'},
+   {lvl:0,t:'The theory in Module 1 is not academic — it is WHY every rule in Modules 3–6 works'},
+   {lvl:0,t:'Skills fade and complacency creeps in — that is why we train, brief, and reassess relentlessly'},
+   {lvl:0,t:'Look out for the worker next to you as carefully as you look out for yourself'},
+  ],
+  coTitle:'The whole point',
+  coText:['Everyone goes home, every day.','That is the only acceptable outcome of any job — and it is achievable on every job.']},
+
+{type:'twocol',mod:MC,kicker:'References',title:'Resources &amp; References',
+  lh:'Regulations &amp; codes', lc:'var(--navy2)',
+  li:['OSHA 29 CFR 1910.269 — GT&amp;D (general industry)','OSHA 29 CFR 1926 Subpart V — construction',
+      'OSHA 1910.137 — electrical protective equipment','OSHA 1910.147 — control of hazardous energy (LOTO)',
+      'NESC — IEEE C2; NFPA 70E — arc-flash safety'],
+  rh:'Standards &amp; training', rc:'var(--steel)',
+  ri:['ASTM F18 committee standards (D120, F496, F855, etc.)','IEEE standards for live-line work &amp; grounding',
+      'Your employer\'s safe-work practices &amp; MAD tables','Apprenticeship program materials &amp; manufacturer manuals',
+      'First aid / CPR / AED &amp; pole-top rescue certification']},
+
+{type:'closing',title:'Questions &amp; Discussion',
+  sub:'Review the hazards on YOUR system, with YOUR equipment, against YOUR procedures.',
+  tag:'Stay sharp. Watch your second point of contact. Everyone goes home.'},
+];
+
+/* ============================================================
+   BUILD + NAVIGATION
+   ============================================================ */
+const stage=document.getElementById('stage');
+SLIDES.forEach((s,i)=>{ stage.insertAdjacentHTML('beforeend', RENDER[s.type](s, i)); });
+const slides=[...stage.querySelectorAll('.slide')];
+let cur=0;
+
+function fitStage(){
+  const vw=window.innerWidth, vh=window.innerHeight;
+  const scale=Math.min(vw/1280, vh/720);
+  stage.style.transform=`scale(${scale})`;
+}
+window.addEventListener('resize',fitStage); fitStage();
+
+function show(n){
+  n=Math.max(0,Math.min(SLIDES.length-1,n));
+  slides[cur].classList.remove('active');
+  cur=n;
+  slides[cur].classList.add('active');
+  document.getElementById('counter').textContent=`${cur+1} / ${SLIDES.length}`;
+  document.getElementById('progress').style.width=((cur)/(SLIDES.length-1)*100)+'%';
+  const s=SLIDES[cur];
+  document.getElementById('title-tag').textContent=(s.title||s.kicker||'').replace(/<[^>]+>/g,'').replace(/&amp;/g,'&');
+  try{ if(history.replaceState) history.replaceState(null,'','#'+(cur+1)); }catch(e){ try{ location.hash=cur+1; }catch(_){} }
+}
+function next(){show(cur+1);} function prev(){show(cur-1);}
+
+document.getElementById('next').onclick=next;
+document.getElementById('prev').onclick=prev;
+document.addEventListener('keydown',e=>{
+  if(ov.classList.contains('show')){ if(e.key==='Escape'||e.key==='o'||e.key==='O'){toggleOv();} return; }
+  switch(e.key){
+    case 'ArrowRight':case 'ArrowDown':case 'PageDown':case ' ':next();e.preventDefault();break;
+    case 'ArrowLeft':case 'ArrowUp':case 'PageUp':prev();e.preventDefault();break;
+    case 'Home':show(0);break; case 'End':show(SLIDES.length-1);break;
+    case 'f':case 'F':toggleFs();break;
+    case 'o':case 'O':toggleOv();break;
+  }
+});
+// click navigation on stage (left third = prev, else next)
+stage.addEventListener('click',e=>{
+  const r=stage.getBoundingClientRect();
+  if((e.clientX-r.left)/r.width < 0.28) prev(); else next();
+});
+// touch swipe
+let tx=0;
+stage.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true});
+stage.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>40){dx<0?next():prev();}});
+
+function toggleFs(){
+  if(!document.fullscreenElement){document.documentElement.requestFullscreen?.();}
+  else{document.exitFullscreen?.();}
+}
+document.getElementById('fsbtn').onclick=toggleFs;
+
+/* ---------- overview grid ---------- */
+const ov=document.getElementById('overview'), ovgrid=document.getElementById('ovgrid');
+let ovBuilt=false;
+function buildOv(){
+  slides.forEach((sl,i)=>{
+    const card=document.createElement('div'); card.className='ov-card';
+    const thumb=document.createElement('div'); thumb.className='ov-thumb';
+    thumb.style.width='1280px'; thumb.style.height='720px';
+    thumb.innerHTML=sl.outerHTML.replace('class="slide','class="slide active');
+    card.appendChild(thumb);
+    const tag=document.createElement('div'); tag.className='ov-n'; tag.textContent=i+1; card.appendChild(tag);
+    card.onclick=()=>{show(i);toggleOv();};
+    ovgrid.appendChild(card);
+    // scale thumb to card width
+    requestAnimationFrame(()=>{ const w=card.clientWidth; thumb.style.transform=`scale(${w/1280})`; });
+  });
+  ovBuilt=true;
+}
+function toggleOv(){
+  if(!ovBuilt) buildOv();
+  ov.classList.toggle('show');
+  if(ov.classList.contains('show')){
+    // rescale thumbs (in case of resize)
+    [...ovgrid.children].forEach(card=>{const t=card.querySelector('.ov-thumb');const w=card.clientWidth;t.style.transform=`scale(${w/1280})`;});
+  }
+}
+document.getElementById('ovbtn').onclick=toggleOv;
+
+// open at hash
+const startN=parseInt(location.hash.replace('#',''))||1;
+slides[0].classList.add('active'); show(startN-1);
+</script>
+</body>
+</html>
