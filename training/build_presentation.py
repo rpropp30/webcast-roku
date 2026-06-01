@@ -13,6 +13,10 @@ from pptx.dml.color import RGBColor
 from pptx.enum.text import PP_ALIGN, MSO_ANCHOR
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.oxml.ns import qn
+import os
+from PIL import Image
+
+ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 
 # ----------------------------------------------------------------------------
 # Palette
@@ -748,6 +752,80 @@ table_slide(
     note="Exact class boundaries vary by utility and standard (NESC/IEEE). What never changes: higher voltage = larger required clearances and greater fault energy.",
 )
 
+# ----------------------------------------------------------------------------
+# Embedded illustration slides (rendered from diagrams.js -> assets/*.png)
+# ----------------------------------------------------------------------------
+def image_slide(title, fig_key, caption):
+    s = slide()
+    content_header(s, title, kicker="Illustrated")
+    png = os.path.join(ASSETS, "fig_%s.png" % fig_key)
+    iw, ih = Image.open(png).size
+    box_l, box_t, box_w, box_h = 0.7, 1.95, 11.93, 4.05
+    ar = iw / ih
+    w = box_w
+    h = w / ar
+    if h > box_h:
+        h = box_h
+        w = h * ar
+    left = box_l + (box_w - w) / 2.0
+    top = box_t + (box_h - h) / 2.0
+    s.shapes.add_picture(png, Inches(left), Inches(top), width=Inches(w), height=Inches(h))
+    tb, tf = textbox(s, 0.9, 6.18, 11.5, 0.7, anchor=MSO_ANCHOR.TOP)
+    para(tf, caption, size=13, color=GRAY, italic=True, first=True, align=PP_ALIGN.CENTER, line=1.18)
+    footer(s)
+    return s
+
+
+MODULE_FIGS = {
+    1: [
+        ("atom", "How Electricity Flows", "Electrons drifting from atom to atom — driven by a difference in charge — are electric current."),
+        ("conductor", "Conductors vs Insulators", "Conductors let electrons pass (low resistance); insulators bind them (high resistance)."),
+        ("water", "The Water Analogy", "Voltage is pressure, current is flow, resistance is the restriction:  I = V ÷ R."),
+        ("bird", "Why Voltage Needs Two Points", "One potential is safe; bridging two different potentials drives current through you."),
+        ("ohm", "The Ohm's Law & Power Wheel", "Cover the unknown in the V / I / R triangle. Power P = V×I = I²R — heat rises with current squared."),
+        ("acdc", "AC vs DC Waveforms", "DC flows one way at a steady level; AC reverses 60×/sec, which lets transformers change its voltage."),
+        ("threephase", "Three-Phase Power", "Three waveforms 120° apart deliver smooth, continuous power — the backbone of the grid."),
+        ("transformer", "How a Transformer Works", "Two coils on a magnetic core: the turns ratio sets the voltage ratio; power in ≈ power out."),
+        ("grid", "The Grid, End to End", "Voltage is stepped up for transmission, then down in stages until it is safe for the customer."),
+    ],
+    2: [
+        ("body", "Current Path Through the Body", "Current across the chest — hand-to-hand or hand-to-foot — can stop the heart. Control both contact points."),
+        ("threshold", "Shock Threshold Ladder", "The dangerous range begins in milliamps — far below what trips a typical breaker."),
+        ("arcflash", "Arc Flash & Arc Blast", "An arc can reach ~35,000°F with an explosive blast — and can be triggered by proximity alone."),
+        ("steptouch", "Step & Touch Potential", "Current spreading from a downed line creates a ground gradient. Shuffle out with feet together."),
+        ("recloser", "Reclosers — Why a Dead Line Bites Back", "Reclosers trip then auto-reclose — a downed line can re-energize without warning."),
+    ],
+    3: [
+        ("hierarchy", "The Hierarchy of Controls", "Work from the top down: de-energize first; PPE is the last line, never the only line."),
+        ("mad", "Minimum Approach Distance", "Keep body, tools, and equipment outside the minimum approach distance for your voltage."),
+        ("bucket", "The Insulated Aerial Device", "The fiberglass upper boom is a dielectric insulating gap between the bucket and ground."),
+        ("secondpoint", "The Second Point of Contact", "Eliminate the second point of contact — cover it or remove it — and the circuit can't close through you."),
+        ("coverup", "Cover-Up at the Pole Top", "Insulate every energized and grounded part within reach: nearest first, remove in reverse."),
+        ("loto", "The De-Energize / LOTO Sequence", "Identify → open → lock & tag → test → ground.  Never skip a step."),
+        ("epz", "The Equipotential Zone", "Bond and ground a work zone to one potential — no difference across the body means no current."),
+        ("induced", "How Induced Voltage Appears", "A parallel live line couples voltage onto a dead one — ground at the work site, not just the ends."),
+    ],
+    4: [
+        ("gloves", "Rubber Glove Voltage Classes", "Select a glove class rated at or above your system voltage; wear leather protectors over them."),
+        ("hotstick", "The Live-Line (Hot-Stick) Method", "A fiberglass live-line tool extends reach beyond MAD — keep it clean and dry."),
+        ("phasing", "Phasing & Voltage Testing", "Verify voltage and phase — and prove the tester on a known source before and after."),
+        ("grounds", "Protective Grounding Sets", "Grounds carry fault current and trip protection fast: ground end first, line ends last."),
+        ("ppe", "Head-to-Toe PPE", "Arc-rated FR clothing, Class E hard hat, face shield, rubber gloves — the last layer of defense."),
+    ],
+    5: [
+        ("tailboard", "The Tailboard Briefing", "The crew briefing aligns everyone: hazards, procedures, controls, PPE, roles, and rescue."),
+        ("switching", "Switching & the Clearance", "A clearance isolates the work zone: open, locked, tagged, tested dead, and grounded on every side."),
+        ("rescue", "Pole-Top Rescue", "Remove the source first, lower the patient, start CPR & AED — never become the second victim."),
+    ],
+}
+
+
+def add_module_figs(n):
+    for fig, title, cap in MODULE_FIGS.get(n, []):
+        image_slide(title, fig, cap)
+
+
+add_module_figs(1)
 bullets_slide(
     "Module 1 — Key Takeaways",
     [
@@ -892,6 +970,7 @@ bullets_slide(
     lead="The most dangerous ground is the ground that looks perfectly normal.",
 )
 
+add_module_figs(2)
 bullets_slide(
     "Module 2 — Key Takeaways",
     [
@@ -1123,6 +1202,7 @@ bullets_slide(
     lead="“Dead” is not the same as “grounded.” Induction is why we ground at the work location.",
 )
 
+add_module_figs(3)
 bullets_slide(
     "Module 3 — Key Takeaways",
     [
@@ -1286,6 +1366,7 @@ table_slide(
     note="Intervals are TYPICAL and governed by OSHA 1910.137, ASTM F496/F478, and your employer's program. If equipment is dropped, suspect, or out of test date — remove it from service.",
 )
 
+add_module_figs(4)
 bullets_slide(
     "Module 4 — Key Takeaways",
     [
@@ -1440,6 +1521,7 @@ bullets_slide(
     kicker="5.7 Environment",
 )
 
+add_module_figs(5)
 bullets_slide(
     "Module 5 — Key Takeaways",
     [

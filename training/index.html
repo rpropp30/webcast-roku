@@ -1260,6 +1260,21 @@ const FIGS=[
  {after:'5.3 Tailboard',s:{type:'diagram',mod:M5,kicker:'5.3 · Illustrated',title:'The Tailboard Briefing',fig:'tailboard',layout:'split',
    notes:['The crew briefing aligns everyone before work starts.','Cover hazards, procedures, precautions, energy controls, and PPE.','Assign roles and confirm the rescue plan.'],
    tip:'Re-brief whenever the job, crew, weather, or scope changes — and everyone can stop work.'}},
+ {after:'2.7 Downed Lines',s:{type:'diagram',mod:M2,kicker:'2.7 · Illustrated',title:'Reclosers — Why a Dead Line Bites Back',fig:'recloser',layout:'wide',capY:445,
+   caption:'Protective reclosers trip on a fault, then automatically re-close — often several times in seconds — before locking out. A downed or contacted line can re-energize <b>without warning</b>.'}},
+ {after:'3.4 Two Methods',s:{type:'diagram',mod:M3,kicker:'3.4 · Illustrated',title:'The Insulated Aerial Device',fig:'bucket',layout:'split',
+   notes:['The fiberglass <b>upper boom</b> is a dielectric insulating section.','It isolates the bucket and worker from the truck and ground.','Rubber-glove method proceeds in the bucket with full cover-up.'],
+   tip:'The insulating gap is only as good as its inspection, cleanliness, and dielectric test record.'}},
+ {after:'3.8 Induced Voltage',s:{type:'diagram',mod:M3,kicker:'3.8 · Illustrated',title:'How Induced Voltage Appears',fig:'induced',layout:'wide',capY:445,
+   caption:'A live circuit couples energy — magnetically and electrostatically — onto a parallel de-energized line. Grounding <b>at the work site</b>, not just the ends, keeps that induced potential off the worker.'}},
+ {after:'4.5 Testers',s:{type:'diagram',mod:M4,kicker:'4.5 · Illustrated',title:'Phasing &amp; Voltage Testing',fig:'phasing',layout:'split',
+   notes:['Detectors verify the presence/absence of voltage and phase.','Match the detector range to the system voltage.','<b>Test the tester</b> on a known live source — before and after.'],
+   tip:'A “no-voltage” reading from an unproven tester proves nothing — prove it works first.'}},
+ {after:'5.1 Planning',s:{type:'diagram',mod:M5,kicker:'5.1 · Illustrated',title:'Switching &amp; the Clearance',fig:'switching',layout:'wide',capY:445,
+   caption:'A clearance isolates the work zone on every side: switches open and visible, locked and tagged, the line tested dead and grounded. Only the clearance holder releases it once all workers are clear.'}},
+ {after:'5.6 Rescue',s:{type:'diagram',mod:M5,kicker:'5.6 · Illustrated',title:'Pole-Top Rescue',fig:'rescue',layout:'split',
+   notes:['Remove or de-energize the <b>source of contact</b> first.','Lower the patient with the handline / rescue device.','Begin CPR &amp; use the AED — minutes decide the outcome.'],
+   tip:'A rescuer who becomes the second victim helps no one — protect yourself first.'}},
 ];
 FIGS.forEach(f=>{const idx=SLIDES.findIndex(x=>x.kicker===f.after);if(idx>=0)SLIDES.splice(idx+1,0,f.s);else console.warn('no match for',f.after);});
 

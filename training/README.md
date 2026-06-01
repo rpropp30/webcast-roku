@@ -10,22 +10,23 @@ regulations that govern the work.
 | File | What it is |
 |------|------------|
 | **`landing.html`** | A designed, graphical **landing page** — hero, stats, module cards, the core-concept feature, and a gallery of all 24 technical illustrations. **Start here.** |
-| **`index.html`** | The presentation — a self-contained HTML slide deck of **100 slides** (76 teaching + 24 illustrated). **Open it in any browser and press `F` for fullscreen.** |
-| `diagrams.js` | The technical SVG illustration library — 24 hand-built vector diagrams, shared by the deck and the landing page. Pure geometry, scales razor-sharp at any size. |
-| `Powerline_Electrical_Theory_and_Safety_Training.pptx` | The text content as a native PowerPoint file, for editing/printing in PowerPoint or Google Slides. |
-| `build_presentation.py` | Generator script that builds the `.pptx` (run `python3 build_presentation.py`, needs `python-pptx`). |
+| **`index.html`** | The presentation — a self-contained HTML slide deck of **106 slides** (76 teaching + 30 illustrated). **Open it in any browser and press `F` for fullscreen.** |
+| `diagrams.js` | The technical SVG illustration library — **30 hand-built vector diagrams**, shared by the deck and the landing page. Pure geometry, scales razor-sharp at any size. |
+| `Powerline_Electrical_Theory_and_Safety_Training.pptx` | Native PowerPoint version — **now also 106 slides with all 30 illustrations embedded** as images. |
+| `build_presentation.py` | Generator that builds the `.pptx` (`python3 build_presentation.py`; needs `python-pptx` + `Pillow`). |
+| `assets/` | The 30 illustrations pre-rendered to PNG (used by the PowerPoint build; produced from `diagrams.js`). |
 
 > The three HTML files belong together in this folder — `index.html` and `landing.html` both load `diagrams.js`.
 
-## The technical illustrations (24)
+## The technical illustrations (30)
 
-Hand-coded SVG, interleaved through the deck right after the concept they illustrate:
+Hand-coded SVG, interleaved through the deck right after the concept they illustrate (and embedded in the `.pptx`):
 
 **Theory** — atom & electron flow · conductors vs insulators · the water analogy · potential difference (bird on a wire) · Ohm's law & power wheel · AC vs DC waveforms · three-phase · transformer · the grid end-to-end.
-**The body** — current path through the body · shock-threshold ladder · arc flash & blast · step & touch potential.
-**Working energized** — hierarchy of controls · minimum approach distance · **the second point of contact** (hero) · cover-up at the pole top · the LOTO sequence · the equipotential zone.
-**Tools** — rubber glove voltage classes · hot stick · protective grounds · head-to-toe PPE.
-**Field** — the tailboard briefing.
+**The body** — current path through the body · shock-threshold ladder · arc flash & blast · step & touch potential · reclosers / auto-reclose.
+**Working energized** — hierarchy of controls · minimum approach distance · the insulated aerial (bucket) device · **the second point of contact** (hero) · cover-up at the pole top · the LOTO sequence · the equipotential zone · induced voltage.
+**Tools** — rubber glove voltage classes · hot stick · phasing / voltage testing · protective grounds · head-to-toe PPE.
+**Field** — the tailboard briefing · switching & the clearance · pole-top rescue.
 
 ## Why HTML is the primary format
 
