@@ -25,9 +25,10 @@ html,body{height:100%;background:#05070c;overflow:hidden;font-family:var(--font)
   background:var(--white);overflow:hidden;transform-origin:center center;
   box-shadow:0 30px 90px rgba(0,0,0,.6);
 }
-.slide{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;
-  transition:opacity .45s ease;background:var(--white);overflow:hidden}
-.slide.active{opacity:1;visibility:visible;z-index:2}
+.slide{position:absolute;inset:0;width:100%;height:100%;opacity:0;visibility:hidden;transform:translateY(13px) scale(.994);
+  transition:opacity .5s ease, transform .55s cubic-bezier(.22,.61,.36,1);
+  background:linear-gradient(168deg,#ffffff 0%,#f2f6fb 100%);overflow:hidden}
+.slide.active{opacity:1;visibility:visible;z-index:2;transform:none}
 .slide.prev{z-index:1}
 
 /* ---------- shared chrome ---------- */
@@ -68,9 +69,12 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
 .title-slide .botstripe{position:absolute;left:0;bottom:0;width:100%;height:6px;background:var(--amber)}
 
 /* ---------- section divider ---------- */
-.divider{background:linear-gradient(135deg, var(--navy) 0%, var(--navy-deep) 100%)}
+.divider{background:linear-gradient(135deg,#14325c 0%,var(--navy) 48%,var(--navy-deep) 100%)}
+.divider::before{content:"";position:absolute;inset:0;background:radial-gradient(56% 68% at 86% 16%,rgba(245,177,0,.18),transparent 62%);pointer-events:none}
+.divider::after{content:"";position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1.4px,transparent 1.5px);background-size:30px 30px;opacity:.6;pointer-events:none}
+.divider .d-modlabel,.divider .d-num,.divider .d-rule,.divider .d-title,.divider .d-uline,.divider .d-items,.divider .topstripe{z-index:1}
 .d-modlabel{position:absolute;left:90px;top:170px;color:var(--amber);font-weight:800;letter-spacing:3px;font-size:18px}
-.d-num{position:absolute;left:78px;top:182px;color:#fff;font-weight:800;font-size:188px;line-height:.9}
+.d-num{position:absolute;left:78px;top:182px;color:#fff;font-weight:800;font-size:188px;line-height:.9;text-shadow:0 12px 40px rgba(0,0,0,.5)}
 .d-rule{position:absolute;left:505px;top:170px;width:3px;height:380px;background:#2A476E}
 .d-title{position:absolute;left:548px;top:178px;right:80px;color:#fff;font-size:38px;font-weight:800;line-height:1.04}
 .d-uline{position:absolute;left:550px;top:312px;width:140px;height:5px;background:var(--amber);border-radius:3px}
@@ -200,7 +204,7 @@ body.dark .dgm-cap b{color:#ffd970}
 /* ============================================================
    UI CONTROLS
    ============================================================ */
-#progress{position:fixed;left:0;top:0;height:4px;background:var(--amber);z-index:50;width:0;transition:width .3s}
+#progress{position:fixed;left:0;top:0;height:4px;background:linear-gradient(90deg,var(--amber-d),var(--amber),#ffd35a);z-index:50;width:0;transition:width .4s cubic-bezier(.22,.61,.36,1);box-shadow:0 0 10px rgba(245,177,0,.7)}
 .nav-btn{position:fixed;top:50%;transform:translateY(-50%);z-index:40;width:46px;height:46px;border-radius:50%;
   border:none;background:rgba(255,255,255,.12);color:#fff;font-size:22px;cursor:pointer;backdrop-filter:blur(4px);
   display:flex;align-items:center;justify-content:center;transition:background .2s}
