@@ -19,6 +19,12 @@ const QDEFS=`<defs>
   <linearGradient id="qred" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e7553a"/><stop offset="100%" stop-color="#b8290f"/></linearGradient>
   <linearGradient id="qgreen" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#43a06b"/><stop offset="100%" stop-color="#23744a"/></linearGradient>
   <radialGradient id="qspark" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#fff7d6"/><stop offset="42%" stop-color="#ffd24d"/><stop offset="100%" stop-color="#f5b100" stop-opacity="0"/></radialGradient>
+  <linearGradient id="qsky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#cfe6fb"/><stop offset="60%" stop-color="#e6f1fb"/><stop offset="100%" stop-color="#f2f7fc"/></linearGradient>
+  <linearGradient id="qground" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c9b48f"/><stop offset="100%" stop-color="#a98f68"/></linearGradient>
+  <linearGradient id="qwood" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#a06c38"/><stop offset="22%" stop-color="#b9854c"/><stop offset="55%" stop-color="#8a5a2b"/><stop offset="100%" stop-color="#5e3d1c"/></linearGradient>
+  <linearGradient id="qgalv" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#f4f7fa"/><stop offset="42%" stop-color="#c2ccd7"/><stop offset="100%" stop-color="#828f9d"/></linearGradient>
+  <linearGradient id="qporc" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#efe9dc"/><stop offset="100%" stop-color="#c3b49a"/></linearGradient>
+  <linearGradient id="qrubber" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#e7634a"/><stop offset="45%" stop-color="#cf3a22"/><stop offset="100%" stop-color="#9e2410"/></linearGradient>
   <filter id="qsh" x="-25%" y="-25%" width="150%" height="150%"><feDropShadow dx="0" dy="2.5" stdDeviation="3" flood-color="#0b2545" flood-opacity="0.22"/></filter>
 </defs>`;
 
@@ -28,7 +34,7 @@ function arr(x1,y1,x2,y2,c,w){w=w||3;const a=Math.atan2(y2-y1,x2-x1),L=11,A=0.42
   const p1x=x2-L*Math.cos(a-A),p1y=y2-L*Math.sin(a-A),p2x=x2-L*Math.cos(a+A),p2y=y2-L*Math.sin(a+A);
   return `<line x1="${x1}" y1="${y1}" x2="${bx}" y2="${by}" stroke="${c}" stroke-width="${w}" stroke-linecap="round"/>`+
          `<polygon points="${x2},${y2} ${p1x},${p1y} ${p2x},${p2y}" fill="${c}"/>`;}
-function T(x,y,s,o){o=o||{};return `<text x="${x}" y="${y}" font-family="Arial,Helvetica,sans-serif" `+
+function T(x,y,s,o){o=o||{};return `<text x="${x}" y="${y}" font-family="'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif" `+
   `font-size="${o.s||15}" fill="${o.c||P.ink}" font-weight="${o.w||400}" `+
   `text-anchor="${o.a||'start'}" font-style="${o.i||'normal'}" letter-spacing="${o.ls||0}">${s}</text>`;}
 function sine(x0,y0,wlen,amp,cycles,phase,c,sw,samples,cls){
@@ -49,6 +55,61 @@ function worker(x,y,sc,c,hardhat){c=c||P.navy;sc=sc||1;const s=v=>v*sc;
     `<rect x="${s(-15)}" y="${s(-51)}" width="${s(30)}" height="${s(3.5)}" rx="1.5" fill="url(#qamber)" stroke="${P.amberD}"/>`;}
   g+=`<line x1="0" y1="${s(-35)}" x2="0" y2="${s(8)}"/>`;
   g+=`<line x1="0" y1="${s(8)}" x2="${s(-12)}" y2="${s(40)}"/><line x1="0" y1="${s(8)}" x2="${s(12)}" y2="${s(40)}"/>`;
+  g+=`</g>`;return g;}
+
+/* ===== rich illustration kit (materials, depth, authentic hardware) ===== */
+function gshadow(cx,cy,rx,ry,op){return `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry||rx*0.26}" fill="#0b2545" opacity="${op||0.15}"/>`;}
+/* tapered wood distribution pole from top to bottom */
+function woodPole(cx,top,bot,w){w=w||30;const hw=w/2,tw=hw*0.8;
+  let g=`<g>`;
+  g+=gshadow(cx+12,bot,w*1.25,8,0.13);
+  g+=`<path d="M ${cx-tw} ${top} L ${cx+tw} ${top} L ${cx+hw} ${bot} L ${cx-hw} ${bot} Z" fill="url(#qwood)"/>`;
+  g+=`<path d="M ${cx-tw} ${top} L ${cx-tw+3} ${top} L ${cx-hw+4} ${bot} L ${cx-hw} ${bot} Z" fill="#ffffff" opacity="0.16"/>`;
+  for(const k of [-0.42,0.05,0.5]) g+=`<line x1="${cx+k*tw}" y1="${top+8}" x2="${cx+k*hw}" y2="${bot-4}" stroke="#4f3317" stroke-width="1.3" opacity="0.45"/>`;
+  g+=`<ellipse cx="${cx}" cy="${top}" rx="${tw}" ry="3.5" fill="#7a5128"/>`;
+  g+=`</g>`;return g;}
+/* wood crossarm centered on the pole at height y, with galvanized bolts + braces */
+function crossarm(cx,y,w,h){w=w||240;h=h||18;const x=cx-w/2;
+  let g=`<g>`;
+  g+=`<line x1="${cx-46}" y1="${y+h-1}" x2="${cx-7}" y2="${y+h+44}" stroke="url(#qgalv)" stroke-width="4"/>`;
+  g+=`<line x1="${cx+46}" y1="${y+h-1}" x2="${cx+7}" y2="${y+h+44}" stroke="url(#qgalv)" stroke-width="4"/>`;
+  g+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="url(#qwood)"/>`;
+  g+=`<rect x="${x}" y="${y}" width="${w}" height="3" rx="1.5" fill="#ffffff" opacity="0.16"/>`;
+  for(const bx of [x+13,x+w-13]) g+=`<circle cx="${bx}" cy="${y+h/2}" r="3.2" fill="url(#qgalv)" stroke="#6b7787" stroke-width="0.8"/>`;
+  g+=`</g>`;return g;}
+/* porcelain pin insulator with stacked sheds; conductor groove sits at top */
+function pinInsulator(x,y,sc){sc=sc||1;const s=v=>v*sc;
+  let g=`<g transform="translate(${x},${y})">`;
+  g+=`<rect x="${s(-2.5)}" y="${s(-2)}" width="${s(5)}" height="${s(13)}" fill="url(#qgalv)"/>`;
+  g+=`<ellipse cx="0" cy="${s(-1)}" rx="${s(13)}" ry="${s(5)}" fill="url(#qporc)" stroke="#a99a7e" stroke-width="1"/>`;
+  g+=`<ellipse cx="0" cy="${s(-8)}" rx="${s(10.5)}" ry="${s(4.4)}" fill="url(#qporc)" stroke="#a99a7e" stroke-width="1"/>`;
+  g+=`<ellipse cx="0" cy="${s(-15)}" rx="${s(8)}" ry="${s(3.8)}" fill="url(#qporc)" stroke="#a99a7e" stroke-width="1"/>`;
+  g+=`<ellipse cx="0" cy="${s(-18.5)}" rx="${s(5)}" ry="${s(2.4)}" fill="#b6a585"/>`;
+  g+=`<ellipse cx="${s(-3.5)}" cy="${s(-2.5)}" rx="${s(3.5)}" ry="${s(1.4)}" fill="#ffffff" opacity="0.35"/>`;
+  g+=`</g>`;return g;}
+/* catenary conductor with a thin specular highlight */
+function conductor(x1,y1,x2,y2,sag,c,sw){c=c||'#37404a';sw=sw||4.5;sag=sag||0;
+  const mx=(x1+x2)/2,my=(y1+y2)/2+sag,d=`M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`;
+  return `<path d="${d}" fill="none" stroke="${c}" stroke-width="${sw}" stroke-linecap="round"/>`+
+         `<path d="${d}" fill="none" stroke="#ffffff" stroke-width="${(sw*0.32).toFixed(1)}" opacity="0.3" stroke-linecap="round"/>`;}
+/* detailed FR-clad lineworker, anchored at the feet (x,y); sc≈1 → ~165px tall */
+function lineworker2(x,y,sc,fr){sc=sc||1;fr=fr||'#22406e';const s=v=>v*sc;
+  let g=`<g transform="translate(${x},${y})">`;
+  g+=gshadow(0,s(2),s(26),s(6),0.16);
+  g+=`<path d="M ${s(-15)} ${s(-80)} L ${s(-17)} ${s(-6)} L ${s(-5)} ${s(-6)} L ${s(-3)} ${s(-80)} Z" fill="${fr}"/>`;
+  g+=`<path d="M ${s(15)} ${s(-80)} L ${s(17)} ${s(-6)} L ${s(5)} ${s(-6)} L ${s(3)} ${s(-80)} Z" fill="${fr}"/>`;
+  g+=`<path d="M ${s(-21)} ${s(-6)} L ${s(-3)} ${s(-6)} L ${s(-3)} ${s(2)} L ${s(-24)} ${s(2)} Z" fill="#262626"/>`;
+  g+=`<path d="M ${s(21)} ${s(-6)} L ${s(3)} ${s(-6)} L ${s(3)} ${s(2)} L ${s(24)} ${s(2)} Z" fill="#262626"/>`;
+  g+=`<path d="M ${s(-21)} ${s(-132)} Q 0 ${s(-140)} ${s(21)} ${s(-132)} L ${s(17)} ${s(-78)} L ${s(-17)} ${s(-78)} Z" fill="${fr}"/>`;
+  g+=`<rect x="${s(-20)}" y="${s(-102)}" width="${s(40)}" height="${s(6)}" fill="url(#qamber)"/>`;
+  g+=`<path d="M ${s(-20)} ${s(-130)} L ${s(-31)} ${s(-94)}" stroke="${fr}" stroke-width="${s(8.5)}" stroke-linecap="round"/>`;
+  g+=`<path d="M ${s(20)} ${s(-130)} L ${s(31)} ${s(-94)}" stroke="${fr}" stroke-width="${s(8.5)}" stroke-linecap="round"/>`;
+  g+=`<circle cx="${s(-32)}" cy="${s(-89)}" r="${s(6.5)}" fill="url(#qrubber)"/>`;
+  g+=`<circle cx="${s(32)}" cy="${s(-89)}" r="${s(6.5)}" fill="url(#qrubber)"/>`;
+  g+=`<rect x="${s(-4)}" y="${s(-144)}" width="${s(8)}" height="${s(9)}" fill="#d79f72"/>`;
+  g+=`<circle cx="0" cy="${s(-152)}" r="${s(11)}" fill="#e8b489"/>`;
+  g+=`<path d="M ${s(-13)} ${s(-154)} A ${s(13)} ${s(13)} 0 0 1 ${s(13)} ${s(-154)} Z" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="1.2"/>`;
+  g+=`<rect x="${s(-15.5)}" y="${s(-155)}" width="${s(31)}" height="${s(4)}" rx="2" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="1"/>`;
   g+=`</g>`;return g;}
 
 const D={};
@@ -380,38 +441,46 @@ D.epz=()=>svg('640 470',`
 
 /* ============ 17. COVER-UP POLE TOP ============ */
 D.coverup=()=>svg('640 470',`
-  <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
+  <rect width="640" height="470" fill="url(#qsky)" stroke="#cdd8e4" rx="16"/>
   ${T(320,40,'Insulate every energized AND grounded part within reach',{s:14,c:P.gray,a:'middle'})}
-  <rect x="300" y="90" width="40" height="350" rx="4" fill="url(#qcopper)"/>
-  <rect x="120" y="170" width="400" height="26" rx="4" fill="#8a5a2b"/>
-  ${[180,460].map(x=>`<rect x="${x-12}" y="140" width="24" height="34" rx="4" fill="url(#qsteel)"/>
-     <path d="M ${x-20} 140 q ${20} -24 ${40} 0 Z" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
-  <line x1="40" y1="150" x2="600" y2="150" stroke="${P.danger}" stroke-width="7"/>
-  <rect x="220" y="140" width="200" height="20" rx="10" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
-  <line x1="40" y1="300" x2="600" y2="300" stroke="${P.green}" stroke-width="6"/>
-  <rect x="250" y="290" width="140" height="22" rx="6" fill="${P.navy2}" opacity="0.85"/>
-  ${T(70,135,'line hose',{s:12,c:P.amberD})}
-  ${T(208,128,'insulator hood',{s:12,c:P.amberD,a:'middle'})}
-  ${T(320,335,'insulating blanket',{s:12,c:P.navy2,a:'middle'})}
-  ${T(320,400,'Cover nearest hazard FIRST, work outward.',{s:13,w:700,c:P.navy,a:'middle'})}
-  ${T(320,422,'Remove in REVERSE — last on, first off.',{s:13,c:P.ink,a:'middle'})}`);
+  ${woodPole(320,150,452,32)}
+  ${crossarm(320,150,300,18)}
+  ${pinInsulator(206,150,1.45)}${pinInsulator(434,150,1.45)}
+  <path d="M 40 121 L 600 121" stroke="#37404a" stroke-width="6" stroke-linecap="round"/>
+  <path d="M 40 121 L 600 121" stroke="#ffffff" stroke-width="1.6" opacity="0.28" stroke-linecap="round"/>
+  <rect x="150" y="112" width="340" height="18" rx="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="1.5"/>
+  ${[206,434].map(x=>`<path d="M ${x-21} 124 q 21 -34 42 0 Z" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="1.5"/>`).join('')}
+  <path d="M 60 300 Q 320 312 600 300" stroke="#5b6b7b" stroke-width="5" fill="none"/>
+  <path d="M 252 288 h136 a8 8 0 0 1 8 8 v18 a8 8 0 0 1 -8 8 h-136 a8 8 0 0 1 -8 -8 v-18 a8 8 0 0 1 8 -8 Z" fill="${P.navy2}" opacity="0.9"/>
+  <path d="M 252 288 h136 v4 h-136 Z" fill="#ffffff" opacity="0.14"/>
+  ${T(86,150,'line hose',{s:12,w:700,c:P.amberD})}<line x1="120" y1="146" x2="150" y2="124" stroke="${P.amberD}" stroke-width="1.2"/>
+  ${T(206,86,'insulator hood',{s:12,w:700,c:P.amberD,a:'middle'})}<line x1="206" y1="92" x2="206" y2="104" stroke="${P.amberD}" stroke-width="1.2"/>
+  ${T(320,346,'insulating blanket (covers the grounded neutral)',{s:12,w:700,c:P.navy2,a:'middle'})}
+  ${T(320,404,'Cover the NEAREST hazard first, then work outward.',{s:13.5,w:700,c:P.navy,a:'middle'})}
+  ${T(320,428,'Remove in REVERSE — last on, first off.',{s:13,c:P.ink,a:'middle'})}`);
 
 /* ============ 18. GLOVE CLASSES ============ */
 D.gloves=()=>svg('1180 430',`
   <rect width="1180" height="430" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
-  ${T(590,42,'Rubber insulating glove classes (ASTM D120) — select AT or ABOVE your voltage',{s:15,w:700,c:P.navy,a:'middle'})}
-  ${[['00','500 V','#E9D9B8',P.amberD],['0','1,000 V','#D4351A',P.white],['1','7,500 V','#ffffff',P.ink],
-     ['2','17,000 V','#F5B100',P.ink],['3','26,500 V','#2E8B57',P.white],['4','36,000 V','#E2701A',P.white]]
-    .map(([cl,v,fill,tc],i)=>{const x=70+i*182;return `
-    <g transform="translate(${x},90)">
-      <path d="M 30 40 q -18 -38 8 -52 q 10 14 18 8 l 0 -16 q 0 -10 12 -10 q 12 0 12 10 l 0 18 q 0 8 8 8 q 8 0 8 8 l 0 120 q 0 14 -14 14 l -56 0 q -14 0 -14 -14 Z"
-        fill="${fill}" stroke="#9aa6b2" stroke-width="2"/>
-      ${T(48,118,'CLASS',{s:11,w:700,c:tc,a:'middle'})}
-      ${T(48,150,cl,{s:34,w:800,c:tc,a:'middle'})}
+  ${T(590,40,'Rubber insulating glove classes (ASTM D120) — select AT or ABOVE your voltage',{s:15,w:700,c:P.navy,a:'middle'})}
+  ${[['00','500 V','#e6d3a8','#b79a5f',P.ink],['0','1,000 V','#d8442b','#9e2410',P.white],['1','7,500 V','#eef1f5','#aeb8c4',P.ink],
+     ['2','17,000 V','#f5b81f','#c88a00',P.ink],['3','26,500 V','#33915f','#1f6b43',P.white],['4','36,000 V','#e2701a','#a8500f',P.white]]
+    .map(([cl,v,fill,dk,tc],i)=>{const cx=118+i*182;return `
+    <g transform="translate(${cx},94)">
+      ${gshadow(2,232,34,7,0.13)}
+      ${[-19.5,-9.5,0.5,10.5].map((fx,j)=>`<rect x="${fx}" y="${-46+(j===0||j===3?6:0)}" width="9" height="${64-(j===0||j===3?6:0)}" rx="4.5" fill="${fill}" stroke="${dk}" stroke-width="1"/>`).join('')}
+      <path d="M -30 8 q -10 -20 6 -30 q 8 8 16 4 l 6 14 Z" fill="${fill}" stroke="${dk}" stroke-width="1"/>
+      <rect x="-21" y="-8" width="42" height="52" rx="13" fill="${fill}" stroke="${dk}" stroke-width="1"/>
+      <path d="M -22 34 L -27 116 Q -27 124 -19 124 L 19 124 Q 27 124 27 116 L 22 34 Z" fill="${fill}" stroke="${dk}" stroke-width="1"/>
+      <ellipse cx="-7" cy="8" rx="10" ry="22" fill="#ffffff" opacity="0.16"/>
+      <path d="M -25 70 L -27 116 Q -27 124 -19 124 L 19 124 Q 27 124 27 116 L 25 70 Z" fill="#c79a5b" stroke="#9c7536" stroke-width="1.2"/>
+      <path d="M -25 70 L 25 70" stroke="#9c7536" stroke-width="1" stroke-dasharray="3 3"/>
+      ${T(0,150,'CLASS',{s:10.5,w:700,c:P.gray,a:'middle'})}
+      <circle cx="0" cy="98" r="15" fill="#ffffff" stroke="#c88a00" stroke-width="1.5"/>${T(0,104,cl,{s:16,w:800,c:P.navy,a:'middle'})}
     </g>
-    ${T(x+48,300,v,{s:18,w:800,c:P.navy,a:'middle'})}
-    ${T(x+48,324,'max use',{s:11,c:P.gray,a:'middle'})}`;}).join('')}
-  ${T(590,380,'Always worn with leather protectors • air-test &amp; inspect before every use • retest ≈ every 6 months',{s:13,c:P.ink,a:'middle'})}`);
+    ${T(cx,300,v,{s:19,w:800,c:P.navy,a:'middle'})}
+    ${T(cx,323,'max use voltage',{s:10.5,c:P.gray,a:'middle'})}`;}).join('')}
+  ${T(590,378,'Always worn with leather protectors • air-test &amp; inspect before every use • retest ≈ every 6 months',{s:13,c:P.ink,a:'middle'})}`);
 
 /* ============ 19. HOT STICK / LIVE-LINE TOOL ============ */
 D.hotstick=()=>svg('640 470',`
@@ -523,19 +592,31 @@ D.recloser=()=>svg('1180 430',`
 
 /* ============ 26. INSULATED AERIAL DEVICE (BUCKET) ============ */
 D.bucket=()=>svg('640 470',`
-  <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
-  ${T(320,38,'The insulated aerial device keeps the boom — and you — isolated',{s:14,c:P.gray,a:'middle'})}
-  <line x1="40" y1="92" x2="600" y2="92" stroke="${P.danger}" stroke-width="7"/>${T(50,82,'energized conductor',{s:12,c:P.danger})}
-  <rect x="60" y="360" width="220" height="70" rx="8" fill="${P.navy}"/>
-  <circle cx="110" cy="438" r="18" fill="#333"/><circle cx="230" cy="438" r="18" fill="#333"/>
-  ${T(170,403,'utility truck',{s:12,w:700,c:P.white,a:'middle'})}
-  <line x1="250" y1="362" x2="380" y2="250" stroke="${P.steel}" stroke-width="14" stroke-linecap="round"/>
-  ${T(415,318,'lower boom',{s:12,c:P.gray})}
-  <line x1="380" y1="250" x2="468" y2="132" stroke="${P.amber}" stroke-width="14" stroke-linecap="round"/>
-  ${T(486,206,'insulated (dielectric)',{s:12,w:700,c:P.amberD})}${T(486,224,'upper boom',{s:12,c:P.amberD})}
-  <rect x="448" y="110" width="62" height="46" rx="6" fill="#fff" stroke="${P.navy}" stroke-width="3"/>
-  ${worker(479,122,0.5,P.navy,true)}
-  ${T(320,455,'The dielectric boom section is an insulating gap — rubber-glove work proceeds in the bucket',{s:12.5,c:P.ink,a:'middle'})}`);
+  <rect width="640" height="470" fill="url(#qsky)" stroke="#cdd8e4" rx="16"/>
+  ${T(320,36,'The insulated aerial device keeps the boom — and you — isolated',{s:14,c:P.gray,a:'middle'})}
+  <path d="M 8 406 H 632 V 462 a8 8 0 0 1 -8 8 H 16 a8 8 0 0 1 -8 -8 Z" fill="url(#qground)"/>
+  <line x1="40" y1="104" x2="600" y2="104" stroke="#cf3a22" stroke-width="6" stroke-linecap="round"/>
+  <line x1="40" y1="104" x2="600" y2="104" stroke="#ffffff" stroke-width="1.5" opacity="0.28" stroke-linecap="round"/>
+  ${T(56,94,'energized conductor',{s:12,w:700,c:P.danger})}
+  <path d="M 70 372 L 44 405 L 60 405 Z" fill="url(#qgalv)"/><path d="M 300 372 L 320 405 L 304 405 Z" fill="url(#qgalv)"/>
+  ${gshadow(190,407,150,9,0.14)}
+  <rect x="60" y="350" width="252" height="40" rx="6" fill="${P.navy}"/>
+  <rect x="60" y="320" width="74" height="42" rx="6" fill="${P.navy2}"/>
+  <path d="M 74 330 h34 v20 h-40 v-12 a8 8 0 0 1 6 -8 Z" fill="#bcd6ea"/>
+  <rect x="140" y="328" width="172" height="28" rx="4" fill="#e9eef4" stroke="#cdd6e0"/>
+  ${[158,198,238,278].map(x=>`<rect x="${x}" y="333" width="16" height="18" rx="2" fill="#d4dce5" stroke="#aab6c2"/>`).join('')}
+  ${[110,262].map(wx=>`<circle cx="${wx}" cy="392" r="21" fill="#262626"/><circle cx="${wx}" cy="392" r="9" fill="url(#qgalv)"/>`).join('')}
+  <rect x="250" y="304" width="46" height="20" rx="4" fill="${P.steel}"/>
+  <line x1="274" y1="314" x2="366" y2="250" stroke="url(#qgalv)" stroke-width="15" stroke-linecap="round"/>
+  ${T(286,302,'lower boom',{s:11.5,c:P.gray})}
+  <circle cx="366" cy="250" r="9" fill="${P.steel}"/>
+  <line x1="366" y1="250" x2="470" y2="138" stroke="url(#qamber)" stroke-width="15" stroke-linecap="round"/>
+  <line x1="366" y1="250" x2="470" y2="138" stroke="#ffffff" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+  ${T(488,196,'insulated (dielectric)',{s:11.5,w:700,c:P.amberD})}${T(488,212,'upper boom',{s:11.5,c:P.amberD})}
+  ${lineworker2(474,152,0.34)}
+  <path d="M 446 112 h54 a6 6 0 0 1 6 6 v38 a8 8 0 0 1 -8 8 h-50 a8 8 0 0 1 -8 -8 v-38 a6 6 0 0 1 6 -6 Z" fill="#f4f7fb" stroke="${P.navy}" stroke-width="2.5"/>
+  <path d="M 440 120 h66" stroke="#ffffff" stroke-width="2" opacity="0.6"/>
+  ${T(320,452,'The dielectric boom section is an insulating gap — rubber-glove work proceeds in the bucket',{s:12.5,c:P.ink,a:'middle'})}`);
 
 /* ============ 27. SWITCHING / CLEARANCE ONE-LINE ============ */
 D.switching=()=>svg('1180 430',`
@@ -589,18 +670,27 @@ D.phasing=()=>svg('640 470',`
 
 /* ============ 30. POLE-TOP RESCUE ============ */
 D.rescue=()=>svg('640 470',`
-  <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
+  <rect width="640" height="470" fill="url(#qsky)" stroke="#cdd8e4" rx="16"/>
   ${T(320,38,'Pole-top rescue — fast, but never at the cost of a second victim',{s:14,c:P.gray,a:'middle'})}
-  <rect x="300" y="70" width="34" height="380" rx="4" fill="url(#qcopper)"/>
-  <rect x="200" y="120" width="240" height="20" rx="4" fill="#8a5a2b"/>
-  <line x1="60" y1="110" x2="580" y2="110" stroke="${P.green}" stroke-width="6"/>${T(70,100,'de-energized / covered',{s:11,c:P.green})}
-  <g transform="translate(282,200)"><circle cx="0" cy="0" r="11" fill="${P.light}" stroke="${P.danger}" stroke-width="3"/><line x1="0" y1="11" x2="-15" y2="44" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/><line x1="-15" y1="44" x2="3" y2="60" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/></g>
-  ${T(206,205,'injured',{s:12,w:700,c:P.danger,a:'end'})}
-  <path d="M 320 130 L 362 130 L 362 300" stroke="${P.amber}" stroke-width="3" fill="none"/>
-  ${T(400,212,'handline',{s:12,c:P.amberD})}
-  ${worker(470,382,0.9,P.navy,true)}
-  <rect x="502" y="346" width="42" height="30" rx="4" fill="url(#qred)"/>${T(523,366,'AED',{s:11,w:800,c:P.white,a:'middle'})}
-  ${T(320,434,'Remove the source FIRST · lower the patient · CPR + AED — minutes matter',{s:13,w:700,c:P.navy,a:'middle'})}`);
+  <path d="M 8 406 H 632 V 462 a8 8 0 0 1 -8 8 H 16 a8 8 0 0 1 -8 -8 Z" fill="url(#qground)"/>
+  ${woodPole(300,72,452,30)}
+  ${crossarm(300,120,230,18)}
+  <line x1="60" y1="100" x2="580" y2="100" stroke="${P.green}" stroke-width="6" stroke-linecap="round"/>
+  <line x1="60" y1="100" x2="580" y2="100" stroke="#ffffff" stroke-width="1.4" opacity="0.3" stroke-linecap="round"/>
+  ${T(70,90,'de-energized / covered',{s:11,w:700,c:P.green})}
+  <path d="M 338 138 L 372 138 L 372 322" stroke="#c79a5b" stroke-width="3.5" fill="none"/>
+  ${T(388,238,'handline',{s:12,w:700,c:'#9c7536'})}
+  <g transform="translate(286,202)">
+    <line x1="-16" y1="-6" x2="18" y2="-6" stroke="#9c7536" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="0" cy="2" r="11" fill="#e8b489" stroke="${P.danger}" stroke-width="2.5"/>
+    <path d="M 0 13 q -14 10 -12 44" stroke="${P.danger}" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <line x1="-6" y1="26" x2="-22" y2="40" stroke="${P.danger}" stroke-width="4.5" stroke-linecap="round"/>
+  </g>
+  ${T(214,208,'injured worker',{s:12,w:700,c:P.danger,a:'end'})}
+  ${lineworker2(470,406,0.92)}
+  <rect x="512" y="360" width="46" height="32" rx="5" fill="url(#qred)"/>${T(535,381,'AED',{s:12,w:800,c:P.white,a:'middle'})}
+  <path d="M 524 366 h10 M 529 361 v10" stroke="#ffffff" stroke-width="2" stroke-linecap="round"/>
+  ${T(320,432,'Remove the source FIRST · lower the patient · CPR + AED — minutes matter',{s:13,w:700,c:P.navy,a:'middle'})}`);
 
 /* ============ 31. INCIDENT ENERGY vs DISTANCE ============ */
 D.arcenergy=()=>svg('1180 430',`
