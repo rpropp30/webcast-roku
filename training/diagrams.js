@@ -126,7 +126,7 @@ D.atom=()=>svg('640 470', defs('at')+`
       <circle cx="-150" cy="0" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
       <circle cx="44" cy="-65" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
     </g>
-    <circle r="30" fill="${P.navy}"/>
+    <circle r="30" fill="url(#qnavy)" filter="url(#qsh)"/><circle cx="-9" cy="-10" r="9" fill="#ffffff" opacity="0.16"/>
     <circle cx="-9" cy="-6" r="9" fill="url(#qred)"/><circle cx="10" cy="-7" r="9" fill="url(#qred)"/>
     <circle cx="0" cy="9" r="9" fill="${P.sky}"/><circle cx="-12" cy="9" r="9" fill="${P.sky}"/>
   </g>
@@ -166,7 +166,7 @@ D.water=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,36,'The plumbing analogy',{s:15,w:700,c:P.navy,a:'middle'})}
   <rect x="70" y="90" width="500" height="260" rx="40" fill="none" stroke="${P.sky}" stroke-width="22" opacity="0.55"/>
-  <circle cx="70" cy="220" r="42" fill="${P.navy}"/>${T(70,225,'PUMP',{s:13,w:700,c:P.white,a:'middle'})}
+  <circle cx="70" cy="220" r="42" fill="url(#qnavy)" filter="url(#qsh)"/>${T(70,225,'PUMP',{s:13,w:700,c:P.white,a:'middle'})}
   ${T(70,300,'VOLTAGE',{s:15,w:800,c:P.navy,a:'middle'})}${T(70,320,'the pressure',{s:12,c:P.gray,a:'middle'})}
   <g transform="translate(320,350)"><polygon points="-22,-18 22,-18 0,6" fill="${P.amberD}"/><rect x="-6" y="-30" width="12" height="14" fill="${P.amberD}"/></g>
   ${T(320,392,'RESISTANCE',{s:15,w:800,c:P.amberD,a:'middle'})}${T(320,412,'the restriction (Ω)',{s:12,c:P.gray,a:'middle'})}
@@ -205,7 +205,7 @@ D.ohm=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,38,'Cover what you want — the rest is the formula',{s:14,c:P.gray,a:'middle'})}
   <g transform="translate(190,250)">
-    <polygon points="0,-120 -130,90 130,90" fill="#ffffff" stroke="${P.navy}" stroke-width="3"/>
+    <polygon points="0,-120 -130,90 130,90" fill="#ffffff" stroke="${P.navy}" stroke-width="3" filter="url(#qsh)"/>
     <line x1="-130" y1="0" x2="130" y2="0" stroke="${P.navy}" stroke-width="3"/>
     <line x1="0" y1="0" x2="0" y2="90" stroke="${P.navy}" stroke-width="3"/>
     ${T(0,-45,'V',{s:46,w:800,c:P.danger,a:'middle'})}
@@ -427,7 +427,7 @@ D.secondpoint=()=>svg('1180 470',`
     ${T(90,140,'energized phase',{s:12,c:P.danger})}
     <line x1="80" y1="360" x2="520" y2="360" stroke="${P.green}" stroke-width="7"/>
     ${T(90,385,'grounded neutral / structure',{s:12,c:P.green})}
-    ${worker(300,360,1.25,P.navy,true)}
+    ${lineworker2(300,360,1.2)}
     <path class="dgm-current" d="M 300 150 L 300 305" stroke="${P.amber}" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
     ${arr(300,300,300,312,P.amber,4)}
     ${T(360,250,'current flows',{s:13,w:700,c:P.amberD})}${T(360,270,'THROUGH you',{s:13,w:700,c:P.amberD})}
@@ -442,7 +442,7 @@ D.secondpoint=()=>svg('1180 470',`
     <line x1="660" y1="360" x2="1100" y2="360" stroke="${P.green}" stroke-width="7"/>
     <rect x="800" y="350" width="160" height="20" rx="6" fill="${P.navy2}" opacity="0.85"/>
     ${T(670,385,'insulating cover-up',{s:12,c:P.navy2})}
-    ${worker(880,360,1.25,P.navy,true)}
+    ${lineworker2(880,360,1.2)}
     <g stroke="${P.green}" stroke-width="5" fill="none"><path d="M 856 224 l 13 15 l 26 -32"/></g>
     ${T(905,234,'isolated from both',{s:13,w:700,c:P.green})}
     ${T(905,252,'→ safe',{s:13,w:700,c:P.green})}
@@ -453,7 +453,7 @@ D.epz=()=>svg('640 470',`
   <rect width="640" height="470" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(320,40,'Bond everything to ONE potential — ride the voltage together',{s:14,c:P.gray,a:'middle'})}
   <line x1="60" y1="120" x2="580" y2="120" stroke="${P.navy}" stroke-width="7"/>${T(70,108,'de-energized conductor',{s:12,c:P.gray})}
-  ${worker(320,330,1.1,P.navy,true)}
+  ${lineworker2(320,330,1.05)}
   <path d="M 320 120 L 320 200" stroke="${P.green}" stroke-width="5"/>
   <circle cx="320" cy="120" r="9" fill="${P.green}"/>
   <path d="M 320 330 L 320 380 L 470 380 L 470 410" stroke="${P.green}" stroke-width="5" fill="none"/>
@@ -593,7 +593,7 @@ D.tailboard=()=>svg('640 470',`
     <rect x="-20" y="-82" width="40" height="20" rx="5" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>
     ${[-44,-28,-12,4,20,36,52].map((y,i)=>`<line x1="-40" y1="${y}" x2="${i%2?30:40}" y2="${y}" stroke="${P.steel}" stroke-width="3"/>`).join('')}
   </g>
-  ${[[140,140],[500,140],[120,330],[520,330],[320,400]].map(([x,y])=>worker(x,y,0.62,P.navy,true)).join('')}
+  ${[[140,140],[500,140],[120,330],[520,330],[320,400]].map(([x,y])=>lineworker2(x,y,0.5)).join('')}
   ${T(320,452,'Hazards • procedures • controls • PPE • roles • rescue — and everyone can speak up',{s:13,w:600,c:P.navy,a:'middle'})}`);
 
 /* ============ 24. LOTO / DE-ENERGIZE SEQUENCE ============ */
@@ -604,7 +604,7 @@ D.loto=()=>svg('1180 410',`
      ['LOCK &amp; TAG','each worker&rsquo;s lock',P.amberD],['TEST','prove it dead',P.danger],
      ['GROUND','equipotential zone',P.green]]
     .map(([t,d,c],i)=>{const x=70+i*222;return `
-     <circle cx="${x+70}" cy="180" r="44" fill="${c}"/>${T(x+70,190,i+1,{s:34,w:800,c:P.white,a:'middle'})}
+     <circle cx="${x+70}" cy="180" r="44" fill="${c}" filter="url(#qsh)"/>${T(x+70,190,i+1,{s:34,w:800,c:P.white,a:'middle'})}
      ${T(x+70,258,t,{s:15,w:800,c:c,a:'middle'})}
      ${T(x+70,280,d,{s:12,c:P.gray,a:'middle'})}
      ${i<4?arr(x+118,180,x+196,180,P.steel,3):''}`;}).join('')}
