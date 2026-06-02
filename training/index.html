@@ -169,6 +169,11 @@ ul.blist li b,li.bold{font-weight:800;color:var(--navy)}
   @keyframes dgmseq{0%,72%,100%{opacity:.82}12%,30%{opacity:1;filter:drop-shadow(0 0 5px rgba(245,177,0,.9))}}
   .dgm-travel{animation:dgmtravel 2.8s linear infinite}
   @keyframes dgmtravel{0%{transform:translateX(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateX(920px);opacity:0}}
+  .dgm-pulse{transform-box:fill-box;transform-origin:center;animation:dgmpulse 2.2s ease-in-out infinite}
+  @keyframes dgmpulse{0%,100%{opacity:.92;transform:scale(1)}50%{opacity:1;transform:scale(1.08)}}
+  .dgm-glow{transform-box:fill-box;transform-origin:center;animation:dgmglow 2.7s ease-in-out infinite}
+  @keyframes dgmglow{0%,100%{opacity:.5;transform:scale(.95)}50%{opacity:1;transform:scale(1.06)}}
+  @media (prefers-reduced-motion: reduce){.dgm-flow,.dgm-current,.dgm-spin,.dgm-drift,.dgm-spark,.dgm-seq,.dgm-travel,.dgm-pulse,.dgm-glow{animation:none}}
 }
 
 /* ---------- dark theme (toggle with D) ---------- */

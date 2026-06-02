@@ -284,7 +284,7 @@ D.grid=()=>svg('1180 430',`
   ${T(590,34,'From generation to your service — and the voltage at each stage',{s:15,w:700,c:P.navy,a:'middle'})}
   <path d="M 8 364 H 1172 V 408 a8 8 0 0 1 -8 8 H 16 a8 8 0 0 1 -8 -8 Z" fill="url(#qground)"/>
   <path d="M 150 296 H 268" stroke="#37404a" stroke-width="2.5"/>
-  <path d="M 340 300 L 360 198 H 642 L 660 300" stroke="#37404a" stroke-width="2.5" fill="none"/>
+  <path d="M 340 300 L 360 198 H 642 L 660 300" stroke="#37404a" stroke-width="2.5" fill="none"/><path class="dgm-flow" d="M 340 300 L 360 198 H 642 L 660 300" stroke="#f5b100" stroke-width="2.5" fill="none" stroke-dasharray="7 11"/>
   <path d="M 740 300 L 900 252" stroke="#37404a" stroke-width="2.5" fill="none"/>
   <path d="M 905 262 L 1046 318" stroke="#37404a" stroke-width="2.5" fill="none"/>
   <circle class="dgm-travel" cx="170" cy="296" r="6" fill="url(#qamber)"/>
@@ -383,7 +383,7 @@ D.steptouch=()=>svg('1180 430',`
   <path d="M 150 92 C 224 92, 244 232, 252 250" stroke="#ffffff" stroke-width="1.5" opacity="0.25" fill="none"/>
   ${T(150,60,'downed line',{s:12,w:700,c:P.danger,a:'middle'})}
   <g>${[34,92,160,238,320].map((r,i)=>`<ellipse cx="252" cy="250" rx="${r}" ry="${(r*0.3).toFixed(0)}" fill="none" stroke="${P.danger}" stroke-width="2" opacity="${(0.85-i*0.14).toFixed(2)}"/>`).join('')}</g>
-  <circle cx="252" cy="250" r="12" fill="url(#qred)"/>
+  <circle class="dgm-pulse" cx="252" cy="250" r="12" fill="url(#qred)"/>
   <path d="M 252 112 C 360 116, 430 236, 1150 246" fill="none" stroke="${P.navy2}" stroke-width="3"/>
   ${T(330,104,'voltage vs distance from the contact point',{s:13,w:700,c:P.navy2})}
   <g transform="translate(770,250)">
@@ -404,7 +404,7 @@ D.mad=()=>svg('640 470',`
   ${pinInsulator(120,150,1.5)}
   <line x1="20" y1="120" x2="120" y2="120" stroke="#cf3a22" stroke-width="6" stroke-linecap="round"/>
   <path d="M 120 120 L 162 186" stroke="#cf3a22" stroke-width="5"/>
-  <circle cx="162" cy="186" r="58" fill="url(#qspark)"/><circle cx="162" cy="186" r="13" fill="url(#qred)"/>
+  <circle class="dgm-glow" cx="162" cy="186" r="58" fill="url(#qspark)"/><circle class="dgm-pulse" cx="162" cy="186" r="13" fill="url(#qred)"/>
   ${T(120,104,'ENERGIZED',{s:12,w:800,c:P.danger,a:'middle'})}
   <circle cx="162" cy="186" r="205" fill="none" stroke="${P.navy2}" stroke-width="2.5" stroke-dasharray="8 6"/>
   ${lineworker2(500,452,1.0)}
@@ -429,7 +429,7 @@ D.secondpoint=()=>svg('1180 470',`
     <path class="dgm-current" d="M 300 150 L 300 305" stroke="${P.amber}" stroke-width="5" stroke-dasharray="2 8" stroke-linecap="round"/>
     ${arr(300,300,300,312,P.amber,4)}
     ${T(360,250,'current flows',{s:13,w:700,c:P.amberD})}${T(360,270,'THROUGH you',{s:13,w:700,c:P.amberD})}
-    <circle cx="300" cy="150" r="9" fill="url(#qred)"/><circle cx="300" cy="360" r="9" fill="${P.green}"/>
+    <circle class="dgm-pulse" cx="300" cy="150" r="9" fill="url(#qred)"/><circle cx="300" cy="360" r="9" fill="${P.green}"/>
   </g>
   <g>
     <rect x="620" y="70" width="520" height="370" rx="12" fill="#ffffff" stroke="${P.green}" stroke-width="2.5"/>
@@ -514,9 +514,9 @@ D.hotstick=()=>svg('640 470',`
   <line x1="20" y1="90" x2="118" y2="90" stroke="#cf3a22" stroke-width="6" stroke-linecap="round"/>
   <line x1="20" y1="90" x2="118" y2="90" stroke="#ffffff" stroke-width="1.4" opacity="0.28" stroke-linecap="round"/>
   ${T(118,76,'energized',{s:12,w:700,c:P.danger,a:'middle'})}
-  <circle cx="150" cy="150" r="50" fill="url(#qspark)"/>
+  <circle class="dgm-glow" cx="150" cy="150" r="50" fill="url(#qspark)"/>
   <path d="M 118 90 L 150 150" stroke="#cf3a22" stroke-width="5"/>
-  <circle cx="150" cy="150" r="10" fill="url(#qred)"/>
+  <circle class="dgm-pulse" cx="150" cy="150" r="10" fill="url(#qred)"/>
   <circle cx="150" cy="150" r="170" fill="none" stroke="${P.navy2}" stroke-width="2" stroke-dasharray="8 6"/>
   ${lineworker2(486,452,1.0)}
   <line x1="455" y1="363" x2="160" y2="156" stroke="url(#qamber)" stroke-width="8.5" stroke-linecap="round"/>
@@ -739,7 +739,7 @@ D.arcenergy=()=>svg('1180 430',`
   ${T(1072,288,'arc-flash boundary — 1.2 cal/cm² (onset of a 2nd-degree burn)',{s:12.5,w:700,c:P.amberD,a:'end'})}
   <line x1="430" y1="360" x2="430" y2="248" stroke="${P.navy2}" stroke-width="1.5" stroke-dasharray="4 4"/>
   ${worker(430,360,0.74,P.navy,true)}
-  <circle cx="430" cy="248" r="6" fill="url(#qred)"/>
+  <circle class="dgm-pulse" cx="430" cy="248" r="6" fill="url(#qred)"/>
   ${T(452,244,'energy at the working distance sets the required PPE arc rating',{s:12.5,c:P.ink})}
   ${T(840,150,'Farther back = exponentially safer',{s:13,w:700,c:P.green,a:'middle'})}
   ${T(300,340,'closer in = far worse',{s:12,c:P.danger,a:'middle'})}`);
@@ -780,7 +780,7 @@ D.scenecontrol=()=>svg('1180 430',`
   <rect x="180" y="80" width="22" height="222" rx="3" fill="url(#qcopper)"/>
   <path d="M 191 108 C 300 128, 362 282, 430 300" stroke="${P.danger}" stroke-width="6" fill="none"/>
   ${[28,74,124].map((r,i)=>`<ellipse cx="430" cy="300" rx="${r}" ry="${(r*0.3).toFixed(0)}" fill="none" stroke="${P.danger}" stroke-width="2" opacity="${(0.8-i*0.22).toFixed(2)}"/>`).join('')}
-  <circle cx="430" cy="300" r="10" fill="url(#qred)"/>
+  <circle class="dgm-pulse" cx="430" cy="300" r="10" fill="url(#qred)"/>
   <g transform="translate(470,290)"><circle cx="0" cy="0" r="11" fill="${P.light}" stroke="${P.danger}" stroke-width="3"/><line x1="11" y1="0" x2="78" y2="0" stroke="${P.danger}" stroke-width="5" stroke-linecap="round"/><line x1="44" y1="0" x2="52" y2="-15" stroke="${P.danger}" stroke-width="4" stroke-linecap="round"/></g>
   ${T(520,248,'patient — do NOT touch until the source is removed',{s:12.5,w:700,c:P.danger})}
   <line x1="790" y1="300" x2="790" y2="172" stroke="${P.amberD}" stroke-width="3" stroke-dasharray="6 5"/>
