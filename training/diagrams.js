@@ -148,14 +148,14 @@ D.conductor=()=>svg('640 470',`
   ${T(320,40,'Why some materials carry current and others stop it',{s:14,c:P.gray,a:'middle'})}
   <g transform="translate(40,90)">
     ${T(0,0,'CONDUCTOR',{s:17,w:800,c:P.green})}
-    <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.green}" stroke-width="3"/>
+    <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.green}" stroke-width="3" filter="url(#qsh)"/>
     ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="url(#qamber)" stroke="${P.amberD}" stroke-width="2"/>`).join('')}
     ${arr(30,58,540,58,P.danger,3)}
     ${T(280,128,'Free electrons move easily → low resistance (copper, aluminum, steel, wet body)',{s:13,c:P.ink,a:'middle'})}
   </g>
   <g transform="translate(40,260)">
     ${T(0,0,'INSULATOR',{s:17,w:800,c:P.danger})}
-    <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.danger}" stroke-width="3"/>
+    <rect x="0" y="18" width="560" height="80" rx="10" fill="#ffffff" stroke="${P.danger}" stroke-width="3" filter="url(#qsh)"/>
     ${[0,1,2,3,4,5,6,7].map(i=>`<circle cx="${40+i*68}" cy="58" r="9" fill="url(#qsteel)"/>`).join('')}
     <g stroke="${P.danger}" stroke-width="4" stroke-linecap="round"><line x1="270" y1="40" x2="300" y2="76"/><line x1="300" y1="40" x2="270" y2="76"/></g>
     ${T(280,128,'Electrons are bound → high resistance (rubber, glass, porcelain, dry wood, air)',{s:13,c:P.ink,a:'middle'})}
@@ -231,7 +231,7 @@ D.acdc=()=>svg('1180 430',`
     ${T(60,52,'DIRECT CURRENT (DC)',{s:18,w:800,c:P.steel})}
     <line x1="60" y1="80" x2="60" y2="330" stroke="${P.gray}" stroke-width="2"/>
     <line x1="60" y1="205" x2="560" y2="205" stroke="${P.gray}" stroke-width="2" stroke-dasharray="4 4"/>
-    <line x1="60" y1="130" x2="560" y2="130" stroke="${P.steel}" stroke-width="4"/>
+    <g filter="url(#qsh)"><line x1="60" y1="130" x2="560" y2="130" stroke="${P.steel}" stroke-width="4"/></g>
     ${T(310,360,'Steady, one direction — batteries, solar, HVDC',{s:14,c:P.ink,a:'middle'})}
     ${T(50,135,'+',{s:18,w:800,c:P.steel,a:'end'})}
   </g>
@@ -240,7 +240,7 @@ D.acdc=()=>svg('1180 430',`
     ${T(640,52,'ALTERNATING CURRENT (AC)',{s:18,w:800,c:P.navy2})}
     <line x1="640" y1="80" x2="640" y2="330" stroke="${P.gray}" stroke-width="2"/>
     <line x1="640" y1="205" x2="1140" y2="205" stroke="${P.gray}" stroke-width="2" stroke-dasharray="4 4"/>
-    ${sine(640,205,500,72,2.5,0,P.navy2,4,120,'dgm-flow')}
+    <g filter="url(#qsh)">${sine(640,205,500,72,2.5,0,P.navy2,4,120,'dgm-flow')}</g>
     <line x1="640" y1="133" x2="1140" y2="133" stroke="${P.danger}" stroke-width="1.5" stroke-dasharray="6 5"/>
     ${T(1146,137,'peak',{s:12,c:P.danger})}
     <line x1="640" y1="160" x2="1140" y2="160" stroke="${P.green}" stroke-width="1.5" stroke-dasharray="6 5"/>
@@ -255,9 +255,7 @@ D.threephase=()=>svg('1180 430',`
   ${T(590,42,'THREE-PHASE POWER — three waveforms 120° apart',{s:18,w:800,c:P.navy,a:'middle'})}
   <line x1="70" y1="90" x2="70" y2="330" stroke="${P.gray}" stroke-width="2"/>
   <line x1="70" y1="210" x2="1000" y2="210" stroke="${P.gray}" stroke-width="2" stroke-dasharray="4 4"/>
-  ${sine(70,210,930,90,3,0,P.danger,4,120,'dgm-flow')}
-  ${sine(70,210,930,90,3,-2*Math.PI/3,P.navy2,4,120,'dgm-flow')}
-  ${sine(70,210,930,90,3,2*Math.PI/3,P.green,4,120,'dgm-flow')}
+  <g filter="url(#qsh)">${sine(70,210,930,90,3,0,P.danger,4,120,'dgm-flow')}${sine(70,210,930,90,3,-2*Math.PI/3,P.navy2,4,120,'dgm-flow')}${sine(70,210,930,90,3,2*Math.PI/3,P.green,4,120,'dgm-flow')}</g>
   <g>
     <rect x="1030" y="120" width="22" height="22" fill="url(#qred)"/>${T(1062,138,'Phase A',{s:15,w:700,c:P.ink})}
     <rect x="1030" y="165" width="22" height="22" fill="${P.navy2}"/>${T(1062,183,'Phase B',{s:15,w:700,c:P.ink})}
@@ -339,7 +337,7 @@ D.threshold=()=>svg('640 470',`
   <defs><linearGradient id="th-g" x1="0" y1="1" x2="0" y2="0">
     <stop offset="0%" stop-color="${P.green}"/><stop offset="35%" stop-color="${P.amber}"/>
     <stop offset="62%" stop-color="${P.danger}"/><stop offset="100%" stop-color="${P.dangerD}"/></linearGradient></defs>
-  <rect x="90" y="70" width="70" height="350" rx="8" fill="url(#th-g)"/>
+  <rect x="90" y="70" width="70" height="350" rx="8" fill="url(#th-g)" filter="url(#qsh)"/>
   ${[['1 mA','Perception — faint tingle',408],
      ['5 mA','Startling shock — fall risk',360],
      ['10–16 mA','&ldquo;Let-go&rdquo; lost — muscles clamp',300],
@@ -578,7 +576,7 @@ D.hierarchy=()=>svg('640 470',`
     .map(([t,d,c],i)=>{const topW=560,botW=180,y=80+i*66,h=58;
       const w1=topW-(topW-botW)*(i/5),w2=topW-(topW-botW)*((i+1)/5);
       const x1=320-w1/2,x2=320-w2/2;
-      return `<polygon points="${x1.toFixed(0)},${y} ${(x1+w1).toFixed(0)},${y} ${(x2+w2).toFixed(0)},${y+h} ${x2.toFixed(0)},${y+h}" fill="${c}"/>
+      return `<polygon points="${x1.toFixed(0)},${y} ${(x1+w1).toFixed(0)},${y} ${(x2+w2).toFixed(0)},${y+h} ${x2.toFixed(0)},${y+h}" fill="${c}" filter="url(#qsh)"/>
         ${T(320, y+26, t,{s:15,w:800,c:P.white,a:'middle'})}
         ${T(320, y+45, d,{s:11.5,c:P.white,a:'middle'})}`;}).join('')}
   ${arr(70,90,70,400,P.navy,3)}${T(40,250,'MOST',{s:12,w:800,c:P.navy,a:'middle'})}${T(40,268,'EFFECTIVE',{s:11,c:P.gray,a:'middle'})}`);
@@ -614,9 +612,9 @@ D.loto=()=>svg('1180 410',`
 D.recloser=()=>svg('1180 430',`
   <rect width="1180" height="430" fill="url(#qbg)" stroke="#d7e1ec" rx="16"/>
   ${T(590,38,'Reclosers automatically re-close — a “dead” line can come back live',{s:15,w:700,c:P.navy,a:'middle'})}
-  <rect x="50" y="150" width="120" height="74" rx="8" fill="${P.navy}"/>${T(110,193,'SOURCE',{s:13,w:800,c:P.white,a:'middle'})}
+  <rect x="50" y="150" width="120" height="74" rx="8" fill="url(#qnavy)" filter="url(#qsh)"/>${T(110,193,'SOURCE',{s:13,w:800,c:P.white,a:'middle'})}
   <line x1="170" y1="187" x2="1110" y2="187" stroke="${P.steel}" stroke-width="4"/>
-  <circle cx="300" cy="187" r="26" fill="#fff" stroke="${P.danger}" stroke-width="4"/>${T(300,195,'R',{s:22,w:800,c:P.danger,a:'middle'})}
+  <circle cx="300" cy="187" r="26" fill="#fff" stroke="${P.danger}" stroke-width="4" filter="url(#qsh)"/>${T(300,195,'R',{s:22,w:800,c:P.danger,a:'middle'})}
   ${T(300,138,'RECLOSER',{s:12,w:800,c:P.danger,a:'middle'})}
   <line x1="640" y1="187" x2="640" y2="300" stroke="${P.steel}" stroke-width="3"/>
   <rect x="631" y="222" width="18" height="34" rx="3" fill="#fff" stroke="${P.amberD}" stroke-width="3"/>${T(666,246,'fuse',{s:12,c:P.amberD})}
@@ -695,7 +693,7 @@ D.phasing=()=>svg('640 470',`
   ${T(320,38,'Verify voltage &amp; phase — and prove the tester works',{s:14,c:P.gray,a:'middle'})}
   <line x1="120" y1="110" x2="520" y2="110" stroke="${P.danger}" stroke-width="7"/>${T(130,100,'phase A',{s:12,c:P.danger})}
   <line x1="120" y1="205" x2="520" y2="205" stroke="${P.danger}" stroke-width="7"/>${T(130,236,'phase B',{s:12,c:P.danger})}
-  <rect x="280" y="138" width="80" height="44" rx="6" fill="${P.navy}"/>${T(320,166,'V',{s:20,w:800,c:P.amber,a:'middle'})}
+  <rect x="280" y="138" width="80" height="44" rx="6" fill="url(#qnavy)" filter="url(#qsh)"/>${T(320,166,'V',{s:20,w:800,c:P.amber,a:'middle'})}
   <line x1="300" y1="138" x2="300" y2="113" stroke="${P.copper}" stroke-width="6"/>
   <line x1="340" y1="182" x2="340" y2="205" stroke="${P.copper}" stroke-width="6"/>
   ${T(420,158,'phasing /',{s:12,c:P.navy2})}${T(420,176,'voltage tester',{s:12,c:P.navy2})}
