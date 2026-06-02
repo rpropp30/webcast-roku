@@ -101,7 +101,7 @@ footer{padding:26px 0 50px;text-align:center;color:var(--gray);font-size:12.5px}
 
 <script>
 const MOD=[
- 'Electrical Theory','Electricity & the Body','Working Energized','Tools of the Trade','In the Field','Regulations & Standards','Arc-Flash, First Aid & Rescue'];
+ 'Electrical Theory','Electricity & the Body','Working Energized','Tools of the Trade','In the Field','Regulations & Standards','Arc-Flash, First Aid & Rescue','Current Paths & Grounding'];
 const QUIZ=[
  // Module 1
  {m:0,q:'What actually injures and kills in an electrical contact?',o:['Current through the body','Voltage alone','Resistance','Wattage rating'],a:0,e:'Voltage drives it, but it is the <b>current</b> through the body — even milliamps across the heart — that causes injury and death.'},
@@ -147,6 +147,13 @@ const QUIZ=[
  {m:6,q:'As you move away from an arc, incident energy falls with the:',o:['square of the distance','distance, linearly','cube of the distance','voltage'],a:0,e:'Energy drops with the square of distance — moving back is exponentially safer.'},
  {m:6,q:'Your FIRST action when reaching an electrical-contact victim is to:',o:['Start compressions','Touch them to check a pulse','Make the scene safe — remove/de-energize the source','Move them away'],a:2,e:'Protect yourself first. Never touch the patient until the source is removed; don’t become the second victim.'},
  {m:6,q:'After any electrical contact, even if the person feels fine, you should:',o:['Send them back to work','Transport for medical evaluation','Wait and watch','Apply ointment and continue'],a:1,e:'Internal damage and delayed cardiac effects hide — always transport for medical evaluation.'},
+ // Module 8
+ {m:7,q:'You are injured by electricity when your body:',o:['Is near a wire','Becomes part of a complete circuit','Touches one conductor at one potential','Holds a charge'],a:1,e:'No complete loop, no current. You are hurt when you bridge two points at different potentials and become the load.'},
+ {m:7,q:'We install protective grounds for TWO reasons:',o:['Color-coding and tradition','A fault path to trip protection AND an equipotential zone','To store charge and to cool the line','Neither — grounding is optional'],a:1,e:'Grounds give fault current a fast path to trip the breaker, and bond everything to one potential so there is no voltage across the worker.'},
+ {m:7,q:'A GROUNDED bucket truck whose boom contacts a line will:',o:['Do nothing','Trip protection, but energize the ground around it (step & touch)','Silently stay safe','Explode immediately'],a:1,e:'The fault finds earth and trips the breaker — but the current entering the ground raises the potential around the truck, endangering the crew and public.'},
+ {m:7,q:'An ISOLATED (ungrounded) truck whose boom contacts a line will:',o:['Trip the breaker fast','NOT trip — the whole truck rises to line potential and stays energized','Ground itself through the tires','Be completely safe to touch'],a:1,e:'With no path to complete, nothing trips. The boom protects the bucket worker, but the truck is live — anyone bridging it to ground completes the circuit.'},
+ {m:7,q:'Working "bonded / at potential" (bird-on-wire) is safe ONLY if:',o:['The line is below 5 kV','There is no second point at a different potential','You wear two glove classes','The truck is also grounded'],a:1,e:'At one potential there is no difference across you. The instant you touch a second potential — another phase or a ground — you become the path.'},
+ {m:7,q:'What actually drives current through your body?',o:['High potential alone','A difference in potential across you','Standing on dry ground','The color of the wire'],a:1,e:'You can sit at high potential safely (the bird). It is the DIFFERENCE across your body that pushes current — which is why we bond to an equipotential zone.'},
 ];
 
 const quizEl=document.getElementById('quiz');

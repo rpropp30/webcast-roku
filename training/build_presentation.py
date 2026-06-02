@@ -837,6 +837,13 @@ MODULE_FIGS = {
         ("scenecontrol", "Emergency Scene Control", "Treat the conductor and ground as energized; keep the patient untouched until the source is removed — then reach them."),
         ("cpraed", "CPR & AED Sequence", "Once the scene is safe: check & call, compress 100–120/min, apply the AED, continue until EMS arrives."),
     ],
+    8: [
+        ("circuit", "A Circuit Needs a Complete Loop", "Source, a complete path, and a difference in potential — all three, or nothing flows. You become the load when you bridge two potentials."),
+        ("truckground", "The Grounded Truck — Fault Path & Step/Touch", "Grounding trips protection fast — but the current entering the earth raises the ground potential, putting the crew and public near the truck in the circuit."),
+        ("truckisolated", "The Isolated Truck — No Path, No Trip", "No ground path means the breaker never trips and the whole truck sits at line potential. The boom protects the worker; bridging the truck to ground completes the circuit."),
+        ("bonded", "Bonded — Working at Line Potential", "Bond the bucket to the conductor and ride at one potential, like the bird on a wire — fatal the instant a second potential is touched."),
+        ("airground", "Air vs Ground — Two Zones, Two Playbooks", "The same fault is a different problem depending on where you stand. Brief both the aloft hazards and the ground hazards before the job."),
+    ],
 }
 
 
@@ -1846,6 +1853,169 @@ bullets_slide(
         (0, "CPR + AED for arrest; transport every contact for medical evaluation"),
     ],
     kicker="Module 7 Recap",
+)
+
+# ============================================================================
+# MODULE 8 — CURRENT PATHS, GROUNDING & THE BUCKET TRUCK
+# ============================================================================
+_state["module"] = "Module 8 — Current Paths & Grounding"
+section_divider("8", "Current Paths, Grounding & the Bucket Truck",
+                ["It's all a circuit — completing the loop",
+                 "Why we ground: trip protection + equipotential",
+                 "The bucket truck — grounded vs isolated vs bonded",
+                 "Dangers in the air vs on the ground",
+                 "Flow through grounds & the zero-voltage idea"])
+
+bullets_slide(
+    "It's All a Circuit — You Get Hurt by Completing It",
+    [
+        (0, "Current needs three things: a source, a complete path, and a difference in potential"),
+        (0, "No complete loop → no current flows — an open circuit is dead-ended"),
+        (0, "You are injured when your body BECOMES part of the loop — you turn into the load"),
+        (1, "Touch one energized point AND a second point at a different potential → current flows through you"),
+        (0, "Two ways to stay safe: never complete the loop, or sit at ONE potential (no difference across you)"),
+        (0, "Every grounding and cover-up decision is really a question about where the current goes"),
+    ],
+    kicker="8.1 It's a Circuit",
+    lead="Electricity does nothing until it has a complete loop across a difference in potential.",
+)
+
+callout_slide(
+    "Why We Ground — Two Different Jobs",
+    [
+        (0, "Job 1 — a low-impedance FAULT PATH: if a line is accidentally energized, large current flows to ground and trips the protection FAST"),
+        (0, "Job 2 — an EQUIPOTENTIAL ZONE: bond everything you can touch to one potential so there is little or no voltage ACROSS your body"),
+        (1, "You can sit at thousands of volts to remote earth and be safe — if there is no difference across YOU"),
+        (0, "A protective ground must carry the available fault current without burning open"),
+        (0, "“Dead” is not “grounded” — induced voltage and accidental re-energizing are why we ground at the worksite"),
+    ],
+    "info", "Ground = path + equipotential",
+    ["Trips protection (a path to the source).",
+     "Flattens the voltage you stand in (equipotential).",
+     "Both protect the worker — for different reasons."],
+    kicker="8.2 Why We Ground",
+)
+
+bullets_slide(
+    "The Bucket Truck: Ground It, Isolate It, or Bond It?",
+    [
+        (0, "GROUNDED: bond the truck to the system/earth so a contact faults and trips protection"),
+        (0, "ISOLATED: keep the truck off ground and rely on the insulated boom — treat the truck as energized"),
+        (0, "BONDED / at potential: bond the bucket to the conductor and work at line potential (bird-on-wire)"),
+        (0, "Which one you use is set by your employer's procedure, the system, and the task — never mix methods by accident"),
+        (1, "The danger is a half-measure: a truck that is neither solidly grounded nor truly isolated"),
+    ],
+    kicker="8.3 Truck: Ground or Isolate?",
+    lead="Three legitimate methods — the wrong mix of them is what kills.",
+)
+
+callout_slide(
+    "Scenario A — The GROUNDED Truck",
+    [
+        (0, "The truck is bonded to a driven ground / the system ground"),
+        (0, "If the boom contacts a line, fault current flows down the truck and into the earth"),
+        (1, "Protection sees the fault and trips quickly — the upside of grounding"),
+        (0, "But the current entering the earth raises the ground potential around the truck"),
+        (1, "Step & touch potential endangers the ground crew and the public near the truck"),
+        (0, "Anyone touching the truck while standing on the ground is across that voltage"),
+    ],
+    "warn", "The trade-off",
+    ["Grounding buys you a fast trip.",
+     "It also puts the ground crew in the fault path.",
+     "Control the area: bond, barricade, keep people back."],
+    kicker="8.4 Grounded Truck",
+)
+
+callout_slide(
+    "Scenario B — The ISOLATED (Ungrounded) Truck",
+    [
+        (0, "The truck is NOT grounded; the insulated (dielectric) boom isolates the bucket worker"),
+        (0, "If the boom contacts a line, there is no path to complete — so the breaker does NOT trip"),
+        (1, "The whole truck rises to line potential and stays energized"),
+        (0, "The bucket worker is safe at potential — but the TRUCK is now a live object"),
+        (0, "Anyone who bridges truck-to-ground (steps off, hands up a tool, touches the chassis) completes the circuit"),
+        (0, "Barricade the truck, keep ground workers clear, and treat it as energized"),
+    ],
+    "warn", "No path, no trip",
+    ["The boom protects the worker aloft.",
+     "The truck is energized with no warning trip.",
+     "Never bridge the truck to ground."],
+    kicker="8.5 Isolated Truck",
+)
+
+callout_slide(
+    "Working at Potential — Bonded (Bird on a Wire)",
+    [
+        (0, "The bucket / worker is BONDED directly to the conductor with a jumper"),
+        (0, "Worker and conductor sit at the SAME potential — like the bird on one wire"),
+        (1, "No difference across the body → no current through the worker, even at line potential"),
+        (0, "The rule that makes it safe: absolutely NO second point at a different potential"),
+        (1, "Another phase, a grounded structure, or the boom touching earth would be fatal"),
+        (0, "This is a deliberate, procedure-driven method — not the same as accidental isolation"),
+    ],
+    "info", "One potential only",
+    ["Bonded = you ride the wire's potential.",
+     "Safe only while there is no second potential.",
+     "Maintain isolation from everything else."],
+    kicker="8.6 Bonded / At Potential",
+)
+
+callout_slide(
+    "Dangers in the Air vs On the Ground",
+    [
+        (0, "ALOFT: direct contact, second point of contact, phase-to-phase / phase-to-ground, MAD & arc-over, induced voltage, the boom bridging in"),
+        (0, "ON THE GROUND: step & touch potential, a downed conductor energizing the earth, the truck as a live object, ground gradient across the feet, the public"),
+        (0, "The same fault is two different problems depending on where you are standing"),
+        (0, "Aloft you control it with cover-up, MAD, isolation/bonding; on the ground with grounds, EPZ, barricades, and shuffling"),
+    ],
+    "danger", "Two zones, two playbooks",
+    ["Aloft: isolate / bond / cover-up.",
+     "Ground: equipotential / barricade / shuffle.",
+     "Brief BOTH before the job."],
+    kicker="8.7 Air vs Ground",
+)
+
+callout_slide(
+    "Flow Through Grounds & the Zero-Voltage Idea",
+    [
+        (0, "Fault current follows EVERY available path back to its source, in proportion to each path's impedance"),
+        (0, "Good grounds give it a fat, low-impedance path — so very little chooses to go through you"),
+        (0, "Equipotential bonding makes the voltage ACROSS your body near zero, even if you are at high potential to remote earth"),
+        (1, "High potential is fine; a DIFFERENCE in potential across you is what hurts"),
+        (0, "Test dead, then ground — and remember “dead” is not “grounded” until you have bonded it at the worksite"),
+    ],
+    "safe", "Zero across you",
+    ["Current splits by impedance — make your body the worst path.",
+     "Bond to kill the difference, not the potential.",
+     "The grounds do the carrying; you stay at one level."],
+    kicker="8.8 Flow & Zero-Voltage",
+)
+
+bullets_slide(
+    "Choosing & Controlling the Current Path",
+    [
+        (0, "Identify the source(s) and every path the current could take to get back"),
+        (0, "Pick the method on purpose — grounded, isolated, or bonded — per your procedure"),
+        (0, "Control the ground area: bond/EPZ, barricade, and keep the public and ground crew clear"),
+        (0, "Cover up aloft, hold MAD, and never create a second point at a different potential"),
+        (0, "Treat every conductor and the truck as energized until tested, grounded, or bonded"),
+    ],
+    kicker="8.9 The Decision",
+    lead="Before the boom goes up, decide where the current would go — and prove it can't go through a person.",
+)
+
+add_module_figs(8)
+bullets_slide(
+    "Module 8 — Key Takeaways",
+    [
+        (0, "Injury = your body completing a circuit; safety = no loop, or one potential across you"),
+        (0, "We ground for two reasons: a fault path to trip protection AND an equipotential zone"),
+        (0, "Grounded truck → trips fast but energizes the ground (step & touch); barricade it"),
+        (0, "Isolated truck → the boom protects the worker, but the truck is live and won't trip; never bridge it to ground"),
+        (0, "Bonded / at potential → safe at one potential only; no second point, ever"),
+        (0, "High potential doesn't hurt — a difference across you does; current splits by impedance"),
+    ],
+    kicker="Module 8 Recap",
 )
 
 # ============================================================================
